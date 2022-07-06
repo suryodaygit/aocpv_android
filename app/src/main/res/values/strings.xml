@@ -9,4 +9,7 @@
     <string name="name">Name</string>
     <string name="proceed">Proceed</string>
     <string name="not_interested">Not Interested</string>
+    <string name="title_activity_login">LoginActivity</string>
+    <string name="next">Next</string>
+    <string name="previous">Previous</string>
 </resources>
