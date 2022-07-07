@@ -10,6 +10,7 @@ import dagger.Provides;
 import dagger.hilt.InstallIn;
 import dagger.hilt.components.SingletonComponent;
 import okhttp3.OkHttpClient;
+import okhttp3.logging.HttpLoggingInterceptor;
 import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
 
@@ -17,7 +18,7 @@ import retrofit2.converter.gson.GsonConverterFactory;
 @Module
 public class NetworkModule {
 
-    String baseURL = "";
+    String baseURL = "http://10.20.25.15:443/aocpv/v1/";
 
     @Singleton
     @Provides
@@ -32,8 +33,12 @@ public class NetworkModule {
     @Singleton
     @Provides
     public OkHttpClient provideOkhttpClient() {
+        HttpLoggingInterceptor interceptor = new HttpLoggingInterceptor();
+        interceptor.level(HttpLoggingInterceptor.Level.BODY);
         HeaderInterceptor headerInterceptor = new HeaderInterceptor();
         OkHttpClient.Builder clientBuilder = new OkHttpClient.Builder();
+
+        clientBuilder.addInterceptor(interceptor);
         clientBuilder.addInterceptor(headerInterceptor);
         return clientBuilder.build();
 
