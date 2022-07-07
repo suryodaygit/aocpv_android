@@ -13,7 +13,7 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 
 import com.suryodaybank.jyotiassisted.databinding.FragmentPreApproveBinding;
 import com.suryodaybank.jyotiassisted.ui.adapter.PreApproveAdapter;
-import com.suryodaybank.jyotiassisted.viewModels.AocpvViewModel;
+import com.suryodaybank.jyotiassisted.viewmodels.AocpvViewModel;
 
 import dagger.hilt.android.AndroidEntryPoint;
 

@@ -1,7 +1,5 @@
 package com.suryodaybank.jyotiassisted.di;
 
-import androidx.annotation.NonNull;
-
 import com.suryodaybank.jyotiassisted.services.AocpvService;
 import com.suryodaybank.jyotiassisted.services.RetroServiceInterface;
 import com.suryodaybank.jyotiassisted.utils.Constants;
@@ -38,21 +36,21 @@ public class NetworkModule {
         HttpLoggingInterceptor interceptor = new HttpLoggingInterceptor();
         interceptor.level(HttpLoggingInterceptor.Level.BODY);
         HeaderInterceptor headerInterceptor = new HeaderInterceptor();
-        OkHttpClient.Builder clientBuilder = new OkHttpClient.Builder();
-        clientBuilder.addInterceptor(headerInterceptor);
-        clientBuilder.addInterceptor(interceptor);
+        OkHttpClient.Builder clientBuilder = new OkHttpClient.Builder()
+                .addInterceptor(headerInterceptor)
+                .addInterceptor(interceptor);
         return clientBuilder.build();
     }
 
     @Singleton
     @Provides
-    public RetroServiceInterface getRetroServiceInterface(@NonNull Retrofit retrofit) {
+    public RetroServiceInterface getRetroServiceInterface(Retrofit retrofit) {
         return retrofit.create(RetroServiceInterface.class);
     }
 
     @Singleton
     @Provides
-    public AocpvService getAocpvService(@NonNull Retrofit retrofit) {
+    public AocpvService getAocpvService(Retrofit retrofit) {
         return retrofit.create(AocpvService.class);
     }
 }

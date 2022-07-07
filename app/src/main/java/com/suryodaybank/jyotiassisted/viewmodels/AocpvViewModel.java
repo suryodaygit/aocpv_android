@@ -1,4 +1,4 @@
-package com.suryodaybank.jyotiassisted.viewModels;
+package com.suryodaybank.jyotiassisted.viewmodels;
 
 import android.util.Log;
 
