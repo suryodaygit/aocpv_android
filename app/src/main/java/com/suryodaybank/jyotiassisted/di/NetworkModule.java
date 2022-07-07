@@ -14,6 +14,7 @@ import dagger.Provides;
 import dagger.hilt.InstallIn;
 import dagger.hilt.components.SingletonComponent;
 import okhttp3.OkHttpClient;
+import okhttp3.logging.HttpLoggingInterceptor;
 import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
 
@@ -34,11 +35,13 @@ public class NetworkModule {
     @Singleton
     @Provides
     public OkHttpClient provideOkhttpClient() {
+        HttpLoggingInterceptor interceptor = new HttpLoggingInterceptor();
+        interceptor.level(HttpLoggingInterceptor.Level.BODY);
         HeaderInterceptor headerInterceptor = new HeaderInterceptor();
         OkHttpClient.Builder clientBuilder = new OkHttpClient.Builder();
         clientBuilder.addInterceptor(headerInterceptor);
+        clientBuilder.addInterceptor(interceptor);
         return clientBuilder.build();
-
     }
 
     @Singleton
