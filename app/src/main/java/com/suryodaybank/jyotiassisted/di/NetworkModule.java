@@ -1,6 +1,10 @@
 package com.suryodaybank.jyotiassisted.di;
 
+import androidx.annotation.NonNull;
+
+import com.suryodaybank.jyotiassisted.services.AocpvService;
 import com.suryodaybank.jyotiassisted.services.RetroServiceInterface;
+import com.suryodaybank.jyotiassisted.utils.Constants;
 import com.suryodaybank.jyotiassisted.utils.HeaderInterceptor;
 
 import javax.inject.Singleton;
@@ -17,13 +21,11 @@ import retrofit2.converter.gson.GsonConverterFactory;
 @Module
 public class NetworkModule {
 
-    String baseURL = "";
-
     @Singleton
     @Provides
     public Retrofit getRetroInstance(OkHttpClient client) {
         return new Retrofit.Builder()
-                .baseUrl(baseURL)
+                .baseUrl(Constants.API_BASE_URL)
                 .client(client)
                 .addConverterFactory(GsonConverterFactory.create())
                 .build();
@@ -41,9 +43,13 @@ public class NetworkModule {
 
     @Singleton
     @Provides
-    public RetroServiceInterface getRetroServiceInterface(Retrofit retrofit) {
+    public RetroServiceInterface getRetroServiceInterface(@NonNull Retrofit retrofit) {
         return retrofit.create(RetroServiceInterface.class);
-
     }
 
+    @Singleton
+    @Provides
+    public AocpvService getAocpvService(@NonNull Retrofit retrofit) {
+        return retrofit.create(AocpvService.class);
+    }
 }

@@ -17,19 +17,14 @@ public class PreApproveAdapter extends ListAdapter<PreApprove, PreApproveAdapter
         super(new DiffUtil.ItemCallback<PreApprove>() {
             @Override
             public boolean areItemsTheSame(@NonNull PreApprove oldItem, @NonNull PreApprove newItem) {
-                return false;
+                return oldItem.getCustomerID() == newItem.getCustomerID();
             }
 
             @Override
             public boolean areContentsTheSame(@NonNull PreApprove oldItem, @NonNull PreApprove newItem) {
-                return false;
+                return oldItem.equals(newItem);
             }
         });
-    }
-
-    @Override
-    public int getItemCount() {
-        return 5;
     }
 
     @NonNull
@@ -40,7 +35,8 @@ public class PreApproveAdapter extends ListAdapter<PreApprove, PreApproveAdapter
 
     @Override
     public void onBindViewHolder(@NonNull PreApproveVH holder, int position) {
-//        holder.binding
+        PreApprove preApprove = getItem(position);
+        holder.bind(preApprove);
     }
 
     static class PreApproveVH extends RecyclerView.ViewHolder {
@@ -49,6 +45,11 @@ public class PreApproveAdapter extends ListAdapter<PreApprove, PreApproveAdapter
         public PreApproveVH(@NonNull ItemPreApproveBinding binding) {
             super(binding.getRoot());
             this.binding = binding;
+        }
+
+        public void bind(PreApprove preApprove) {
+            binding.tvName.setText(preApprove.getMemberNAME());
+            binding.tvMobileNumber.setText(preApprove.getLandphoneNUMBER());
         }
     }
 }
