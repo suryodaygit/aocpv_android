@@ -9,6 +9,8 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
+import androidx.navigation.NavController;
+import androidx.navigation.Navigation;
 import androidx.recyclerview.widget.LinearLayoutManager;
 
 import com.suryodaybank.jyotiassisted.databinding.FragmentPreApproveBinding;
@@ -46,6 +48,18 @@ public class PreApproveFragment extends Fragment {
     }
 
     private void setupView() {
+        preApproveAdapter.setOnClickListener(new PreApproveAdapter.OnClickListener() {
+            @Override
+            public void onProceed() {
+                NavController navController = Navigation.findNavController(binding.getRoot());
+                navController.navigate(PreApproveFragmentDirections.actionPreApproveFragmentToAocpvFragment());
+            }
+
+            @Override
+            public void onNotInterested() {
+
+            }
+        });
         binding.rvPreApprove.setHasFixedSize(true);
         binding.rvPreApprove.setLayoutManager(new LinearLayoutManager(getContext()));
         binding.rvPreApprove.setAdapter(preApproveAdapter);

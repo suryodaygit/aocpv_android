@@ -1,0 +1,301 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".ui.fragments.aocpv.AddressDetailsAocpvFragment">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <TextView
+            android:id="@+id/tvAddress"
+            style="@style/Aocpv.HeaderTitle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="8dp"
+            android:text="@string/address_details"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:id="@+id/tvAddressType"
+            style="@style/Aocpv.SubTitle"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginHorizontal="8dp"
+            android:layout_marginTop="12dp"
+            android:text="@string/type_of_residence"
+            android:textColor="@color/black"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/tvAddress" />
+
+        <Spinner
+            android:id="@+id/addressSpinner"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="8dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="@+id/tvAddressType"
+            app:layout_constraintTop_toBottomOf="@+id/tvAddressType" />
+
+        <TextView
+            android:id="@+id/tvAddressCommunication"
+            style="@style/Aocpv.SubTitle"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="8dp"
+            android:text="@string/address_for_communication"
+            android:textColor="@color/black"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/addressSpinner" />
+
+        <Spinner
+            android:id="@+id/communicationSpinner"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="10dp"
+            android:layout_marginTop="10dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="@+id/tvAddressCommunication"
+            app:layout_constraintTop_toBottomOf="@+id/tvAddressCommunication" />
+
+        <TextView
+            android:id="@+id/tvPermanentAdd"
+            style="@style/Aocpv.SubTitle"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="8dp"
+            android:text="@string/permanent_address"
+            android:textColor="@color/black"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/communicationSpinner" />
+
+        <androidx.constraintlayout.widget.Guideline
+            android:id="@+id/guideline1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            app:layout_constraintGuide_percent="0.5" />
+
+        <TextView
+            android:id="@+id/tvAddLine1"
+            style="@style/Aocpv.SubTitle"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_margin="8dp"
+            android:text="@string/address_line_1"
+            app:layout_constraintEnd_toEndOf="@id/guideline1"
+            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/tvPermanentAdd" />
+
+        <EditText
+            android:id="@+id/etAddLine1"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginHorizontal="8dp"
+            android:hint="@string/enter_address_line_1"
+            app:layout_constraintEnd_toEndOf="@id/guideline1"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/tvAddLine1" />
+
+        <TextView
+            android:id="@+id/tvAddLine2"
+            style="@style/Aocpv.SubTitle"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_margin="8dp"
+            android:text="@string/address_line_2"
+            app:layout_constraintEnd_toEndOf="@id/guideline1"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/etAddLine1" />
+
+        <EditText
+            android:id="@+id/etAddLine2"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginHorizontal="8dp"
+            android:hint="@string/enter_address_line_2"
+            android:padding="10dp"
+            app:layout_constraintEnd_toEndOf="@id/guideline1"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/tvAddLine2" />
+
+        <TextView
+            android:id="@+id/tvAddLine3"
+            style="@style/Aocpv.SubTitle"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_margin="8dp"
+            android:text="@string/address_line_3"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="@id/guideline1"
+            app:layout_constraintTop_toBottomOf="@+id/tvPermanentAdd" />
+
+        <EditText
+            android:id="@+id/etAddLine3"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginHorizontal="8dp"
+            android:hint="@string/enter_address_line_3"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="@id/guideline1"
+            app:layout_constraintTop_toBottomOf="@+id/tvAddLine3" />
+
+        <TextView
+            android:id="@+id/txtCountry"
+            style="@style/Aocpv.SubTitle"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_margin="8dp"
+            android:text="@string/country"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="@id/guideline1"
+            app:layout_constraintTop_toBottomOf="@+id/etAddLine3" />
+
+        <Spinner
+            android:id="@+id/countrySpinner"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_margin="8dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="@id/guideline1"
+            app:layout_constraintTop_toBottomOf="@+id/txtCountry" />
+
+        <TextView
+            android:id="@+id/tvPincode"
+            style="@style/Aocpv.SubTitle"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_margin="8dp"
+            android:text="@string/pin_code"
+            app:layout_constraintEnd_toEndOf="@id/guideline1"
+            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/etAddLine2" />
+
+        <EditText
+            android:id="@+id/etPincode"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginHorizontal="8dp"
+            android:hint="@string/enter_pincode"
+            android:inputType="number"
+            app:layout_constraintEnd_toEndOf="@id/guideline1"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/tvPincode" />
+
+        <TextView
+            android:id="@+id/tvCity"
+            style="@style/Aocpv.SubTitle"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginHorizontal="8dp"
+            android:layout_marginTop="18dp"
+            android:text="@string/city"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="1.0"
+            app:layout_constraintStart_toStartOf="@id/guideline1"
+            app:layout_constraintTop_toBottomOf="@+id/countrySpinner" />
+
+        <EditText
+            android:id="@+id/etCity"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginHorizontal="8dp"
+            android:hint="@string/enter_city"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="@id/guideline1"
+            app:layout_constraintTop_toBottomOf="@+id/tvCity" />
+
+        <TextView
+            android:id="@+id/tvState"
+            style="@style/Aocpv.SubTitle"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_margin="8dp"
+            android:text="@string/state"
+            app:layout_constraintEnd_toEndOf="@id/guideline1"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/etPincode" />
+
+        <EditText
+            android:id="@+id/etState"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginHorizontal="8dp"
+            android:hint="@string/enter_state"
+            app:layout_constraintEnd_toEndOf="@id/guideline1"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/tvState" />
+
+        <TextView
+            android:id="@+id/tvDistrict"
+            style="@style/Aocpv.SubTitle"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_margin="8dp"
+            android:text="@string/district"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="@id/guideline1"
+            app:layout_constraintTop_toBottomOf="@id/etCity" />
+
+        <EditText
+            android:id="@+id/etDistrict"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginHorizontal="8dp"
+            android:hint="@string/enter_district"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="@id/guideline1"
+            app:layout_constraintTop_toBottomOf="@+id/tvDistrict" />
+
+        <CheckBox
+            android:id="@+id/checkBox"
+            android:layout_width="0dp"
+            android:layout_height="24dp"
+            android:layout_margin="8dp"
+            android:text="@string/i_am_a_resident_indian"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/etState" />
+
+        <CheckBox
+            android:id="@+id/checkBox2"
+            android:layout_width="0dp"
+            android:layout_height="24dp"
+            android:layout_margin="8dp"
+            android:text="@string/residence_address_is_same_as_permanent_address"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/checkBox" />
+
+        <TextView
+            android:id="@+id/tvProofAdd"
+            style="@style/Aocpv.SubTitle"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_margin="8dp"
+            android:text="@string/proof_of_communication_address"
+            android:textColor="@color/black"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/checkBox2" />
+
+        <Spinner
+            android:id="@+id/proofSpinner"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="8dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/tvProofAdd" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</ScrollView>

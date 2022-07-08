@@ -38,6 +38,7 @@ public class AocpvViewModel extends ViewModel {
                 if (response.isSuccessful()) {
                     preApprovesLivedata.setValue(response.body());
                 } else {
+                    //Error
                     Log.d(TAG, "onResponse: " + response.errorBody().toString());
                 }
             }

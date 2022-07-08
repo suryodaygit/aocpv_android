@@ -11,7 +11,7 @@ import retrofit2.Call;
 
 public class AocpvRepository {
 
-    private AocpvService aocpvService;
+    private final AocpvService aocpvService;
 
     @Inject
     public AocpvRepository(AocpvService aocpvService) {
