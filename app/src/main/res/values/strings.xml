@@ -49,4 +49,6 @@
     <string name="i_am_a_resident_indian">I am a Resident Indian</string>
     <string name="residence_address_is_same_as_permanent_address">Residence Address is same as Permanent Address</string>
     <string name="proof_of_communication_address">Proof of communication address</string>
+    <string name="ok">Ok</string>
+    <string name="no">No</string>
 </resources>

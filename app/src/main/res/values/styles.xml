@@ -20,4 +20,8 @@
     <style name="Aocpv.SubTitle" parent="Aocpv.HeaderTitle">
         <item name="android:textSize">14sp</item>
     </style>
+
+    <style name="ShapeAppearanceOverlay.App.CornerSize50Percent" parent="">
+        <item name="cornerSize">50%</item>
+    </style>
 </resources>
