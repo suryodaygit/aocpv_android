@@ -11,7 +11,6 @@ import com.suryodaybank.jyotiassisted.models.RequestData;
 import com.suryodaybank.jyotiassisted.models.VersionData;
 import com.suryodaybank.jyotiassisted.models.VersionResponse;
 import com.suryodaybank.jyotiassisted.repositories.VersionRepository;
-import com.suryodaybank.jyotiassisted.services.RetroServiceInterface;
 
 import javax.inject.Inject;
 
@@ -23,11 +22,7 @@ import retrofit2.Response;
 @HiltViewModel
 public class LoginViewModel extends ViewModel {
 
-
-    RetroServiceInterface retroServiceInterface;
     private final VersionRepository versionRepository;
-    String username, password;
-    Boolean isLogin;
 
     public MutableLiveData<String> livedata = new MutableLiveData();
     public MutableLiveData<Data> loginlivedata = new MutableLiveData();
@@ -36,15 +31,6 @@ public class LoginViewModel extends ViewModel {
     @Inject
     public LoginViewModel(VersionRepository versionRepository) {
         this.versionRepository = versionRepository;
-
-
-    }
-    public MutableLiveData getLoginLivedata(){
-        return loginlivedata;
-    }
-
-    public MutableLiveData getLivedata() {
-        return livedata;
     }
 
     public void makeVersionCall() {
@@ -56,12 +42,11 @@ public class LoginViewModel extends ViewModel {
         versionRepository.makeAPICall(requestData).enqueue(new Callback<VersionResponse>() {
             @Override
             public void onResponse(Call<VersionResponse> call, Response<VersionResponse> response) {
-                if(response.isSuccessful()){
-                    if(!response.body().getData().getAllow()) {
+                if (response.isSuccessful()) {
+                    if (!response.body().getData().getAllow()) {
                         livedata.postValue(response.body().getData().getMessage());
                     }
-
-                }else {
+                } else {
                     livedata.postValue(null);
                 }
             }
@@ -71,15 +56,10 @@ public class LoginViewModel extends ViewModel {
 
             }
         });
-
-
-        }
-
+    }
 
 
     public void getLoginApicall(String username, String password) {
-        this.username = username;
-        this.password = password;
         LoginRequestModel loginRequestModel = new LoginRequestModel();
         LoginRequestData loginRequestData = new LoginRequestData();
         loginRequestData.setUserID(username);
@@ -89,20 +69,14 @@ public class LoginViewModel extends ViewModel {
         versionRepository.getLoginAPI(loginRequestModel).enqueue(new Callback<LoginResponseModel>() {
             @Override
             public void onResponse(Call<LoginResponseModel> call, Response<LoginResponseModel> response) {
-
                 if (response.isSuccessful()) {
-
-                    if(response.body().getError()==null) {
+                    if (response.body().getError() == null) {
                         loginlivedata.postValue(response.body().getData());
-                    }else {
+                    } else {
                         errorlivedata.postValue(response.body().getError());
                     }
-
-
                 } else {
                     livedata.postValue(null);
-
-
                 }
             }
 
@@ -111,8 +85,5 @@ public class LoginViewModel extends ViewModel {
 
             }
         });
-
-
-
     }
 }
