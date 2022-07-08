@@ -1,16 +1,14 @@
 package com.suryodaybank.jyotiassisted.repositories;
 
-import android.util.Log;
-
+import com.suryodaybank.jyotiassisted.models.LoginRequestModel;
+import com.suryodaybank.jyotiassisted.models.LoginResponseModel;
 import com.suryodaybank.jyotiassisted.models.RequestData;
+import com.suryodaybank.jyotiassisted.models.VersionResponse;
 import com.suryodaybank.jyotiassisted.services.RetroServiceInterface;
 
 import javax.inject.Inject;
 
-import okhttp3.ResponseBody;
 import retrofit2.Call;
-import retrofit2.Callback;
-import retrofit2.Response;
 
 public class VersionRepository {
 
@@ -21,22 +19,12 @@ public class VersionRepository {
         this.retroServiceInterface = retroServiceInterface;
     }
 
-    public void makeAPICall(RequestData requestData) {
-        Call<ResponseBody> call = retroServiceInterface.getAppVersion(requestData);
-        call.enqueue(new Callback<ResponseBody>() {
-            @Override
-            public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
-                if (response.isSuccessful()) {
-                    Log.d("Check response", response.body().toString());
-                } else {
-                    Log.d("Check response", "Error in API");
-                }
-            }
+    public Call<VersionResponse> makeAPICall(RequestData requestData) {
+        return retroServiceInterface.getAppVersion(requestData);
 
-            @Override
-            public void onFailure(Call<ResponseBody> call, Throwable t) {
+    }
 
-            }
-        });
+    public Call<LoginResponseModel> getLoginAPI(LoginRequestModel loginRequestModel){
+        return retroServiceInterface.getUserLogin(loginRequestModel);
     }
 }
