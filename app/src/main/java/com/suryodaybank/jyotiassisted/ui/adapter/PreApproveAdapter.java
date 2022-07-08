@@ -13,6 +13,8 @@ import com.suryodaybank.jyotiassisted.models.PreApprove;
 
 public class PreApproveAdapter extends ListAdapter<PreApprove, PreApproveAdapter.PreApproveVH> {
 
+    private OnClickListener onClickListener;
+
     public PreApproveAdapter() {
         super(new DiffUtil.ItemCallback<PreApprove>() {
             @Override
@@ -37,6 +39,8 @@ public class PreApproveAdapter extends ListAdapter<PreApprove, PreApproveAdapter
     public void onBindViewHolder(@NonNull PreApproveVH holder, int position) {
         PreApprove preApprove = getItem(position);
         holder.bind(preApprove);
+        holder.binding.btnProceed.setOnClickListener(view -> onClickListener.onProceed());
+        holder.binding.btnNotInterested.setOnClickListener(view -> onClickListener.onNotInterested());
     }
 
     static class PreApproveVH extends RecyclerView.ViewHolder {
@@ -51,5 +55,15 @@ public class PreApproveAdapter extends ListAdapter<PreApprove, PreApproveAdapter
             binding.tvName.setText(preApprove.getMemberNAME());
             binding.tvMobileNumber.setText(preApprove.getLandphoneNUMBER());
         }
+    }
+
+    public void setOnClickListener(OnClickListener onClickListener) {
+        this.onClickListener = onClickListener;
+    }
+
+    public interface OnClickListener {
+        void onProceed();
+
+        void onNotInterested();
     }
 }

@@ -1,4 +1,4 @@
-package com.suryodaybank.jyotiassisted.ui.fragments;
+package com.suryodaybank.jyotiassisted.ui.fragments.aocpv;
 
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -9,12 +9,16 @@ import androidx.fragment.app.Fragment;
 
 import com.suryodaybank.jyotiassisted.R;
 
-public class HomeFragment extends Fragment {
+public class MonthlyIncomeAocpvFragment extends Fragment {
+
+    public MonthlyIncomeAocpvFragment() {
+        // Required empty public constructor
+    }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_home, container, false);
+        return inflater.inflate(R.layout.fragment_monthly_income_aocpv, container, false);
     }
 }

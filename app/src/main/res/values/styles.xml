@@ -9,4 +9,15 @@
     <style name="listDetailsData">
         <item name="android:textSize">13sp</item>
     </style>
+
+    <style name="Aocpv.HeaderTitle" parent="">
+        <item name="android:textSize">18sp</item>
+        <item name="android:textColor">@color/black</item>
+        <item name="android:textStyle">bold</item>
+        <item name="android:textAllCaps">true</item>
+    </style>
+
+    <style name="Aocpv.SubTitle" parent="Aocpv.HeaderTitle">
+        <item name="android:textSize">14sp</item>
+    </style>
 </resources>

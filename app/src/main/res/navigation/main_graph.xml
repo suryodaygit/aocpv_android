@@ -12,5 +12,13 @@
     <fragment
         android:id="@+id/preApproveFragment"
         android:name="com.suryodaybank.jyotiassisted.ui.fragments.PreApproveFragment"
-        tools:layout="@layout/fragment_pre_approve" />
+        tools:layout="@layout/fragment_pre_approve">
+        <action
+            android:id="@+id/action_preApproveFragment_to_aocpvFragment"
+            app:destination="@id/aocpvFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/aocpvFragment"
+        android:name="com.suryodaybank.jyotiassisted.ui.fragments.aocpv.AocpvFragment"
+        tools:layout="@layout/fragment_aocpv" />
 </navigation>
