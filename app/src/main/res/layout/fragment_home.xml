@@ -18,13 +18,14 @@
             android:layout_width="100dp"
             android:layout_height="100dp"
             android:layout_margin="20dp"
+            android:layout_marginTop="16dp"
             android:padding="10dp"
             app:layout_constraintEnd_toStartOf="@+id/textView4"
             app:layout_constraintHorizontal_chainStyle="spread_inside"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
             app:shapeAppearanceOverlay="@style/ShapeAppearanceOverlay.App.CornerSize50Percent"
-            app:srcCompat="@mipmap/ic_launcher"
+            app:srcCompat="@drawable/user_image1"
             app:strokeColor="@android:color/darker_gray"
             app:strokeWidth="5dp" />
 

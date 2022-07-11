@@ -6,4 +6,5 @@ public class Constants {
     public static final String APP_NAME = "Jyoti";
     public static final String UID1 = "UID1";
     public static final String BRANCH_CODE = "BRCD";
+    public static final String IMAGE_PATH = "";
 }

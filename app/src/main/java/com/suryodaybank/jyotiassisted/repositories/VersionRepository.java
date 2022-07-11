@@ -1,5 +1,6 @@
 package com.suryodaybank.jyotiassisted.repositories;
 
+import com.suryodaybank.jyotiassisted.BuildConfig;
 import com.suryodaybank.jyotiassisted.models.DataModel;
 import com.suryodaybank.jyotiassisted.models.LoginRequest;
 import com.suryodaybank.jyotiassisted.models.LoginResponse;
@@ -23,6 +24,8 @@ public class VersionRepository {
     public Call<DataModel<VersionResponse>> makeAPICall() {
         DataModel<VersionRequest> body = new DataModel<>();
         VersionRequest versionRequest = new VersionRequest();
+        int versionCode = BuildConfig.VERSION_CODE;
+      //  String versionName = BuildConfig.VERSION_NAME;
         versionRequest.setVersion("1.0.0");
         versionRequest.setOs("Android");
         body.setData(versionRequest);
