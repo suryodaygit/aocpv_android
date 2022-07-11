@@ -1,8 +1,9 @@
 package com.suryodaybank.jyotiassisted.repositories;
 
-import com.suryodaybank.jyotiassisted.models.LoginRequestModel;
-import com.suryodaybank.jyotiassisted.models.LoginResponseModel;
-import com.suryodaybank.jyotiassisted.models.RequestData;
+import com.suryodaybank.jyotiassisted.models.DataModel;
+import com.suryodaybank.jyotiassisted.models.LoginRequest;
+import com.suryodaybank.jyotiassisted.models.LoginResponse;
+import com.suryodaybank.jyotiassisted.models.VersionRequest;
 import com.suryodaybank.jyotiassisted.models.VersionResponse;
 import com.suryodaybank.jyotiassisted.services.RetroServiceInterface;
 
@@ -19,12 +20,16 @@ public class VersionRepository {
         this.retroServiceInterface = retroServiceInterface;
     }
 
-    public Call<VersionResponse> makeAPICall(RequestData requestData) {
-        return retroServiceInterface.getAppVersion(requestData);
-
+    public Call<DataModel<VersionResponse>> makeAPICall() {
+        DataModel<VersionRequest> body = new DataModel<>();
+        VersionRequest versionRequest = new VersionRequest();
+        versionRequest.setVersion("1.0.0");
+        versionRequest.setOs("Android");
+        body.setData(versionRequest);
+        return retroServiceInterface.getAppVersion(body);
     }
 
-    public Call<LoginResponseModel> getLoginAPI(LoginRequestModel loginRequestModel){
+    public Call<DataModel<LoginResponse>> getLoginAPI(DataModel<LoginRequest> loginRequestModel) {
         return retroServiceInterface.getUserLogin(loginRequestModel);
     }
 }

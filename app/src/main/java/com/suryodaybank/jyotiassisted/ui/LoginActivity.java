@@ -16,7 +16,7 @@ import androidx.lifecycle.ViewModelProvider;
 
 import com.suryodaybank.jyotiassisted.R;
 import com.suryodaybank.jyotiassisted.databinding.ActivityLoginBinding;
-import com.suryodaybank.jyotiassisted.models.Data;
+import com.suryodaybank.jyotiassisted.models.LoginResponse;
 import com.suryodaybank.jyotiassisted.utils.SharedPreferenceUtils;
 import com.suryodaybank.jyotiassisted.viewmodels.LoginViewModel;
 
@@ -59,9 +59,9 @@ public class LoginActivity extends AppCompatActivity {
                 createAlertDialog(o.toString());
             }
         });
-        loginViewModel.loginlivedata.observe(this, new Observer<Data>() {
+        loginViewModel.loginlivedata.observe(this, new Observer<LoginResponse>() {
             @Override
-            public void onChanged(Data data) {
+            public void onChanged(LoginResponse data) {
                 if (data != null) {
                     SharedPreferenceUtils.getInstance(LoginActivity.this).putString(UID1, data.getUID1());
                     SharedPreferenceUtils.getInstance(LoginActivity.this).putString(BRANCH_CODE, data.getBRCD());

@@ -1,8 +1,9 @@
 package com.suryodaybank.jyotiassisted.services;
 
-import com.suryodaybank.jyotiassisted.models.LoginRequestModel;
-import com.suryodaybank.jyotiassisted.models.LoginResponseModel;
-import com.suryodaybank.jyotiassisted.models.RequestData;
+import com.suryodaybank.jyotiassisted.models.LoginResponse;
+import com.suryodaybank.jyotiassisted.models.DataModel;
+import com.suryodaybank.jyotiassisted.models.LoginRequest;
+import com.suryodaybank.jyotiassisted.models.VersionRequest;
 import com.suryodaybank.jyotiassisted.models.VersionResponse;
 
 import retrofit2.Call;
@@ -12,10 +13,8 @@ import retrofit2.http.POST;
 public interface RetroServiceInterface {
 
     @POST("checkappversion")
-     Call<VersionResponse> getAppVersion(@Body RequestData requestData);
+    Call<DataModel<VersionResponse>> getAppVersion(@Body DataModel<VersionRequest> requestData);
 
     @POST("netbanking/validate/user")
-    Call<LoginResponseModel> getUserLogin(@Body LoginRequestModel loginRequestModel);
-
-
+    Call<DataModel<LoginResponse>> getUserLogin(@Body DataModel<LoginRequest> loginRequestModel);
 }

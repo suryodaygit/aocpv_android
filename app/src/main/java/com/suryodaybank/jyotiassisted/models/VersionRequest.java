@@ -5,7 +5,7 @@ package com.suryodaybank.jyotiassisted.models;
 import com.google.gson.annotations.Expose;
 
 
-public class VersionData {
+public class VersionRequest {
 
     @Expose
     private String os;

@@ -5,7 +5,7 @@ package com.suryodaybank.jyotiassisted.models;
 import com.google.gson.annotations.SerializedName;
 
 
-public class LoginRequestData {
+public class LoginRequest {
 
     @SerializedName("Password")
     private String mPassword;

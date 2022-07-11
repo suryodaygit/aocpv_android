@@ -4,18 +4,28 @@ package com.suryodaybank.jyotiassisted.models;
 
 import com.google.gson.annotations.SerializedName;
 
-@SuppressWarnings("unused")
+
 public class VersionResponse {
 
-    @SerializedName("Data")
-    private VersionResponseData mVersionResponseData;
+    @SerializedName("allow")
+    private Boolean mAllow;
+    @SerializedName("message")
+    private String mMessage;
 
-    public VersionResponseData getData() {
-        return mVersionResponseData;
+    public Boolean getAllow() {
+        return mAllow;
     }
 
-    public void setData(VersionResponseData versionResponseData) {
-        mVersionResponseData = versionResponseData;
+    public void setAllow(Boolean allow) {
+        mAllow = allow;
+    }
+
+    public String getMessage() {
+        return mMessage;
+    }
+
+    public void setMessage(String message) {
+        mMessage = message;
     }
 
 }

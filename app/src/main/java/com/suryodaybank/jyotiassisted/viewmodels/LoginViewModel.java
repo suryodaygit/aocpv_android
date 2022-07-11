@@ -3,12 +3,9 @@ package com.suryodaybank.jyotiassisted.viewmodels;
 import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.ViewModel;
 
-import com.suryodaybank.jyotiassisted.models.Data;
-import com.suryodaybank.jyotiassisted.models.LoginRequestData;
-import com.suryodaybank.jyotiassisted.models.LoginRequestModel;
-import com.suryodaybank.jyotiassisted.models.LoginResponseModel;
-import com.suryodaybank.jyotiassisted.models.RequestData;
-import com.suryodaybank.jyotiassisted.models.VersionData;
+import com.suryodaybank.jyotiassisted.models.LoginResponse;
+import com.suryodaybank.jyotiassisted.models.DataModel;
+import com.suryodaybank.jyotiassisted.models.LoginRequest;
 import com.suryodaybank.jyotiassisted.models.VersionResponse;
 import com.suryodaybank.jyotiassisted.repositories.VersionRepository;
 
@@ -25,7 +22,7 @@ public class LoginViewModel extends ViewModel {
     private final VersionRepository versionRepository;
 
     public MutableLiveData<String> livedata = new MutableLiveData();
-    public MutableLiveData<Data> loginlivedata = new MutableLiveData();
+    public MutableLiveData<LoginResponse> loginlivedata = new MutableLiveData();
     public MutableLiveData<String> errorlivedata = new MutableLiveData();
 
     @Inject
@@ -34,14 +31,9 @@ public class LoginViewModel extends ViewModel {
     }
 
     public void makeVersionCall() {
-        RequestData requestData = new RequestData();
-        VersionData versionData = new VersionData();
-        versionData.setVersion("1.0.0");
-        versionData.setOs("Android");
-        requestData.setData(versionData);
-        versionRepository.makeAPICall(requestData).enqueue(new Callback<VersionResponse>() {
+        versionRepository.makeAPICall().enqueue(new Callback<>() {
             @Override
-            public void onResponse(Call<VersionResponse> call, Response<VersionResponse> response) {
+            public void onResponse(Call<DataModel<VersionResponse>> call, Response<DataModel<VersionResponse>> response) {
                 if (response.isSuccessful()) {
                     if (!response.body().getData().getAllow()) {
                         livedata.postValue(response.body().getData().getMessage());
@@ -52,23 +44,23 @@ public class LoginViewModel extends ViewModel {
             }
 
             @Override
-            public void onFailure(Call<VersionResponse> call, Throwable t) {
-
+            public void onFailure(Call<DataModel<VersionResponse>> call, Throwable t) {
+                t.printStackTrace();
             }
         });
     }
 
 
     public void getLoginApicall(String username, String password) {
-        LoginRequestModel loginRequestModel = new LoginRequestModel();
-        LoginRequestData loginRequestData = new LoginRequestData();
+        DataModel<LoginRequest> body = new DataModel<>();
+        LoginRequest loginRequestData = new LoginRequest();
         loginRequestData.setUserID(username);
         loginRequestData.setPassword(password);
-        loginRequestModel.setData(loginRequestData);
+        body.setData(loginRequestData);
 
-        versionRepository.getLoginAPI(loginRequestModel).enqueue(new Callback<LoginResponseModel>() {
+        versionRepository.getLoginAPI(body).enqueue(new Callback<>() {
             @Override
-            public void onResponse(Call<LoginResponseModel> call, Response<LoginResponseModel> response) {
+            public void onResponse(Call<DataModel<LoginResponse>> call, Response<DataModel<LoginResponse>> response) {
                 if (response.isSuccessful()) {
                     if (response.body().getError() == null) {
                         loginlivedata.postValue(response.body().getData());
@@ -81,8 +73,8 @@ public class LoginViewModel extends ViewModel {
             }
 
             @Override
-            public void onFailure(Call<LoginResponseModel> call, Throwable t) {
-
+            public void onFailure(Call<DataModel<LoginResponse>> call, Throwable t) {
+                t.printStackTrace();
             }
         });
     }

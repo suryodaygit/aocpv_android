@@ -5,7 +5,7 @@ package com.suryodaybank.jyotiassisted.models;
 import com.google.gson.annotations.SerializedName;
 
 
-public class Data {
+public class LoginResponse {
 
     @SerializedName("BRCD")
     private String mBRCD;
