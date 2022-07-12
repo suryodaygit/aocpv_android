@@ -2,6 +2,8 @@ package com.suryodaybank.jyotiassisted.utils;
 
 import androidx.annotation.NonNull;
 
+import com.suryodaybank.jyotiassisted.BuildConfig;
+
 import java.io.IOException;
 
 import javax.inject.Inject;
@@ -14,6 +16,10 @@ public class HeaderInterceptor implements Interceptor {
     @NonNull
     @Override
     public Response intercept(@NonNull Chain chain) throws IOException {
+        int versionCode = BuildConfig.VERSION_CODE;
+        String versionName = BuildConfig.VERSION_NAME;
+        String appId = BuildConfig.APPLICATION_ID;
+
 
         Request request = chain.request()
                 .newBuilder()
@@ -25,6 +31,15 @@ public class HeaderInterceptor implements Interceptor {
                 .addHeader("X-Request-ID","AOCPV")
                 .addHeader("Content-Type","application/json")
                 .addHeader("Cookie",": HttpOnly")
+                .addHeader("requestKey","")
+                .addHeader("sessionId","")
+                .addHeader("loginTime","")
+                .addHeader("lastRequestTime","")
+                .addHeader("createTs","")
+                .addHeader("versionNo",versionName)
+                .addHeader("appId", appId)
+                .addHeader("userId","")
+                .addHeader("serverToken","")
                 .build();
 
 

@@ -13,6 +13,7 @@
     <string name="next">Next</string>
     <string name="previous">Previous</string>
     <string name="personal_details">Personal details</string>
+    <string name="primary_details">Primary details</string>
     <string name="title">Title</string>
     <string name="short_name">Short name</string>
     <string name="enter_short_name">Enter short name</string>
