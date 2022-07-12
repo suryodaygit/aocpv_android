@@ -67,7 +67,8 @@ public class LoginActivity extends AppCompatActivity {
                     SharedPreferenceUtils.getInstance(LoginActivity.this).putString(BRANCH_CODE, data.getBRCD());
 
                     Intent intent = new Intent(binding.getRoot().getContext(), MainActivity.class);
-                    binding.getRoot().getContext().startActivity(intent);
+                    startActivity(intent);
+                    finish();
                 }
             }
         });

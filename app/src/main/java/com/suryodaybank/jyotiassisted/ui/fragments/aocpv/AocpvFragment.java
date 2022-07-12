@@ -9,6 +9,7 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentActivity;
+import androidx.navigation.Navigation;
 import androidx.viewpager2.adapter.FragmentStateAdapter;
 
 import com.suryodaybank.jyotiassisted.databinding.FragmentAocpvBinding;
@@ -41,13 +42,16 @@ public class AocpvFragment extends Fragment {
         setupViewPager();
         binding.btnNext.setOnClickListener(view -> {
             int currentItem = binding.aocpvViewPager.getCurrentItem();
-            if (currentItem <= TOTAL_PAGE)
+            if (currentItem < TOTAL_PAGE - 1)
                 binding.aocpvViewPager.setCurrentItem(currentItem + 1);
+            else {
+                Navigation.findNavController(binding.getRoot())
+                        .navigate(AocpvFragmentDirections.actionAocpvFragmentToAocpvValidationFragment());
+            }
         });
         binding.btnPrevious.setOnClickListener(view -> {
             int currentItem = binding.aocpvViewPager.getCurrentItem();
-            if (currentItem <= TOTAL_PAGE)
-                binding.aocpvViewPager.setCurrentItem(currentItem - 1);
+            binding.aocpvViewPager.setCurrentItem(currentItem - 1);
         });
     }
 

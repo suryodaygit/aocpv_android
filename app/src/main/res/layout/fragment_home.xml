@@ -16,7 +16,7 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:shapeAppearanceOverlay="@style/ShapeAppearanceOverlay.App.CornerSize50Percent"
-        app:srcCompat="@drawable/login_page_bg" />
+        app:srcCompat="@drawable/user_image1" />
 
     <TextView
         android:id="@+id/textView4"
@@ -25,7 +25,7 @@
         android:layout_margin="12dp"
         android:text="@string/welcome_user"
         android:textColor="@color/black"
-        android:textSize="16sp"
+        android:textSize="18sp"
         android:textStyle="bold"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toEndOf="@+id/shapeableImageView"

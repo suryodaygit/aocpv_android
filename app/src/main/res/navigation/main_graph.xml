@@ -24,9 +24,16 @@
         <action
             android:id="@+id/action_aocpvFragment_to_addMonthlyHouseholdFragment"
             app:destination="@id/addMonthlyHouseholdFragment" />
+        <action
+            android:id="@+id/action_aocpvFragment_to_aocpvValidationFragment"
+            app:destination="@id/aocpvValidationFragment" />
     </fragment>
     <fragment
         android:id="@+id/addMonthlyHouseholdFragment"
         android:name="com.suryodaybank.jyotiassisted.ui.fragments.aocpv.AddMonthlyHouseholdFragment"
         tools:layout="@layout/fragment_add_monthly_household" />
+    <fragment
+        android:id="@+id/aocpvValidationFragment"
+        android:name="com.suryodaybank.jyotiassisted.ui.fragments.aocpv.AocpvValidationFragment"
+        tools:layout="@layout/fragment_aocpv_validation" />
 </navigation>
