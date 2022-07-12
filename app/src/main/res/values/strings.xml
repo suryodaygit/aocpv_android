@@ -105,4 +105,8 @@
     <string name="zero">0</string>
     <string name="enter_amount">Enter amount</string>
     <string name="page_no">Page %d/%d</string>
+    <string name="uploaded_documents_list">UPLOADED DOCUMENTS LIST</string>
+    <string name="terms_and_conditions">I agree with the terms and conditions.</string>
+    <string name="i_have_seen_and_verified_the_original_documents">I have seen and verified the original documents.</string>
+    <string name="edit">Edit</string>
 </resources>
