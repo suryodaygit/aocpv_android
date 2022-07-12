@@ -17,6 +17,12 @@
         <item name="android:textAllCaps">true</item>
     </style>
 
+    <style name="Aocpv.ValidationTitle" parent="Aocpv.HeaderTitle">
+        <item name="android:background">@color/primaryColor</item>
+        <item name="android:textColor">@color/white</item>
+        <item name="android:padding">4dp</item>
+    </style>
+
     <style name="Aocpv.SubTitle" parent="Aocpv.HeaderTitle">
         <item name="android:textSize">14sp</item>
     </style>
