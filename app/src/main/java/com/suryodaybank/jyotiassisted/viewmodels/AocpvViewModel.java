@@ -5,9 +5,11 @@ import android.util.Log;
 import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.ViewModel;
 
+import com.suryodaybank.jyotiassisted.models.MonthlyIncome;
 import com.suryodaybank.jyotiassisted.models.PreApprove;
 import com.suryodaybank.jyotiassisted.repositories.AocpvRepository;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.inject.Inject;
@@ -24,10 +26,13 @@ public class AocpvViewModel extends ViewModel {
 
     private final AocpvRepository aocpvRepository;
     public MutableLiveData<List<PreApprove>> preApprovesLivedata = new MutableLiveData<>();
+    public MutableLiveData<List<MonthlyIncome>> monthlyIncomeLivedata = new MutableLiveData<>(new ArrayList<>());
+    public MutableLiveData<Integer> pageNoLivedata = new MutableLiveData<>(1);
 
     @Inject
     public AocpvViewModel(AocpvRepository aocpvRepository) {
         this.aocpvRepository = aocpvRepository;
+        Log.d(TAG, "AocpvViewModel: Init");
         getPreApproveList();
     }
 
@@ -48,5 +53,11 @@ public class AocpvViewModel extends ViewModel {
                 t.printStackTrace();
             }
         });
+    }
+
+    public void addMonthlyIncome(MonthlyIncome monthlyIncome) {
+        List<MonthlyIncome> monthlyIncomes = monthlyIncomeLivedata.getValue();
+        monthlyIncomes.add(monthlyIncome);
+        monthlyIncomeLivedata.setValue(monthlyIncomes);
     }
 }

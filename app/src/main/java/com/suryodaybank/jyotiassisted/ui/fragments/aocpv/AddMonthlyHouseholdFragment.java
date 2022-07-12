@@ -4,23 +4,31 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
+import androidx.lifecycle.ViewModelProvider;
 import androidx.navigation.NavController;
 import androidx.navigation.Navigation;
 
 import com.suryodaybank.jyotiassisted.databinding.FragmentAddMonthlyHouseholdBinding;
 import com.suryodaybank.jyotiassisted.models.MonthlyIncome;
+import com.suryodaybank.jyotiassisted.viewmodels.AocpvViewModel;
 
 import java.util.ArrayList;
 import java.util.List;
 
+import dagger.hilt.android.AndroidEntryPoint;
+
+@AndroidEntryPoint
 public class AddMonthlyHouseholdFragment extends Fragment {
 
     private FragmentAddMonthlyHouseholdBinding binding;
+    private AocpvViewModel aocpvViewModel;
+    private String selectedMember;
 
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container,
@@ -32,6 +40,7 @@ public class AddMonthlyHouseholdFragment extends Fragment {
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
+        aocpvViewModel = new ViewModelProvider(requireActivity()).get(AocpvViewModel.class);
         setupViews();
     }
 
@@ -49,12 +58,22 @@ public class AddMonthlyHouseholdFragment extends Fragment {
         ArrayAdapter<String> memberAdapter = new ArrayAdapter<>(getContext(), android.R.layout.simple_spinner_item, relationShip);
         memberAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         binding.spinnerMember.setAdapter(memberAdapter);
+        binding.spinnerMember.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
+                selectedMember = relationShip.get(i);
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> adapterView) {
+            }
+        });
 
         binding.btnSubmit.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 MonthlyIncome monthlyIncome = new MonthlyIncome();
-                monthlyIncome.setFamilyMember("");
+                monthlyIncome.setFamilyMember(selectedMember);
                 if (binding.rbYes.isChecked())
                     monthlyIncome.setEarningMember("Yes");
                 else
@@ -64,7 +83,8 @@ public class AddMonthlyHouseholdFragment extends Fragment {
                 monthlyIncome.setSecuredLoan(binding.etSecuredLoan.getText().toString());
                 monthlyIncome.setUnsecuredLoan(binding.etUnsecuredLoan.getText().toString());
                 monthlyIncome.setMonthlyIncome(binding.etMonthlyIncome.getText().toString());
-                monthlyIncome.setMonthlyIncome(binding.etMonthlyLoanEMI.getText().toString());
+                monthlyIncome.setMonthlyLoanEmi(binding.etMonthlyLoanEMI.getText().toString());
+                aocpvViewModel.addMonthlyIncome(monthlyIncome);
 
                 NavController navController = Navigation.findNavController(binding.getRoot());
                 navController.navigateUp();

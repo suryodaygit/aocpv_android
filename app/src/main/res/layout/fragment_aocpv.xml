@@ -17,6 +17,27 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
+    <TextView
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginHorizontal="6dp"
+        android:text="Application No.\n12345678"
+        android:textColor="@color/black"
+        app:layout_constraintBottom_toBottomOf="@id/btnPrevious"
+        app:layout_constraintStart_toEndOf="@id/btnPrevious"
+        app:layout_constraintTop_toTopOf="@id/btnPrevious" />
+
+    <TextView
+        android:id="@+id/tvPageNo"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginHorizontal="6dp"
+        android:text="@string/page_no"
+        android:textColor="@color/black"
+        app:layout_constraintBottom_toBottomOf="@id/btnNext"
+        app:layout_constraintEnd_toStartOf="@id/btnNext"
+        app:layout_constraintTop_toTopOf="@id/btnNext" />
+
     <ImageButton
         android:id="@+id/btnNext"
         android:layout_width="wrap_content"

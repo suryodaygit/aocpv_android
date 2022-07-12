@@ -9,16 +9,24 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentActivity;
+import androidx.lifecycle.Observer;
+import androidx.lifecycle.ViewModelProvider;
 import androidx.navigation.Navigation;
 import androidx.viewpager2.adapter.FragmentStateAdapter;
 
+import com.suryodaybank.jyotiassisted.R;
 import com.suryodaybank.jyotiassisted.databinding.FragmentAocpvBinding;
+import com.suryodaybank.jyotiassisted.viewmodels.AocpvViewModel;
 
+import dagger.hilt.android.AndroidEntryPoint;
+
+@AndroidEntryPoint
 public class AocpvFragment extends Fragment {
 
     private static final int TOTAL_PAGE = 6;
 
     private FragmentAocpvBinding binding;
+    private AocpvViewModel aocpvViewModel;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -26,7 +34,7 @@ public class AocpvFragment extends Fragment {
     }
 
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container,
+    public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         binding = FragmentAocpvBinding.inflate(inflater, container, false);
         return binding.getRoot();
@@ -35,16 +43,28 @@ public class AocpvFragment extends Fragment {
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
+        aocpvViewModel = new ViewModelProvider(requireActivity()).get(AocpvViewModel.class);
         setupViews();
+        setupObserver();
+    }
+
+    private void setupObserver() {
+        aocpvViewModel.pageNoLivedata.observe(getViewLifecycleOwner(), new Observer<Integer>() {
+            @Override
+            public void onChanged(Integer integer) {
+                binding.tvPageNo.setText(getString(R.string.page_no, integer, TOTAL_PAGE));
+            }
+        });
     }
 
     private void setupViews() {
         setupViewPager();
         binding.btnNext.setOnClickListener(view -> {
             int currentItem = binding.aocpvViewPager.getCurrentItem();
-            if (currentItem < TOTAL_PAGE - 1)
+            if (currentItem < TOTAL_PAGE - 1) {
                 binding.aocpvViewPager.setCurrentItem(currentItem + 1);
-            else {
+                aocpvViewModel.pageNoLivedata.setValue(binding.aocpvViewPager.getCurrentItem() + 1);
+            } else {
                 Navigation.findNavController(binding.getRoot())
                         .navigate(AocpvFragmentDirections.actionAocpvFragmentToAocpvValidationFragment());
             }
@@ -52,6 +72,7 @@ public class AocpvFragment extends Fragment {
         binding.btnPrevious.setOnClickListener(view -> {
             int currentItem = binding.aocpvViewPager.getCurrentItem();
             binding.aocpvViewPager.setCurrentItem(currentItem - 1);
+            aocpvViewModel.pageNoLivedata.setValue(binding.aocpvViewPager.getCurrentItem() + 1);
         });
     }
 

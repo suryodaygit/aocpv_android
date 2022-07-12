@@ -74,7 +74,7 @@
     <string name="utility_bills">Utility bills</string>
     <string name="relationship_with_owner">Relationship (with owner)</string>
     <string name="no_details_found">No details found</string>
-    <string name="monthly_household_income">Monthly household income</string>
+    <string name="monthly_household_income">Household monthly income</string>
     <string name="yes">Yes</string>
     <string name="occupation">Occupation</string>
     <string name="family_members">Family members</string>
@@ -94,4 +94,14 @@
     <string name="branch_details">Branch Details</string>
     <string name="last_visited">Last Visited</string>
     <string name="welcome_user">Welcome User</string>
+    <string name="miscellaneous">Miscellaneous</string>
+    <string name="food_and_utility">Food and utility</string>
+    <string name="expense_type">Expense Type</string>
+    <string name="amount_c">Amount (C)</string>
+    <string name="rent">Rent</string>
+    <string name="total_in_rs">Total (in Rs)</string>
+    <string name="household_monthly_expense">Household monthly expense</string>
+    <string name="zero">0</string>
+    <string name="enter_amount">Enter amount</string>
+    <string name="page_no">Page %d/%d</string>
 </resources>

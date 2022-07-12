@@ -68,6 +68,11 @@ public class PreApproveFragment extends Fragment {
     private void setupObserver() {
         aocpvViewModel.preApprovesLivedata.observe(getViewLifecycleOwner(), preApproves -> {
             preApproveAdapter.submitList(preApproves);
+            if (preApproves.isEmpty()) {
+                binding.tvNoItemFound.setVisibility(View.VISIBLE);
+            } else {
+                binding.tvNoItemFound.setVisibility(View.GONE);
+            }
         });
     }
 }

@@ -35,7 +35,8 @@ public class MonthlyIncomeAdapter extends ListAdapter<MonthlyIncome, MonthlyInco
 
     @Override
     public void onBindViewHolder(@NonNull MonthlyIncomeVH holder, int position) {
-
+        MonthlyIncome monthlyIncome = getItem(position);
+        holder.bind(monthlyIncome);
     }
 
     static class MonthlyIncomeVH extends RecyclerView.ViewHolder {
@@ -45,6 +46,17 @@ public class MonthlyIncomeAdapter extends ListAdapter<MonthlyIncome, MonthlyInco
         public MonthlyIncomeVH(@NonNull ItemMonthlyIncomeBinding binding) {
             super(binding.getRoot());
             this.binding = binding;
+        }
+
+        public void bind(MonthlyIncome monthlyIncome) {
+            binding.tvFamilyMembers.setText(monthlyIncome.getFamilyMember());
+            binding.tvEarningMember.setText(monthlyIncome.getEarningMember());
+            binding.tvOccupation.setText(monthlyIncome.getOccupation());
+            binding.tvSourceOfIncome.setText(monthlyIncome.getSourceOfIncome());
+            binding.tvSecuredLoan.setText(monthlyIncome.getSecuredLoan());
+            binding.tvUnsecuredLoan.setText(monthlyIncome.getUnsecuredLoan());
+            binding.tvMonthlyIncome.setText(monthlyIncome.getMonthlyIncome());
+            binding.tvMonthlyLoanEmi.setText(monthlyIncome.getMonthlyLoanEmi());
         }
     }
 }
