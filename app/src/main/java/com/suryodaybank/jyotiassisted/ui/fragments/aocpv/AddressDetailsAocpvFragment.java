@@ -39,15 +39,20 @@ public class AddressDetailsAocpvFragment extends Fragment {
 
     private void setupViews() {
         List<String> addressType = new ArrayList<>();
-        addressType.add("Residence");
-        addressType.add("Permanent");
+        addressType.add("Company Provided");
+        addressType.add("Living with family");
+        addressType.add("Leases");
+        addressType.add("Own");
+        addressType.add("Rent");
+        addressType.add("Unknown");
         ArrayAdapter<String> addressAdapter = new ArrayAdapter<>(getContext(), android.R.layout.simple_spinner_item, addressType);
         addressAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         binding.addressSpinner.setAdapter(addressAdapter);
 
         List<String> communication = new ArrayList<>();
-        communication.add("Home");
+        communication.add("Permanent");
         communication.add("Office");
+        communication.add("Residential");
         ArrayAdapter<String> communicationAdapter = new ArrayAdapter<>(getContext(), android.R.layout.simple_spinner_item, communication);
         communicationAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         binding.communicationSpinner.setAdapter(communicationAdapter);
@@ -65,7 +70,10 @@ public class AddressDetailsAocpvFragment extends Fragment {
 
         List<String> proofList = new ArrayList<>();
         proofList.add("Aadhaar card");
-        proofList.add("PAN card");
+        proofList.add("Voter ID");
+        proofList.add("Passport");
+        proofList.add("Driving License");
+        proofList.add("MGNREGA Card");
         ArrayAdapter<String> proofAdapter = new ArrayAdapter<>(getContext(), android.R.layout.simple_spinner_item, proofList);
         proofAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         binding.proofSpinner.setAdapter(proofAdapter);
