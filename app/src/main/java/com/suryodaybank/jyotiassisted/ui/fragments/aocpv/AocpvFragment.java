@@ -23,7 +23,7 @@ import dagger.hilt.android.AndroidEntryPoint;
 @AndroidEntryPoint
 public class AocpvFragment extends Fragment {
 
-    private static final int TOTAL_PAGE = 7;
+    private static final int TOTAL_PAGE = 5;
 
     private FragmentAocpvBinding binding;
     private AocpvViewModel aocpvViewModel;
@@ -94,17 +94,13 @@ public class AocpvFragment extends Fragment {
                 case 0:
                     return new PersonalDetailAocpvFragment();
                 case 1:
-                    return new AddressDetailsAocpvFragment();
-                case 2:
                     return new OwnershipDetailsAocpvFragment();
-                case 3:
-                    return new UtilityDetailsAocpvFragment();
-                case 4:
+                case 2:
                     return new MonthlyIncomeAocpvFragment();
-                case 5:
+                case 3:
                     return new MonthlyExpenseAocpvFragment();
                 default:
-                    return new ClassificationFragment();
+                    return new ClassificationAocpvFragment();
             }
         }
 

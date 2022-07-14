@@ -9,9 +9,9 @@ import androidx.fragment.app.Fragment;
 
 import com.suryodaybank.jyotiassisted.R;
 
-public class ClassificationFragment extends Fragment {
+public class ClassificationAocpvFragment extends Fragment {
 
-    public ClassificationFragment() {
+    public ClassificationAocpvFragment() {
         // Required empty public constructor
     }
 
@@ -19,6 +19,6 @@ public class ClassificationFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_classification, container, false);
+        return inflater.inflate(R.layout.fragment_classification_aocpv, container, false);
     }
 }
