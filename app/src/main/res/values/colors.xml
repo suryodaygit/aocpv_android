@@ -9,4 +9,6 @@
     <color name="white">#FFFFFFFF</color>
     <color name="primaryColor">#ff9700</color>
     <color name="light_gray">#a2a2a2</color>
+
+    <color name="amber">#FFBF00</color>
 </resources>

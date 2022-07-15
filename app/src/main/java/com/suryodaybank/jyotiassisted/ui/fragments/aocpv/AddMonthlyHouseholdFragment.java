@@ -82,8 +82,8 @@ public class AddMonthlyHouseholdFragment extends Fragment {
                 monthlyIncome.setSourceOfIncome(binding.etSourceOfIncome.getText().toString());
                 monthlyIncome.setSecuredLoan(binding.etSecuredLoan.getText().toString());
                 monthlyIncome.setUnsecuredLoan(binding.etUnsecuredLoan.getText().toString());
-                monthlyIncome.setMonthlyIncome(binding.etMonthlyIncome.getText().toString());
-                monthlyIncome.setMonthlyLoanEmi(binding.etMonthlyLoanEMI.getText().toString());
+                monthlyIncome.setMonthlyIncome(Long.parseLong(binding.etMonthlyIncome.getText().toString()));
+                monthlyIncome.setMonthlyLoanEmi(Long.parseLong(binding.etMonthlyLoanEMI.getText().toString()));
                 aocpvViewModel.addMonthlyIncome(monthlyIncome);
 
                 NavController navController = Navigation.findNavController(binding.getRoot());

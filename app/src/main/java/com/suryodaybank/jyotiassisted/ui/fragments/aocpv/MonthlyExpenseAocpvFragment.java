@@ -45,14 +45,23 @@ public class MonthlyExpenseAocpvFragment extends Fragment {
             public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
                 int sum = 0;
 
-                if (!binding.etAmount1.getText().toString().isEmpty()) {
-                    sum += Integer.parseInt(binding.etAmount1.getText().toString());
+                if (!binding.etFood.getText().toString().isEmpty()) {
+                    sum += Integer.parseInt(binding.etFood.getText().toString());
                 }
-                if (!binding.etAmount2.getText().toString().isEmpty()) {
-                    sum += Integer.parseInt(binding.etAmount2.getText().toString());
+                if (!binding.etRent.getText().toString().isEmpty()) {
+                    sum += Integer.parseInt(binding.etRent.getText().toString());
                 }
-                if (!binding.etAmount3.getText().toString().isEmpty()) {
-                    sum += Integer.parseInt(binding.etAmount3.getText().toString());
+                if (!binding.etMiscTransportation.getText().toString().isEmpty()) {
+                    sum += Integer.parseInt(binding.etMiscTransportation.getText().toString());
+                }
+                if (!binding.etMiscEducation.getText().toString().isEmpty()) {
+                    sum += Integer.parseInt(binding.etMiscEducation.getText().toString());
+                }
+                if (!binding.etMiscMedical.getText().toString().isEmpty()) {
+                    sum += Integer.parseInt(binding.etMiscMedical.getText().toString());
+                }
+                if (!binding.etMiscOthers.getText().toString().isEmpty()) {
+                    sum += Integer.parseInt(binding.etMiscOthers.getText().toString());
                 }
 
                 binding.result.setText(String.valueOf(sum));
@@ -63,8 +72,11 @@ public class MonthlyExpenseAocpvFragment extends Fragment {
 
             }
         };
-        binding.etAmount1.addTextChangedListener(textWatcher);
-        binding.etAmount2.addTextChangedListener(textWatcher);
-        binding.etAmount3.addTextChangedListener(textWatcher);
+        binding.etFood.addTextChangedListener(textWatcher);
+        binding.etRent.addTextChangedListener(textWatcher);
+        binding.etMiscTransportation.addTextChangedListener(textWatcher);
+        binding.etMiscEducation.addTextChangedListener(textWatcher);
+        binding.etMiscMedical.addTextChangedListener(textWatcher);
+        binding.etMiscOthers.addTextChangedListener(textWatcher);
     }
 }

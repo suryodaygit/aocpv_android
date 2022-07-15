@@ -10,8 +10,8 @@ public class MonthlyIncome {
     private String sourceOfIncome;
     private String securedLoan;
     private String unsecuredLoan;
-    private String monthlyIncome;
-    private String monthlyLoanEmi;
+    private long monthlyIncome;
+    private long monthlyLoanEmi;
 
     public String getFamilyMember() {
         return familyMember;
@@ -61,19 +61,19 @@ public class MonthlyIncome {
         this.unsecuredLoan = unsecuredLoan;
     }
 
-    public String getMonthlyIncome() {
+    public long getMonthlyIncome() {
         return monthlyIncome;
     }
 
-    public void setMonthlyIncome(String monthlyIncome) {
+    public void setMonthlyIncome(long monthlyIncome) {
         this.monthlyIncome = monthlyIncome;
     }
 
-    public String getMonthlyLoanEmi() {
+    public long getMonthlyLoanEmi() {
         return monthlyLoanEmi;
     }
 
-    public void setMonthlyLoanEmi(String monthlyLoanEmi) {
+    public void setMonthlyLoanEmi(long monthlyLoanEmi) {
         this.monthlyLoanEmi = monthlyLoanEmi;
     }
 

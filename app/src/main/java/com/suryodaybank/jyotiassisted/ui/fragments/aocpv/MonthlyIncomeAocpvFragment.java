@@ -51,11 +51,18 @@ public class MonthlyIncomeAocpvFragment extends Fragment {
         aocpvViewModel.monthlyIncomeLivedata.observe(getViewLifecycleOwner(), monthlyIncomes -> {
             monthlyIncomeAdapter.submitList(monthlyIncomes);
             monthlyIncomeAdapter.notifyDataSetChanged();
+            double sumIncome = 0, sumEmi = 0;
             if (monthlyIncomes.isEmpty()) {
                 binding.tvNoItemFound.setVisibility(View.VISIBLE);
             } else {
                 binding.tvNoItemFound.setVisibility(View.GONE);
+                for (int i = 0; i < monthlyIncomes.size(); i++) {
+                    sumIncome += monthlyIncomes.get(i).getMonthlyIncome();
+                    sumEmi += monthlyIncomes.get(i).getMonthlyLoanEmi();
+                }
             }
+            binding.tvTotalMonthlyIncome.setText(sumIncome + "");
+            binding.tvTotalMonthlyEmi.setText(sumEmi + "");
         });
     }
 

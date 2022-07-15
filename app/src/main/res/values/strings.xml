@@ -109,4 +109,20 @@
     <string name="terms_and_conditions">I agree with the terms and conditions.</string>
     <string name="i_have_seen_and_verified_the_original_documents">I have seen and verified the original documents.</string>
     <string name="edit">Edit</string>
+    <string name="total_monthly_income_a">Total monthly income (A)</string>
+    <string name="total_monthly_emi_non_ssfb_b">Total monthly EMI - Non SSFB (B)</string>
+    <string name="miscellaneous_transportation">Miscellaneous (Transportation)</string>
+    <string name="miscellaneous_medical">Miscellaneous (Medical)</string>
+    <string name="miscellaneous_education">Miscellaneous (Education)</string>
+    <string name="miscellaneous_others">Miscellaneous (Others)</string>
+    <string name="monthly_balance">Monthly Balance</string>
+    <string name="aocpv_customer_classification">AOCPV customer classification</string>
+    <string name="amber">Amber</string>
+    <string name="enter_mobile_no">Enter mobile no</string>
+    <string name="mfi_classification">MFI classification</string>
+    <string name="purpose_of_loan">Purpose of loan</string>
+    <string name="existing_loan_purpose">Existing loan purpose</string>
+    <string name="mobile_no_linked_to_aadhaar_no">Mobile no linked to Aadhaar no</string>
+    <string name="mobile_no">Mobile no</string>
+    <string name="max_emi_eligibility">Max EMI Eligibility</string>
 </resources>

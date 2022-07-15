@@ -55,8 +55,8 @@ public class MonthlyIncomeAdapter extends ListAdapter<MonthlyIncome, MonthlyInco
             binding.tvSourceOfIncome.setText(monthlyIncome.getSourceOfIncome());
             binding.tvSecuredLoan.setText(monthlyIncome.getSecuredLoan());
             binding.tvUnsecuredLoan.setText(monthlyIncome.getUnsecuredLoan());
-            binding.tvMonthlyIncome.setText(monthlyIncome.getMonthlyIncome());
-            binding.tvMonthlyLoanEmi.setText(monthlyIncome.getMonthlyLoanEmi());
+            binding.tvMonthlyIncome.setText(monthlyIncome.getMonthlyIncome() + "");
+            binding.tvMonthlyLoanEmi.setText(monthlyIncome.getMonthlyLoanEmi() + "");
         }
     }
 }

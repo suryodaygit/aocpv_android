@@ -882,7 +882,7 @@
             app:layout_constraintTop_toBottomOf="@+id/tvExpensetype" />
 
         <TextView
-            android:id="@+id/etAmount1"
+            android:id="@+id/etFood"
             android:layout_width="0dp"
             android:layout_height="36dp"
             android:layout_marginHorizontal="8dp"
@@ -905,7 +905,7 @@
             app:layout_constraintTop_toBottomOf="@+id/tvFood" />
 
         <TextView
-            android:id="@+id/etAmount2"
+            android:id="@+id/etRent"
             android:layout_width="0dp"
             android:layout_height="36dp"
             android:layout_marginHorizontal="8dp"
@@ -913,7 +913,7 @@
             android:text="1000"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="@id/guideline1"
-            app:layout_constraintTop_toBottomOf="@+id/etAmount1" />
+            app:layout_constraintTop_toBottomOf="@+id/etFood" />
 
         <TextView
             android:id="@+id/tvMisc"
@@ -928,7 +928,7 @@
             app:layout_constraintTop_toBottomOf="@+id/tvRent" />
 
         <TextView
-            android:id="@+id/etAmount3"
+            android:id="@+id/etMiscTransportation"
             android:layout_width="0dp"
             android:layout_height="36dp"
             android:layout_marginHorizontal="8dp"
@@ -936,7 +936,7 @@
             android:text="1000"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="@id/guideline1"
-            app:layout_constraintTop_toBottomOf="@+id/etAmount2" />
+            app:layout_constraintTop_toBottomOf="@+id/etRent" />
 
         <TextView
             android:id="@+id/tvTotal"
@@ -959,7 +959,7 @@
             android:text="3000"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="@id/guideline1"
-            app:layout_constraintTop_toBottomOf="@+id/etAmount3" />
+            app:layout_constraintTop_toBottomOf="@+id/etMiscTransportation" />
 
         <CheckBox
             android:id="@+id/cbTc"
