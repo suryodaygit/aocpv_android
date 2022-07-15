@@ -58,6 +58,30 @@ public class OwnershipDetailsAocpvFragment extends Fragment {
         relationShip.add("House Owner");
         ArrayAdapter<String> relationShipAdapter = new ArrayAdapter<>(getContext(), android.R.layout.simple_spinner_item, relationShip);
         relationShipAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-        binding.relationSpinner.setAdapter(relationShipAdapter);
+        binding.ownerSpinner.setAdapter(relationShipAdapter);
+
+        List<String> utilityBill = new ArrayList<>();
+        utilityBill.add(0, "Please select");
+        utilityBill.add("ELECTRICTY BILL");
+        utilityBill.add("GAS BILL");
+        utilityBill.add("WATER BILL");
+        utilityBill.add("MUNICIPAL TAX BILL");
+        ArrayAdapter<String> utilityAdapter = new ArrayAdapter<>(getContext(), android.R.layout.simple_spinner_item, utilityBill);
+        utilityAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        binding.utilitySpinner.setAdapter(utilityAdapter);
+
+        List<String> country = new ArrayList<>();
+        country.add("India");
+        country.add("US");
+        country.add("Europe");
+        country.add("Australia");
+        country.add("Germany");
+        country.add("China");
+        ArrayAdapter<String> countryAdapter = new ArrayAdapter<>(getContext(), android.R.layout.simple_spinner_item, country);
+        countryAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        binding.countrySpinner.setAdapter(countryAdapter);
     }
+
+
+
 }

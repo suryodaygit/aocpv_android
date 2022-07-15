@@ -25,9 +25,16 @@
         <entry key="..\:/Users/Neosoft/AndroidStudioProjects/Jyoti/app/src/main/res/menu/main_menu.xml" value="0.4677734375" />
         <entry key="..\:/Users/dell/AndroidStudioProjects/Jyoti/app/src/main/res/layout/activity_login.xml" value="0.11548913043478261" />
         <entry key="..\:/Users/dell/AndroidStudioProjects/Jyoti/app/src/main/res/layout/fragment_address_details_apcpv.xml" value="0.20416666666666666" />
+        <entry key="..\:/Users/dell/AndroidStudioProjects/Jyoti/app/src/main/res/layout/fragment_aocpv.xml" value="0.1644021739130435" />
         <entry key="..\:/Users/dell/AndroidStudioProjects/Jyoti/app/src/main/res/layout/fragment_aocpv_validation.xml" value="0.22" />
+        <entry key="..\:/Users/dell/AndroidStudioProjects/Jyoti/app/src/main/res/layout/fragment_classification_aocpv.xml" value="0.1644021739130435" />
+        <entry key="..\:/Users/dell/AndroidStudioProjects/Jyoti/app/src/main/res/layout/fragment_home.xml" value="0.11548913043478261" />
+        <entry key="..\:/Users/dell/AndroidStudioProjects/Jyoti/app/src/main/res/layout/fragment_monthly_expense_aocpv.xml" value="0.1644021739130435" />
+        <entry key="..\:/Users/dell/AndroidStudioProjects/Jyoti/app/src/main/res/layout/fragment_monthly_income_aocpv.xml" value="0.1644021739130435" />
+        <entry key="..\:/Users/dell/AndroidStudioProjects/Jyoti/app/src/main/res/layout/fragment_ownership_details_aocpv.xml" value="0.2" />
         <entry key="..\:/Users/dell/AndroidStudioProjects/Jyoti/app/src/main/res/layout/fragment_personal_detail_aocpv.xml" value="0.20416666666666666" />
         <entry key="..\:/Users/dell/AndroidStudioProjects/Jyoti/app/src/main/res/layout/fragment_pre_approve.xml" value="0.20416666666666666" />
+        <entry key="..\:/Users/dell/AndroidStudioProjects/Jyoti/app/src/main/res/layout/fragment_utility_details_aocpv.xml" value="0.1644021739130435" />
       </map>
     </option>
   </component>

@@ -42,13 +42,13 @@ public class PersonalDetailAocpvFragment extends Fragment {
 
     private void setupViews() {
 
-        String[] titles = new String[]{"Mr.", "Mrs.", "Ms."};
-        ArrayAdapter<String> titleAdapter = new ArrayAdapter<>(getContext(), android.R.layout.simple_spinner_dropdown_item, titles);
-        binding.titleSpinner.setAdapter(titleAdapter);
+//        String[] titles = new String[]{"Mr.", "Mrs.", "Ms."};
+//        ArrayAdapter<String> titleAdapter = new ArrayAdapter<>(getContext(), android.R.layout.simple_spinner_dropdown_item, titles);
+//        binding.titleSpinner.setAdapter(titleAdapter);
 
-        String[] items = new String[]{"Male", "Female"};
-        ArrayAdapter<String> genderAdapter = new ArrayAdapter<>(getContext(), android.R.layout.simple_spinner_dropdown_item, items);
-        binding.spinnerGender.setAdapter(genderAdapter);
+//        String[] items = new String[]{"Male", "Female"};
+//        ArrayAdapter<String> genderAdapter = new ArrayAdapter<>(getContext(), android.R.layout.simple_spinner_dropdown_item, items);
+//        binding.spinnerGender.setAdapter(genderAdapter);
 
         binding.etDOB.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -67,4 +67,6 @@ public class PersonalDetailAocpvFragment extends Fragment {
         SimpleDateFormat dateFormat = new SimpleDateFormat(Constants.COMMON_DATE_FORMAT, Locale.US);
         binding.etDOB.setText(dateFormat.format(myCalendar.getTime()));
     }
+
+
 }

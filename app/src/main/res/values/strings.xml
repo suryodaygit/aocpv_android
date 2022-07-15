@@ -19,6 +19,7 @@
     <string name="enter_short_name">Enter short name</string>
     <string name="first_name">First name</string>
     <string name="enter_first_name">Enter first name</string>
+    <string name="enter_name">Enter Name</string>
     <string name="middle_name">Middle name</string>
     <string name="enter_middle_name">Enter middle name</string>
     <string name="last_name">Last name</string>
@@ -50,10 +51,12 @@
     <string name="i_am_a_resident_indian">I am a Resident Indian</string>
     <string name="residence_address_is_same_as_permanent_address">Residence Address is same as Permanent Address</string>
     <string name="proof_of_communication_address">Proof of communication address</string>
+    <string name="check_message">ALL THE ABOVE INFO ARE CORRECT?</string>
     <string name="ok">Ok</string>
     <string name="no">No</string>
     <string name="ownership_details">Ownership details</string>
     <string name="ownership_type">Ownership type</string>
+    <string name="house_ownership">House Ownership</string>
     <string name="relation">Relation</string>
     <string name="other_assets">Other assets</string>
     <string name="cycle">Cycle</string>
@@ -70,9 +73,16 @@
     <string name="kacha_asbestos_thastched_tin">Kacha/Asbestos/Thastched/Tin</string>
     <string name="roof_type">Roof Type</string>
     <string name="customer_photo_with_house">Customer Photo (with house)</string>
+    <string name="customer_photo">Customer Photo</string>
+    <string name="customer_id">Customer Id</string>
     <string name="utility_bill_photo">Utility Bill Photo</string>
     <string name="utility_details">Utility details</string>
     <string name="utility_bills">Utility bills</string>
+    <string name="primary_business_details">Primary Business Details</string>
+    <string name="residence_stability">Residence Stability(In YEARS)</string>
+    <string name="vintage">Vintage</string>
+    <string name="vintage_in_years">In Years</string>
+    <string name="business_photo">Business Photo6</string>
     <string name="relationship_with_owner">Relationship (with owner)</string>
     <string name="no_details_found">No details found</string>
     <string name="monthly_household_income">Household monthly income</string>
