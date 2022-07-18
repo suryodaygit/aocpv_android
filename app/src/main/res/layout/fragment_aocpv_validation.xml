@@ -40,7 +40,6 @@
             app:layout_constraintGuide_percent="0.5" />
 
 
-
         <TextView
             android:id="@+id/tvCustomerId"
             style="@style/Aocpv.SubTitle"
@@ -765,17 +764,19 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/etUtilityCity" />
+
         <TextView
             android:id="@+id/tvDocuments2"
             style="@style/Aocpv.SubTitle"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_margin="8dp"
-            android:text="@string/vintage_in_years"
             android:background="?attr/editTextBackground"
+            android:text="@string/vintage_in_years"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/tvDocuments1" />
+
         <TextView
             android:id="@+id/tvDocuments"
             style="@style/Aocpv.SubTitle"
@@ -901,6 +902,7 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="@id/guideline1"
             app:layout_constraintTop_toBottomOf="@+id/etRent" />
+
         <TextView
             android:id="@+id/tvMiscMedical"
             style="@style/Aocpv.SubTitle"
@@ -924,6 +926,7 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="@id/guideline1"
             app:layout_constraintTop_toBottomOf="@+id/etMiscTransportation" />
+
         <TextView
             android:id="@+id/tvMiscEducation"
             style="@style/Aocpv.SubTitle"
@@ -1018,6 +1021,141 @@
             app:layout_constraintStart_toStartOf="@id/guideline1"
             app:layout_constraintTop_toBottomOf="@+id/result" />
 
+        <TextView
+            android:id="@+id/tvMfiClassificationTitle"
+            style="@style/Aocpv.ValidationTitle"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="8dp"
+            android:text="@string/mfi_classification"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="@id/guideline1"
+            app:layout_constraintTop_toBottomOf="@+id/etMonthlyBalance" />
+
+        <TextView
+            android:id="@+id/tvPurpose"
+            style="@style/Aocpv.SubTitle"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_margin="8dp"
+            android:text="@string/purpose_of_loan"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/tvMfiClassificationTitle" />
+
+        <TextView
+            android:id="@+id/purposeSpinner"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="8dp"
+            android:background="?attr/editTextBackground"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/tvPurpose" />
+
+        <TextView
+            android:id="@+id/tvExistingPurpose"
+            style="@style/Aocpv.SubTitle"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_margin="8dp"
+            android:text="@string/existing_loan_purpose"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/purposeSpinner" />
+
+        <TextView
+            android:id="@+id/etExistingPurpose"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginHorizontal="8dp"
+            android:background="?attr/editTextBackground"
+            android:inputType="text"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/tvExistingPurpose" />
+
+        <TextView
+            android:id="@+id/tvLinkMobile"
+            style="@style/Aocpv.SubTitle"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_margin="8dp"
+            android:text="@string/mobile_no_linked_to_aadhaar_no"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/etExistingPurpose" />
+
+        <RadioGroup
+            android:id="@+id/rgLinkMobile"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_margin="8dp"
+            android:orientation="horizontal"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/tvLinkMobile">
+
+            <RadioButton
+                android:id="@+id/rbYes"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:checked="true"
+                android:text="@string/yes" />
+
+            <RadioButton
+                android:id="@+id/rbNo"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="16dp"
+                android:text="@string/no" />
+        </RadioGroup>
+
+        <TextView
+            android:id="@+id/tvMobileNo"
+            style="@style/Aocpv.SubTitle"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_margin="8dp"
+            android:text="@string/mobile_no"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/rgLinkMobile" />
+
+        <TextView
+            android:id="@+id/etMobileNo"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginHorizontal="8dp"
+            android:background="?attr/editTextBackground"
+            android:inputType="text"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/tvMobileNo" />
+
+        <TextView
+            android:id="@+id/tvMaxEligibilityTitle"
+            style="@style/Aocpv.HeaderTitle"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="8dp"
+            android:layout_marginTop="16dp"
+            android:text="@string/max_emi_eligibility"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/etMobileNo" />
+
+        <TextView
+            android:id="@+id/tvMaxEligibilityAmount"
+            style="@style/Aocpv.Data"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_margin="8dp"
+            android:text="10000"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/tvMaxEligibilityTitle" />
+
         <CheckBox
             android:id="@+id/cbTc"
             android:layout_width="0dp"
@@ -1026,7 +1164,7 @@
             android:text="@string/terms_and_conditions"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/tvMonthlyBalance" />
+            app:layout_constraintTop_toBottomOf="@id/tvMaxEligibilityAmount" />
 
         <CheckBox
             android:id="@+id/cbOriginalDocument"
