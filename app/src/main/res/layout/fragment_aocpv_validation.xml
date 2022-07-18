@@ -39,48 +39,28 @@
             android:orientation="vertical"
             app:layout_constraintGuide_percent="0.5" />
 
+
+
         <TextView
-            android:id="@+id/tvTitle"
+            android:id="@+id/tvCustomerId"
             style="@style/Aocpv.SubTitle"
-            android:layout_width="0dp"
+            android:layout_width="fill_parent"
             android:layout_height="wrap_content"
             android:layout_margin="8dp"
-            android:text="@string/title"
-            app:layout_constraintEnd_toEndOf="@id/guideline1"
-            app:layout_constraintHorizontal_bias="0.0"
+            android:text="@string/customer_id"
+            app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/tvPrimaryDetails" />
 
         <TextView
-            android:id="@+id/etTitle"
+            android:id="@+id/etCustomerId"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginHorizontal="8dp"
             android:background="?attr/editTextBackground"
             app:layout_constraintEnd_toEndOf="@id/guideline1"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/tvTitle" />
-
-        <TextView
-            android:id="@+id/tvMiddleName"
-            style="@style/Aocpv.SubTitle"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_margin="8dp"
-            android:text="@string/middle_name"
-            app:layout_constraintEnd_toEndOf="@id/guideline1"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/etTitle" />
-
-        <TextView
-            android:id="@+id/etMiddleName"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_marginHorizontal="8dp"
-            android:background="?attr/editTextBackground"
-            app:layout_constraintEnd_toEndOf="@id/guideline1"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/tvMiddleName" />
+            app:layout_constraintTop_toBottomOf="@+id/tvCustomerId" />
 
         <TextView
             android:id="@+id/tvFirstName"
@@ -88,7 +68,7 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_margin="8dp"
-            android:text="@string/first_name"
+            android:text="@string/name"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="@id/guideline1"
             app:layout_constraintTop_toBottomOf="@+id/tvPrimaryDetails" />
@@ -103,47 +83,8 @@
             app:layout_constraintStart_toStartOf="@id/guideline1"
             app:layout_constraintTop_toBottomOf="@+id/tvFirstName" />
 
-        <TextView
-            android:id="@+id/tvLastName"
-            style="@style/Aocpv.SubTitle"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_margin="8dp"
-            android:text="@string/last_name"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="@id/guideline1"
-            app:layout_constraintTop_toBottomOf="@+id/etFirstName" />
 
-        <TextView
-            android:id="@+id/etLastName"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_marginHorizontal="8dp"
-            android:background="?attr/editTextBackground"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="@id/guideline1"
-            app:layout_constraintTop_toBottomOf="@+id/tvLastName" />
-
-        <TextView
-            android:id="@+id/tvShortName"
-            style="@style/Aocpv.SubTitle"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_margin="8dp"
-            android:text="@string/short_name"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/etMiddleName" />
-
-        <TextView
-            android:id="@+id/etShortName"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_marginHorizontal="8dp"
-            android:background="?attr/editTextBackground"
-            app:layout_constraintEnd_toEndOf="@id/guideline1"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/tvShortName" />
+        zz
 
         <TextView
             android:id="@+id/tvDateOfBirth"
@@ -154,7 +95,7 @@
             android:text="@string/date_of_birth"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/etShortName" />
+            app:layout_constraintTop_toBottomOf="@+id/etCustomerId" />
 
         <TextView
             android:id="@+id/etDateOfBirth"
@@ -815,6 +756,27 @@
             app:layout_constraintTop_toBottomOf="@+id/tvUtilityPincode" />
 
         <TextView
+            android:id="@+id/tvDocuments1"
+            style="@style/Aocpv.SubTitle"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_margin="8dp"
+            android:text="@string/vintage"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/etUtilityCity" />
+        <TextView
+            android:id="@+id/tvDocuments2"
+            style="@style/Aocpv.SubTitle"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_margin="8dp"
+            android:text="@string/vintage_in_years"
+            android:background="?attr/editTextBackground"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/tvDocuments1" />
+        <TextView
             android:id="@+id/tvDocuments"
             style="@style/Aocpv.SubTitle"
             android:layout_width="0dp"
@@ -823,7 +785,7 @@
             android:text="@string/uploaded_documents_list"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/etUtilityCity" />
+            app:layout_constraintTop_toBottomOf="@+id/tvDocuments2" />
 
         <Spinner
             android:id="@+id/documentSpinner"
@@ -915,17 +877,19 @@
             app:layout_constraintStart_toStartOf="@id/guideline1"
             app:layout_constraintTop_toBottomOf="@+id/etFood" />
 
+
         <TextView
-            android:id="@+id/tvMisc"
+            android:id="@+id/tvMiscTransportation"
             style="@style/Aocpv.SubTitle"
             android:layout_width="0dp"
             android:layout_height="36dp"
             android:layout_marginHorizontal="8dp"
             android:gravity="center_vertical"
-            android:text="@string/miscellaneous"
+            android:text="@string/miscellaneous_transportation"
             app:layout_constraintEnd_toEndOf="@id/guideline1"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/tvRent" />
+
 
         <TextView
             android:id="@+id/etMiscTransportation"
@@ -937,6 +901,76 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="@id/guideline1"
             app:layout_constraintTop_toBottomOf="@+id/etRent" />
+        <TextView
+            android:id="@+id/tvMiscMedical"
+            style="@style/Aocpv.SubTitle"
+            android:layout_width="0dp"
+            android:layout_height="36dp"
+            android:layout_marginHorizontal="8dp"
+            android:gravity="center_vertical"
+            android:text="@string/miscellaneous_medical"
+            app:layout_constraintEnd_toEndOf="@id/guideline1"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/tvMiscTransportation" />
+
+
+        <TextView
+            android:id="@+id/etMiscMedical"
+            android:layout_width="0dp"
+            android:layout_height="36dp"
+            android:layout_marginHorizontal="8dp"
+            android:gravity="center_vertical"
+            android:text="1000"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="@id/guideline1"
+            app:layout_constraintTop_toBottomOf="@+id/etMiscTransportation" />
+        <TextView
+            android:id="@+id/tvMiscEducation"
+            style="@style/Aocpv.SubTitle"
+            android:layout_width="0dp"
+            android:layout_height="36dp"
+            android:layout_marginHorizontal="8dp"
+            android:gravity="center_vertical"
+            android:text="@string/miscellaneous_education"
+            app:layout_constraintEnd_toEndOf="@id/guideline1"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/tvMiscMedical" />
+
+
+        <TextView
+            android:id="@+id/etMiscEducation"
+            android:layout_width="0dp"
+            android:layout_height="36dp"
+            android:layout_marginHorizontal="8dp"
+            android:gravity="center_vertical"
+            android:text="1000"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="@id/guideline1"
+            app:layout_constraintTop_toBottomOf="@+id/etMiscMedical" />
+
+        <TextView
+            android:id="@+id/tvMiscOthers"
+            style="@style/Aocpv.SubTitle"
+            android:layout_width="0dp"
+            android:layout_height="36dp"
+            android:layout_marginHorizontal="8dp"
+            android:gravity="center_vertical"
+            android:text="@string/miscellaneous_education"
+            app:layout_constraintEnd_toEndOf="@id/guideline1"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/tvMiscEducation" />
+
+
+        <TextView
+            android:id="@+id/etMiscOthers"
+            android:layout_width="0dp"
+            android:layout_height="36dp"
+            android:layout_marginHorizontal="8dp"
+            android:gravity="center_vertical"
+            android:text="1000"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="@id/guideline1"
+            app:layout_constraintTop_toBottomOf="@+id/tvMiscEducation" />
 
         <TextView
             android:id="@+id/tvTotal"
@@ -948,7 +982,7 @@
             android:text="@string/total_in_rs"
             app:layout_constraintEnd_toEndOf="@id/guideline1"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/tvMisc" />
+            app:layout_constraintTop_toBottomOf="@+id/tvMiscOthers" />
 
         <TextView
             android:id="@+id/result"
@@ -959,7 +993,30 @@
             android:text="3000"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="@id/guideline1"
-            app:layout_constraintTop_toBottomOf="@+id/etMiscTransportation" />
+            app:layout_constraintTop_toBottomOf="@+id/etMiscOthers" />
+
+        <TextView
+            android:id="@+id/tvMonthlyBalance"
+            style="@style/Aocpv.SubTitle"
+            android:layout_width="0dp"
+            android:layout_height="36dp"
+            android:layout_marginHorizontal="8dp"
+            android:gravity="center_vertical"
+            android:text="@string/monthly_balance"
+            app:layout_constraintEnd_toEndOf="@id/guideline1"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/tvTotal" />
+
+        <TextView
+            android:id="@+id/etMonthlyBalance"
+            android:layout_width="0dp"
+            android:layout_height="36dp"
+            android:layout_marginHorizontal="8dp"
+            android:gravity="center_vertical"
+            android:text="3000"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="@id/guideline1"
+            app:layout_constraintTop_toBottomOf="@+id/result" />
 
         <CheckBox
             android:id="@+id/cbTc"
@@ -969,7 +1026,7 @@
             android:text="@string/terms_and_conditions"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/result" />
+            app:layout_constraintTop_toBottomOf="@id/tvMonthlyBalance" />
 
         <CheckBox
             android:id="@+id/cbOriginalDocument"
