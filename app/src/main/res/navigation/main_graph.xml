@@ -16,6 +16,9 @@
         <action
             android:id="@+id/action_preApproveFragment_to_aocpvFragment"
             app:destination="@id/aocpvFragment" />
+        <action
+            android:id="@+id/action_preApproveFragment_to_preApproveFilterFragment"
+            app:destination="@id/preApproveFilterFragment" />
     </fragment>
     <fragment
         android:id="@+id/aocpvFragment"
@@ -36,4 +39,8 @@
         android:id="@+id/aocpvValidationFragment"
         android:name="com.suryodaybank.jyotiassisted.ui.fragments.aocpv.AocpvValidationFragment"
         tools:layout="@layout/fragment_aocpv_validation" />
+    <dialog
+        android:id="@+id/preApproveFilterFragment"
+        android:name="com.suryodaybank.jyotiassisted.ui.dialogs.PreApproveFilterFragment"
+        tools:layout="@layout/fragment_pre_approve_filter" />
 </navigation>

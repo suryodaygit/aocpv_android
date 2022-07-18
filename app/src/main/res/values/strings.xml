@@ -135,4 +135,15 @@
     <string name="mobile_no_linked_to_aadhaar_no">Mobile no linked to Aadhaar no</string>
     <string name="mobile_no">Mobile no</string>
     <string name="max_emi_eligibility">Max EMI Eligibility</string>
+    <string name="enter_purpose">Enter purpose</string>
+    <string name="by_date">By Date</string>
+    <string name="last_7_days">Last 7 days</string>
+    <string name="last_1_month">Last 1 month</string>
+    <string name="custom_date">Custom date</string>
+    <string name="by_status">By Status</string>
+    <string name="initiated">Initiated</string>
+    <string name="progress">Progress</string>
+    <string name="completed">Completed</string>
+    <string name="cancel">Cancel</string>
+    <string name="apply">Apply</string>
 </resources>

@@ -63,6 +63,11 @@ public class PreApproveFragment extends Fragment {
         binding.rvPreApprove.setHasFixedSize(true);
         binding.rvPreApprove.setLayoutManager(new LinearLayoutManager(getContext()));
         binding.rvPreApprove.setAdapter(preApproveAdapter);
+
+        binding.ivFilter.setOnClickListener(view -> {
+            NavController navController = Navigation.findNavController(binding.getRoot());
+            navController.navigate(PreApproveFragmentDirections.actionPreApproveFragmentToPreApproveFilterFragment());
+        });
     }
 
     private void setupObserver() {
