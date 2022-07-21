@@ -55,14 +55,13 @@ public class OwnershipDetailsAocpvFragment extends Fragment {
         relationShip.add("Daughter");
         relationShip.add("Brother");
         relationShip.add("Sister");
-        relationShip.add("House Owner");
         ArrayAdapter<String> relationShipAdapter = new ArrayAdapter<>(getContext(), android.R.layout.simple_spinner_item, relationShip);
         relationShipAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         binding.ownerSpinner.setAdapter(relationShipAdapter);
 
         List<String> utilityBill = new ArrayList<>();
         utilityBill.add(0, "Please select");
-        utilityBill.add("ELECTRICTY BILL");
+        utilityBill.add("ELECTRICITY BILL");
         utilityBill.add("GAS BILL");
         utilityBill.add("WATER BILL");
         utilityBill.add("MUNICIPAL TAX BILL");
@@ -81,7 +80,6 @@ public class OwnershipDetailsAocpvFragment extends Fragment {
         countryAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         binding.countrySpinner.setAdapter(countryAdapter);
     }
-
 
 
 }

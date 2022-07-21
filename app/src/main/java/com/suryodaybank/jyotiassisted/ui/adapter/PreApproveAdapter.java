@@ -41,6 +41,7 @@ public class PreApproveAdapter extends ListAdapter<PreApprove, PreApproveAdapter
         holder.bind(preApprove);
         holder.binding.btnProceed.setOnClickListener(view -> onClickListener.onProceed());
         holder.binding.btnNotInterested.setOnClickListener(view -> onClickListener.onNotInterested());
+        holder.binding.btnCall.setOnClickListener(view -> onClickListener.onCall(preApprove.getLandphoneNUMBER()));
     }
 
     static class PreApproveVH extends RecyclerView.ViewHolder {
@@ -65,5 +66,7 @@ public class PreApproveAdapter extends ListAdapter<PreApprove, PreApproveAdapter
         void onProceed();
 
         void onNotInterested();
+
+        void onCall(String number);
     }
 }

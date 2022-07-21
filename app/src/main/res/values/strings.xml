@@ -148,4 +148,7 @@
     <string name="apply">Apply</string>
     <string name="end_date">End Date</string>
     <string name="start_date">Start Date</string>
+    <string name="logout">Logout</string>
+    <string name="add_household_monthly_income">Add household monthly income</string>
+    <string name="search_here">Search here</string>
 </resources>

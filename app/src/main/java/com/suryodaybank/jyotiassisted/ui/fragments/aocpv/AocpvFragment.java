@@ -13,6 +13,7 @@ import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.navigation.Navigation;
 import androidx.viewpager2.adapter.FragmentStateAdapter;
+import androidx.viewpager2.widget.ViewPager2;
 
 import com.suryodaybank.jyotiassisted.R;
 import com.suryodaybank.jyotiassisted.databinding.FragmentAocpvBinding;
@@ -23,7 +24,8 @@ import dagger.hilt.android.AndroidEntryPoint;
 @AndroidEntryPoint
 public class AocpvFragment extends Fragment {
 
-    private static final int TOTAL_PAGE = 5;
+    private static final int TOTAL_PAGE = 6;
+    private static final String TAG = "AocpvFragment";
 
     private FragmentAocpvBinding binding;
     private AocpvViewModel aocpvViewModel;
@@ -78,6 +80,14 @@ public class AocpvFragment extends Fragment {
 
     private void setupViewPager() {
         AocpvSlidePagerAdapter pagerAdapter = new AocpvSlidePagerAdapter(getActivity());
+        binding.aocpvViewPager.registerOnPageChangeCallback(new ViewPager2.OnPageChangeCallback() {
+            @Override
+            public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
+                super.onPageScrolled(position, positionOffset, positionOffsetPixels);
+                aocpvViewModel.pageNoLivedata.setValue(binding.aocpvViewPager.getCurrentItem() + 1);
+//                Log.d(TAG, "onPageScrolled: " + position);
+            }
+        });
         binding.aocpvViewPager.setAdapter(pagerAdapter);
         binding.aocpvViewPager.setUserInputEnabled(false);
     }
@@ -99,8 +109,10 @@ public class AocpvFragment extends Fragment {
                     return new MonthlyIncomeAocpvFragment();
                 case 3:
                     return new MonthlyExpenseAocpvFragment();
+                case 4:
+                    return new CustomerClassificationAocpvFragment();
                 default:
-                    return new ClassificationAocpvFragment();
+                    return new MfiClassificationAocpvFragment();
             }
         }
 

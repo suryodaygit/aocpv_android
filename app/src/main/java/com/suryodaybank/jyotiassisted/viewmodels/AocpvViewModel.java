@@ -25,9 +25,10 @@ public class AocpvViewModel extends ViewModel {
     private static final String TAG = "AocpvViewModel";
 
     private final AocpvRepository aocpvRepository;
-    public MutableLiveData<List<PreApprove>> preApprovesLivedata = new MutableLiveData<>();
+    public MutableLiveData<List<PreApprove>> preApprovesLivedata = new MutableLiveData<>(new ArrayList<>());
     public MutableLiveData<List<MonthlyIncome>> monthlyIncomeLivedata = new MutableLiveData<>(new ArrayList<>());
     public MutableLiveData<Integer> pageNoLivedata = new MutableLiveData<>(1);
+    public MutableLiveData<String> searchQueryLiveData = new MutableLiveData<>("");
 
     @Inject
     public AocpvViewModel(AocpvRepository aocpvRepository) {

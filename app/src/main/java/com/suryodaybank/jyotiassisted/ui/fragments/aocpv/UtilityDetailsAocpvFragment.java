@@ -55,7 +55,6 @@ public class UtilityDetailsAocpvFragment extends Fragment {
         relationShip.add("Daughter");
         relationShip.add("Brother");
         relationShip.add("Sister");
-        relationShip.add("House Owner");
         ArrayAdapter<String> ownerAdapter = new ArrayAdapter<>(getContext(), android.R.layout.simple_spinner_item, relationShip);
         ownerAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         binding.ownerSpinner.setAdapter(ownerAdapter);

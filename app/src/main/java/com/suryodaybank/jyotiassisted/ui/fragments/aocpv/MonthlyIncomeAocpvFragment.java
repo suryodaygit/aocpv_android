@@ -47,6 +47,14 @@ public class MonthlyIncomeAocpvFragment extends Fragment {
         setupObserver();
     }
 
+    @Override
+    public void onResume() {
+        super.onResume();
+        if (aocpvViewModel.monthlyIncomeLivedata.getValue().isEmpty()) {
+            binding.fabAdd.performClick();
+        }
+    }
+
     private void setupObserver() {
         aocpvViewModel.monthlyIncomeLivedata.observe(getViewLifecycleOwner(), monthlyIncomes -> {
             monthlyIncomeAdapter.submitList(monthlyIncomes);

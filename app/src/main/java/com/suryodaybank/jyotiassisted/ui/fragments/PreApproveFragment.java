@@ -1,12 +1,16 @@
 package com.suryodaybank.jyotiassisted.ui.fragments;
 
+import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.appcompat.widget.SearchView;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.navigation.NavController;
@@ -14,8 +18,12 @@ import androidx.navigation.Navigation;
 import androidx.recyclerview.widget.LinearLayoutManager;
 
 import com.suryodaybank.jyotiassisted.databinding.FragmentPreApproveBinding;
+import com.suryodaybank.jyotiassisted.models.PreApprove;
 import com.suryodaybank.jyotiassisted.ui.adapter.PreApproveAdapter;
 import com.suryodaybank.jyotiassisted.viewmodels.AocpvViewModel;
+
+import java.util.function.Predicate;
+import java.util.stream.Collectors;
 
 import dagger.hilt.android.AndroidEntryPoint;
 
@@ -59,6 +67,18 @@ public class PreApproveFragment extends Fragment {
             public void onNotInterested() {
 
             }
+
+            @Override
+            public void onCall(String number) {
+                if (number == null) return;
+                try {
+                    Uri uri = Uri.parse("tel:" + number);
+                    Intent intent = new Intent(Intent.ACTION_DIAL, uri);
+                    startActivity(intent);
+                } catch (Exception e) {
+                    Toast.makeText(getActivity(), "Something is wrong", Toast.LENGTH_SHORT).show();
+                }
+            }
         });
         binding.rvPreApprove.setHasFixedSize(true);
         binding.rvPreApprove.setLayoutManager(new LinearLayoutManager(getContext()));
@@ -67,6 +87,19 @@ public class PreApproveFragment extends Fragment {
         binding.ivFilter.setOnClickListener(view -> {
             NavController navController = Navigation.findNavController(binding.getRoot());
             navController.navigate(PreApproveFragmentDirections.actionPreApproveFragmentToPreApproveFilterFragment());
+        });
+
+        binding.searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
+            @Override
+            public boolean onQueryTextSubmit(String query) {
+                return false;
+            }
+
+            @Override
+            public boolean onQueryTextChange(String newText) {
+                aocpvViewModel.searchQueryLiveData.setValue(newText);
+                return true;
+            }
         });
     }
 
@@ -78,6 +111,18 @@ public class PreApproveFragment extends Fragment {
             } else {
                 binding.tvNoItemFound.setVisibility(View.GONE);
             }
+        });
+        aocpvViewModel.searchQueryLiveData.observe(getViewLifecycleOwner(), query -> {
+            preApproveAdapter.submitList(aocpvViewModel.preApprovesLivedata.getValue().stream().filter(new Predicate<PreApprove>() {
+                @Override
+                public boolean test(PreApprove preApprove) {
+                    String number = "";
+                    if (preApprove.getLandphoneNUMBER() != null) {
+                        number = preApprove.getLandphoneNUMBER();
+                    }
+                    return number.contains(query);
+                }
+            }).collect(Collectors.toList()));
         });
     }
 }

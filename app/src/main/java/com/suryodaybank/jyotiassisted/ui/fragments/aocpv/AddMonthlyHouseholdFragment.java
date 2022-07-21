@@ -54,7 +54,6 @@ public class AddMonthlyHouseholdFragment extends Fragment {
         relationShip.add("Daughter");
         relationShip.add("Brother");
         relationShip.add("Sister");
-        relationShip.add("House Owner");
         ArrayAdapter<String> memberAdapter = new ArrayAdapter<>(getContext(), android.R.layout.simple_spinner_item, relationShip);
         memberAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         binding.spinnerMember.setAdapter(memberAdapter);
