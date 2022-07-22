@@ -12,9 +12,9 @@ import retrofit2.http.POST;
 
 public interface RetroServiceInterface {
 
-    @POST("checkappversion")
+    @POST("v1/checkappversion")
     Call<DataModel<VersionResponse>> getAppVersion(@Body DataModel<VersionRequest> requestData);
 
-    @POST("netbanking/validate/user")
+    @POST("v1/netbanking/validate/user")
     Call<DataModel<LoginResponse>> getUserLogin(@Body DataModel<LoginRequest> loginRequestModel);
 }
