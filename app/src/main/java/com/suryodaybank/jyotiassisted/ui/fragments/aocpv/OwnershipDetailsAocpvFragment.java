@@ -68,17 +68,6 @@ public class OwnershipDetailsAocpvFragment extends Fragment {
         ArrayAdapter<String> utilityAdapter = new ArrayAdapter<>(getContext(), android.R.layout.simple_spinner_item, utilityBill);
         utilityAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         binding.utilitySpinner.setAdapter(utilityAdapter);
-
-        List<String> country = new ArrayList<>();
-        country.add("India");
-        country.add("US");
-        country.add("Europe");
-        country.add("Australia");
-        country.add("Germany");
-        country.add("China");
-        ArrayAdapter<String> countryAdapter = new ArrayAdapter<>(getContext(), android.R.layout.simple_spinner_item, country);
-        countryAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-        binding.countrySpinner.setAdapter(countryAdapter);
     }
 
 
