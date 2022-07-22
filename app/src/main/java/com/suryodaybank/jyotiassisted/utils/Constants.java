@@ -10,4 +10,8 @@ public class Constants {
     public static final String ADDRESS = "";
     public static final String BRANCH_CODE = "BRCD";
     public static final String IMAGE_PATH = "";
+    public static final String IMAGE_PATH_UTILITY = "";
+    public static final String IMAGE_PATH_BUSINESS = "";
+    public static final int MY_CAMERA_PERMISSION_CODE = 100;
+
 }

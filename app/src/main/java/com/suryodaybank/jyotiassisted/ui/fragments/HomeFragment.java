@@ -2,6 +2,7 @@ package com.suryodaybank.jyotiassisted.ui.fragments;
 
 import static com.suryodaybank.jyotiassisted.utils.Constants.BRANCH_CODE;
 import static com.suryodaybank.jyotiassisted.utils.Constants.IMAGE_PATH;
+import static com.suryodaybank.jyotiassisted.utils.Constants.MY_CAMERA_PERMISSION_CODE;
 import static com.suryodaybank.jyotiassisted.utils.Constants.UID1;
 
 import android.Manifest;
@@ -52,7 +53,6 @@ public class HomeFragment extends Fragment {
     private String imageFilePath = "";
     File imageFile;
     private int REQUEST_CAMERA = 0, SELECT_FILE = 1;
-    private static final int MY_CAMERA_PERMISSION_CODE = 100;
 
 
     @Override
