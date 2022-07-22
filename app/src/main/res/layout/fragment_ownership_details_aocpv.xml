@@ -55,25 +55,26 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/ownershipSpinner" />
 
-        <CheckBox
-            android:id="@+id/checkBox13"
+        <RadioGroup
+            android:id="@+id/cgRoofType"
             android:layout_width="0dp"
-            android:layout_height="32dp"
+            android:layout_height="wrap_content"
             android:layout_margin="8dp"
-            android:text="@string/pucca_rcc"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/tvRoofType" />
+            app:layout_constraintTop_toBottomOf="@+id/tvRoofType">
 
-        <CheckBox
-            android:id="@+id/checkBox14"
-            android:layout_width="0dp"
-            android:layout_height="32dp"
-            android:layout_marginHorizontal="8dp"
-            android:text="@string/kacha_asbestos_thastched_tin"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/checkBox13" />
+            <RadioButton
+                android:layout_width="wrap_content"
+                android:layout_height="32dp"
+                android:text="@string/pucca_rcc" />
+
+            <RadioButton
+                android:layout_width="wrap_content"
+                android:layout_height="32dp"
+                android:text="@string/kacha_asbestos_thastched_tin" />
+        </RadioGroup>
+
 
         <TextView
             android:id="@+id/tvResidenceStability"
@@ -85,7 +86,7 @@
             android:text="@string/residence_stability"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/checkBox14" />
+            app:layout_constraintTop_toBottomOf="@+id/cgRoofType" />
 
         <EditText
             android:id="@+id/etResidenceStability"
@@ -102,23 +103,33 @@
         <TextView
             android:id="@+id/tvBillType"
             style="@style/Aocpv.SubTitle"
-            android:layout_width="fill_parent"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginHorizontal="8dp"
             android:layout_marginTop="12dp"
             android:text="@string/utility_bills"
-            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintEnd_toStartOf="@+id/billImg"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/etResidenceStability" />
 
         <Spinner
             android:id="@+id/utilitySpinner"
-            android:layout_width="match_parent"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_margin="8dp"
-            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintEnd_toStartOf="@+id/billImg"
             app:layout_constraintStart_toStartOf="@+id/tvBillType"
             app:layout_constraintTop_toBottomOf="@+id/tvBillType" />
+
+        <com.google.android.material.imageview.ShapeableImageView
+            android:id="@+id/billImg"
+            android:layout_width="48dp"
+            android:layout_height="48dp"
+            android:padding="8dp"
+            android:src="@drawable/ic_image_placeholder"
+            app:layout_constraintBottom_toBottomOf="@id/utilitySpinner"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="@+id/tvBillType" />
 
         <TextView
             android:id="@+id/tvRelationship"
@@ -222,37 +233,15 @@
             app:layout_constraintTop_toBottomOf="@+id/tvAddLine3" />
 
         <TextView
-            android:id="@+id/txtCountry"
-            style="@style/Aocpv.SubTitle"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_margin="8dp"
-            android:text="@string/country"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="@id/guideline1"
-            app:layout_constraintTop_toBottomOf="@+id/etAddLine3" />
-
-        <Spinner
-            android:id="@+id/countrySpinner"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_margin="8dp"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="1.0"
-            app:layout_constraintStart_toStartOf="@id/guideline1"
-            app:layout_constraintTop_toBottomOf="@+id/txtCountry" />
-
-        <TextView
             android:id="@+id/tvPincode"
             style="@style/Aocpv.SubTitle"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_margin="8dp"
             android:text="@string/pin_code"
-            app:layout_constraintEnd_toEndOf="@id/guideline1"
-            app:layout_constraintHorizontal_bias="0.0"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/etAddLine2" />
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="@id/guideline1"
+            app:layout_constraintTop_toBottomOf="@+id/etAddLine3" />
 
         <EditText
             android:id="@+id/etPincode"
@@ -261,31 +250,51 @@
             android:layout_marginHorizontal="8dp"
             android:hint="@string/enter_pincode"
             android:inputType="number"
-            app:layout_constraintEnd_toEndOf="@id/guideline1"
-            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="@id/guideline1"
             app:layout_constraintTop_toBottomOf="@+id/tvPincode" />
 
-        <com.google.android.material.imageview.ShapeableImageView
-            android:id="@+id/billImg"
-            android:layout_width="100dp"
-            android:layout_height="100dp"
-            android:layout_margin="8dp"
-            android:src="@drawable/ic_image_placeholder"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="@id/guideline1"
-            app:layout_constraintTop_toBottomOf="@+id/countrySpinner" />
-
         <TextView
-            android:id="@+id/tvBillCaption"
+            android:id="@+id/tvCity"
+            style="@style/Aocpv.SubTitle"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_margin="4dp"
-            android:gravity="center"
-            android:text="@string/utility_bill_photo"
-            android:textColor="@color/black"
+            android:layout_margin="8dp"
+            android:text="@string/city"
+            app:layout_constraintEnd_toEndOf="@id/guideline1"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/etAddLine2" />
+
+        <EditText
+            android:id="@+id/etCity"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginHorizontal="8dp"
+            android:hint="@string/enter_city"
+            app:layout_constraintEnd_toEndOf="@id/guideline1"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/tvCity" />
+
+        <TextView
+            android:id="@+id/tvState"
+            style="@style/Aocpv.SubTitle"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_margin="8dp"
+            android:text="@string/state"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="@id/guideline1"
-            app:layout_constraintTop_toBottomOf="@+id/billImg" />
+            app:layout_constraintTop_toBottomOf="@+id/etPincode" />
+
+        <EditText
+            android:id="@+id/etState"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginHorizontal="8dp"
+            android:hint="@string/enter_state"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="@id/guideline1"
+            app:layout_constraintTop_toBottomOf="@+id/tvState" />
 
         <TextView
             android:id="@+id/tvAsset"
@@ -296,7 +305,7 @@
             android:text="@string/other_assets"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/tvBillCaption" />
+            app:layout_constraintTop_toBottomOf="@+id/etCity" />
 
         <CheckBox
             android:id="@+id/checkBox1"
@@ -402,8 +411,8 @@
 
         <TextView
             android:id="@+id/tvBusinessDetails"
-            style="@style/Aocpv.SubTitle"
-            android:layout_width="wrap_content"
+            style="@style/Aocpv.HeaderTitle"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_margin="8dp"
             android:text="@string/primary_business_details"
@@ -415,12 +424,12 @@
         <TextView
             android:id="@+id/tvVintage"
             style="@style/Aocpv.SubTitle"
-            android:layout_width="fill_parent"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginHorizontal="8dp"
             android:layout_marginTop="12dp"
             android:text="@string/vintage"
-            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintEnd_toStartOf="@+id/businessImg"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/tvBusinessDetails" />
 
@@ -430,33 +439,19 @@
             android:layout_height="wrap_content"
             android:layout_marginHorizontal="8dp"
             android:hint="@string/vintage_in_years"
-            app:layout_constraintEnd_toEndOf="@id/guideline1"
+            app:layout_constraintEnd_toStartOf="@id/businessImg"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/tvVintage" />
 
 
         <com.google.android.material.imageview.ShapeableImageView
             android:id="@+id/businessImg"
-            android:layout_width="100dp"
-            android:layout_height="100dp"
-            android:layout_margin="8dp"
+            android:layout_width="48dp"
+            android:layout_height="48dp"
+            android:padding="8dp"
             android:src="@drawable/ic_image_placeholder"
+            app:layout_constraintBottom_toBottomOf="@id/etVintage"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="@id/guideline1"
-            app:layout_constraintTop_toBottomOf="@id/tvBusinessDetails" />
-
-        <TextView
-            android:id="@+id/tvBusinessCaption"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_margin="4dp"
-            android:gravity="center"
-            android:text="@string/business_photo"
-            android:textColor="@color/black"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="@id/guideline1"
-            app:layout_constraintTop_toBottomOf="@id/businessImg" />
-
-
+            app:layout_constraintTop_toTopOf="@id/tvVintage" />
     </androidx.constraintlayout.widget.ConstraintLayout>
 </ScrollView>
