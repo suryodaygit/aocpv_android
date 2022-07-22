@@ -7,7 +7,7 @@
         android:title="@string/home" />
 
     <item
-        android:id="@+id/preApproveFragment"
+        android:id="@+id/aocpvFragment"
         android:icon="@drawable/ic_outline_check_box"
         android:title="@string/aocpv" />
 </menu>
