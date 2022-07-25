@@ -1,5 +1,6 @@
 package com.suryodaybank.jyotiassisted.ui.adapter;
 
+import android.annotation.SuppressLint;
 import android.view.LayoutInflater;
 import android.view.ViewGroup;
 
@@ -40,8 +41,8 @@ public class PreApproveAdapter extends ListAdapter<PreApprove, PreApproveAdapter
         PreApprove preApprove = getItem(position);
         holder.bind(preApprove);
         holder.binding.btnProceed.setOnClickListener(view -> onClickListener.onProceed());
-        holder.binding.btnNotInterested.setOnClickListener(view -> onClickListener.onNotInterested());
-        holder.binding.btnCall.setOnClickListener(view -> onClickListener.onCall(preApprove.getLandphoneNUMBER()));
+        holder.binding.btnNotInterested.setOnClickListener(view -> onClickListener.onNotInterested(preApprove));
+        holder.binding.btnCall.setOnClickListener(view -> onClickListener.onCall(preApprove.getMobilePhone()));
     }
 
     static class PreApproveVH extends RecyclerView.ViewHolder {
@@ -52,9 +53,11 @@ public class PreApproveAdapter extends ListAdapter<PreApprove, PreApproveAdapter
             this.binding = binding;
         }
 
+        @SuppressLint("SetTextI18n")
         public void bind(PreApprove preApprove) {
-            binding.tvName.setText(preApprove.getMemberNAME());
-            binding.tvMobileNumber.setText(preApprove.getLandphoneNUMBER());
+            binding.tvName.setText(preApprove.getMemberName());
+            binding.tvMobileNumber.setText(preApprove.getMobilePhone() + "");
+            binding.tvAmount.setText(preApprove.getAmount() + "");
         }
     }
 
@@ -65,8 +68,8 @@ public class PreApproveAdapter extends ListAdapter<PreApprove, PreApproveAdapter
     public interface OnClickListener {
         void onProceed();
 
-        void onNotInterested();
+        void onNotInterested(PreApprove preApprove);
 
-        void onCall(String number);
+        void onCall(long number);
     }
 }

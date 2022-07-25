@@ -151,4 +151,5 @@
     <string name="logout">Logout</string>
     <string name="add_household_monthly_income">Add household monthly income</string>
     <string name="search_here">Search here</string>
+    <string name="something_is_wrong">Something is wrong</string>
 </resources>

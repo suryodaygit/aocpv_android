@@ -1,12 +1,16 @@
 package com.suryodaybank.jyotiassisted.repositories;
 
+import com.google.gson.JsonObject;
+import com.suryodaybank.jyotiassisted.models.DataModel;
 import com.suryodaybank.jyotiassisted.models.PreApprove;
 import com.suryodaybank.jyotiassisted.services.AocpvService;
+import com.suryodaybank.jyotiassisted.utils.PreApproveStatus;
 
 import java.util.List;
 
 import javax.inject.Inject;
 
+import okhttp3.ResponseBody;
 import retrofit2.Call;
 
 public class AocpvRepository {
@@ -18,9 +22,22 @@ public class AocpvRepository {
         this.aocpvService = aocpvService;
     }
 
-    public Call<List<PreApprove>> getPreApproveList() {
-        return aocpvService.getPreApprovalList();
+    public Call<List<PreApprove>> getPreApproveList(String status) {
+        DataModel<JsonObject> dataModel = new DataModel<>();
+        JsonObject body = new JsonObject();
+        body.addProperty("BranchID", "10011");
+        body.addProperty("Status", status);
+        dataModel.setData(body);
+        return aocpvService.getPreApprovalList(dataModel);
     }
 
-
+    public Call<ResponseBody> notInterestedStatus(long customerId) {
+        DataModel<JsonObject> dataModel = new DataModel<>();
+        JsonObject body = new JsonObject();
+        body.addProperty("BranchID", "10011");
+        body.addProperty("Status", PreApproveStatus.NOT_INTERESTED.status);
+        body.addProperty("customerID", "19845948959"); //TODO: Need to pass customerId here
+        dataModel.setData(body);
+        return aocpvService.updateStatus(dataModel);
+    }
 }

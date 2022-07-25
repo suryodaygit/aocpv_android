@@ -64,13 +64,13 @@ public class PreApproveFragment extends Fragment {
             }
 
             @Override
-            public void onNotInterested() {
-
+            public void onNotInterested(PreApprove preApprove) {
+                aocpvViewModel.notInterestedStatusUpdate(getActivity(), preApprove);
             }
 
             @Override
-            public void onCall(String number) {
-                if (number == null) return;
+            public void onCall(long number) {
+//                if (number == null) return;
                 try {
                     Uri uri = Uri.parse("tel:" + number);
                     Intent intent = new Intent(Intent.ACTION_DIAL, uri);
@@ -106,6 +106,7 @@ public class PreApproveFragment extends Fragment {
     private void setupObserver() {
         aocpvViewModel.preApprovesLivedata.observe(getViewLifecycleOwner(), preApproves -> {
             preApproveAdapter.submitList(preApproves);
+            preApproveAdapter.notifyDataSetChanged();
             if (preApproves.isEmpty()) {
                 binding.tvNoItemFound.setVisibility(View.VISIBLE);
             } else {
@@ -116,10 +117,7 @@ public class PreApproveFragment extends Fragment {
             preApproveAdapter.submitList(aocpvViewModel.preApprovesLivedata.getValue().stream().filter(new Predicate<PreApprove>() {
                 @Override
                 public boolean test(PreApprove preApprove) {
-                    String number = "";
-                    if (preApprove.getLandphoneNUMBER() != null) {
-                        number = preApprove.getLandphoneNUMBER();
-                    }
+                    String number = preApprove.getMobilePhone() + "";
                     return number.contains(query);
                 }
             }).collect(Collectors.toList()));

@@ -111,6 +111,12 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/completed" />
+
+        <com.google.android.material.chip.Chip
+            style="@style/Widget.MaterialComponents.Chip.Filter"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/not_interested" />
     </com.google.android.material.chip.ChipGroup>
 
     <Button

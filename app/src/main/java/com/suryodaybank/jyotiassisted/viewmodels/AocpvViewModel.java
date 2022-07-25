@@ -1,13 +1,17 @@
 package com.suryodaybank.jyotiassisted.viewmodels;
 
+import android.content.Context;
 import android.util.Log;
+import android.widget.Toast;
 
 import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.ViewModel;
 
+import com.suryodaybank.jyotiassisted.R;
 import com.suryodaybank.jyotiassisted.models.MonthlyIncome;
 import com.suryodaybank.jyotiassisted.models.PreApprove;
 import com.suryodaybank.jyotiassisted.repositories.AocpvRepository;
+import com.suryodaybank.jyotiassisted.utils.PreApproveStatus;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -15,6 +19,7 @@ import java.util.List;
 import javax.inject.Inject;
 
 import dagger.hilt.android.lifecycle.HiltViewModel;
+import okhttp3.ResponseBody;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -38,7 +43,7 @@ public class AocpvViewModel extends ViewModel {
     }
 
     private void getPreApproveList() {
-        aocpvRepository.getPreApproveList().enqueue(new Callback<List<PreApprove>>() {
+        aocpvRepository.getPreApproveList(PreApproveStatus.INITIATED.status).enqueue(new Callback<List<PreApprove>>() {
             @Override
             public void onResponse(Call<List<PreApprove>> call, Response<List<PreApprove>> response) {
                 if (response.isSuccessful()) {
@@ -60,5 +65,26 @@ public class AocpvViewModel extends ViewModel {
         List<MonthlyIncome> monthlyIncomes = monthlyIncomeLivedata.getValue();
         monthlyIncomes.add(monthlyIncome);
         monthlyIncomeLivedata.setValue(monthlyIncomes);
+    }
+
+    public void notInterestedStatusUpdate(Context context, PreApprove preApprove) {
+        aocpvRepository.notInterestedStatus(preApprove.getCustomerID()).enqueue(new Callback<ResponseBody>() {
+            @Override
+            public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
+                if (response.isSuccessful()) {
+                    List<PreApprove> dataList = preApprovesLivedata.getValue();
+                    dataList.remove(preApprove);
+                    preApprovesLivedata.setValue(dataList);
+                } else {
+                    Toast.makeText(context, R.string.something_is_wrong, Toast.LENGTH_SHORT).show();
+                }
+            }
+
+            @Override
+            public void onFailure(Call<ResponseBody> call, Throwable t) {
+                Toast.makeText(context, R.string.something_is_wrong, Toast.LENGTH_SHORT).show();
+                t.printStackTrace();
+            }
+        });
     }
 }
