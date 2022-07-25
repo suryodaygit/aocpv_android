@@ -3,11 +3,12 @@ package com.suryodaybank.jyotiassisted.viewmodels;
 import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.ViewModel;
 
-import com.suryodaybank.jyotiassisted.models.LoginResponse;
 import com.suryodaybank.jyotiassisted.models.DataModel;
 import com.suryodaybank.jyotiassisted.models.LoginRequest;
+import com.suryodaybank.jyotiassisted.models.LoginResponse;
 import com.suryodaybank.jyotiassisted.models.VersionResponse;
 import com.suryodaybank.jyotiassisted.repositories.VersionRepository;
+import com.suryodaybank.jyotiassisted.utils.Utils;
 
 import javax.inject.Inject;
 
@@ -38,8 +39,6 @@ public class LoginViewModel extends ViewModel {
                     if (!response.body().getData().getAllow()) {
                         livedata.postValue(response.body().getData().getMessage());
                     }
-                } else {
-                    livedata.postValue(null);
                 }
             }
 
@@ -68,7 +67,7 @@ public class LoginViewModel extends ViewModel {
                         errorlivedata.postValue(response.body().getError());
                     }
                 } else {
-                    livedata.postValue(null);
+                    errorlivedata.postValue(Utils.getErrorMessage(response.errorBody()));
                 }
             }
 

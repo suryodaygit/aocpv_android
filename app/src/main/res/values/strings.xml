@@ -152,4 +152,6 @@
     <string name="add_household_monthly_income">Add household monthly income</string>
     <string name="search_here">Search here</string>
     <string name="something_is_wrong">Something is wrong</string>
+    <string name="save_confirmation_dialog">Do you want to save?</string>
+    <string name="confirm">Confirm</string>
 </resources>

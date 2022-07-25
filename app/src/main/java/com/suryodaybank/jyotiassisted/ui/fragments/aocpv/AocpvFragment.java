@@ -1,5 +1,6 @@
 package com.suryodaybank.jyotiassisted.ui.fragments.aocpv;
 
+import android.content.DialogInterface;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -7,6 +8,7 @@ import android.view.ViewGroup;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.appcompat.app.AlertDialog;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentActivity;
 import androidx.lifecycle.Observer;
@@ -62,19 +64,10 @@ public class AocpvFragment extends Fragment {
     private void setupViews() {
         setupViewPager();
         binding.btnNext.setOnClickListener(view -> {
-            int currentItem = binding.aocpvViewPager.getCurrentItem();
-            if (currentItem < TOTAL_PAGE - 1) {
-                binding.aocpvViewPager.setCurrentItem(currentItem + 1);
-                aocpvViewModel.pageNoLivedata.setValue(binding.aocpvViewPager.getCurrentItem() + 1);
-            } else {
-                Navigation.findNavController(binding.getRoot())
-                        .navigate(AocpvFragmentDirections.actionAocpvFragmentToAocpvValidationFragment());
-            }
+            showConfirmationDialog();
         });
         binding.btnPrevious.setOnClickListener(view -> {
-            int currentItem = binding.aocpvViewPager.getCurrentItem();
-            binding.aocpvViewPager.setCurrentItem(currentItem - 1);
-            aocpvViewModel.pageNoLivedata.setValue(binding.aocpvViewPager.getCurrentItem() + 1);
+            moveToPreviousPage();
         });
     }
 
@@ -90,6 +83,42 @@ public class AocpvFragment extends Fragment {
         });
         binding.aocpvViewPager.setAdapter(pagerAdapter);
         binding.aocpvViewPager.setUserInputEnabled(false);
+    }
+
+    private void showConfirmationDialog() {
+        AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
+        builder.setTitle(R.string.confirm);
+        builder.setMessage(R.string.save_confirmation_dialog);
+        builder.setPositiveButton(R.string.yes, new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialogInterface, int i) {
+                moveToNextPage();
+            }
+        });
+        builder.setNegativeButton(R.string.no, new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialogInterface, int i) {
+                dialogInterface.dismiss();
+            }
+        });
+        builder.show();
+    }
+
+    private void moveToNextPage() {
+        int currentItem = binding.aocpvViewPager.getCurrentItem();
+        if (currentItem < TOTAL_PAGE - 1) {
+            binding.aocpvViewPager.setCurrentItem(currentItem + 1);
+            aocpvViewModel.pageNoLivedata.setValue(binding.aocpvViewPager.getCurrentItem() + 1);
+        } else {
+            Navigation.findNavController(binding.getRoot())
+                    .navigate(AocpvFragmentDirections.actionAocpvFragmentToAocpvValidationFragment());
+        }
+    }
+
+    private void moveToPreviousPage() {
+        int currentItem = binding.aocpvViewPager.getCurrentItem();
+        binding.aocpvViewPager.setCurrentItem(currentItem - 1);
+        aocpvViewModel.pageNoLivedata.setValue(binding.aocpvViewPager.getCurrentItem() + 1);
     }
 
     private static class AocpvSlidePagerAdapter extends FragmentStateAdapter {
