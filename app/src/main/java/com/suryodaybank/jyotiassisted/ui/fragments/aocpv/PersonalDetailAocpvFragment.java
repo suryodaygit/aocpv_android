@@ -25,9 +25,13 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.core.content.ContextCompat;
 import androidx.fragment.app.Fragment;
+import androidx.lifecycle.Observer;
+import androidx.lifecycle.ViewModelProvider;
 
 import com.suryodaybank.jyotiassisted.databinding.FragmentPersonalDetailAocpvBinding;
+import com.suryodaybank.jyotiassisted.models.CRMCustDataResponseItem;
 import com.suryodaybank.jyotiassisted.utils.Constants;
+import com.suryodaybank.jyotiassisted.viewmodels.AocpvViewModel;
 
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
@@ -39,6 +43,8 @@ public class PersonalDetailAocpvFragment extends Fragment {
     ActivityResultLauncher<String> galleryLaunch;
     private FragmentPersonalDetailAocpvBinding binding;
     final Calendar myCalendar = Calendar.getInstance();
+
+    private AocpvViewModel aocpvViewModel;
 
     public PersonalDetailAocpvFragment() {
         // Required empty public constructor
@@ -54,7 +60,9 @@ public class PersonalDetailAocpvFragment extends Fragment {
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
+        aocpvViewModel = new ViewModelProvider(this).get(AocpvViewModel.class);
         setupViews();
+        setupObserver();
         cameraLaunch = registerForActivityResult(new ActivityResultContracts.StartActivityForResult(),
                 new ActivityResultCallback<ActivityResult>() {
                     @Override
@@ -80,6 +88,20 @@ public class PersonalDetailAocpvFragment extends Fragment {
                 selectImage();
             }
         });
+    }
+
+    private void setupObserver() {
+        aocpvViewModel.customerQueryLiveData.observe(getViewLifecycleOwner(), new Observer<CRMCustDataResponseItem>() {
+            @Override
+            public void onChanged(CRMCustDataResponseItem crmCustDataResponseItem) {
+                if(crmCustDataResponseItem!= null){
+                    binding.etCustomerId.setText(crmCustDataResponseItem.getCIFNUMBER());
+
+                }
+
+            }
+        });
+
     }
 
     private void selectImage() {
