@@ -1,16 +1,26 @@
 package com.suryodaybank.jyotiassisted.models;
 
+import com.google.gson.annotations.SerializedName;
+
 import java.util.Objects;
 
 public class MonthlyIncome {
 
+    @SerializedName("member")
     private String familyMember;
+    @SerializedName("earning")
     private String earningMember;
+    @SerializedName("occupation")
     private String occupation;
+    @SerializedName("primarySourceOfIncome")
     private String sourceOfIncome;
+    @SerializedName("securedLoan")
     private String securedLoan;
+    @SerializedName("unsecuredLoan")
     private String unsecuredLoan;
+    @SerializedName("monthlyIncome")
     private long monthlyIncome;
+    @SerializedName("monthlyLoanEmi")
     private long monthlyLoanEmi;
 
     public String getFamilyMember() {

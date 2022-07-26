@@ -14,6 +14,7 @@ import androidx.navigation.Navigation;
 import androidx.recyclerview.widget.LinearLayoutManager;
 
 import com.suryodaybank.jyotiassisted.databinding.FragmentMonthlyIncomeAocpvBinding;
+import com.suryodaybank.jyotiassisted.models.SaveIncomeRequest;
 import com.suryodaybank.jyotiassisted.ui.adapter.MonthlyIncomeAdapter;
 import com.suryodaybank.jyotiassisted.viewmodels.AocpvViewModel;
 
@@ -72,6 +73,10 @@ public class MonthlyIncomeAocpvFragment extends Fragment {
             binding.tvTotalMonthlyIncome.setText(sumIncome + "");
             binding.tvTotalMonthlyEmi.setText(sumEmi + "");
         });
+
+        aocpvViewModel.getMonthlyIncomeData.observe(getViewLifecycleOwner(), unused -> {
+            prepareDataAndCallApi();
+        });
     }
 
     private void setupViews() {
@@ -86,5 +91,13 @@ public class MonthlyIncomeAocpvFragment extends Fragment {
                 navController.navigate(AocpvFragmentDirections.actionAocpvFragmentToAddMonthlyHouseholdFragment());
             }
         });
+    }
+
+    private void prepareDataAndCallApi() {
+        SaveIncomeRequest saveIncomeRequest = new SaveIncomeRequest();
+        saveIncomeRequest.setTotalMonthlyIncome(binding.tvTotalMonthlyIncome.getText().toString());
+        saveIncomeRequest.setTotalMonthlyEmi(binding.tvTotalMonthlyEmi.getText().toString());
+        saveIncomeRequest.setIncomeDetails(monthlyIncomeAdapter.getCurrentList());
+        aocpvViewModel.callMonthlyIncomeApi(saveIncomeRequest);
     }
 }
