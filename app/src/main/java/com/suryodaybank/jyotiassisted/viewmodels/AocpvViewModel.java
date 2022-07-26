@@ -11,8 +11,11 @@ import com.suryodaybank.jyotiassisted.R;
 import com.suryodaybank.jyotiassisted.models.CRMCustDataResponseItem;
 import com.suryodaybank.jyotiassisted.models.CustomerDetailsRequest;
 import com.suryodaybank.jyotiassisted.models.DataModel;
+import com.suryodaybank.jyotiassisted.models.MfiData;
 import com.suryodaybank.jyotiassisted.models.MonthlyIncome;
 import com.suryodaybank.jyotiassisted.models.PreApprove;
+import com.suryodaybank.jyotiassisted.models.ValidationResponse;
+import com.suryodaybank.jyotiassisted.models.ValidationRequestModel;
 import com.suryodaybank.jyotiassisted.repositories.AocpvRepository;
 import com.suryodaybank.jyotiassisted.utils.PreApproveStatus;
 import com.suryodaybank.jyotiassisted.utils.SingleLiveEvent;
@@ -40,6 +43,9 @@ public class AocpvViewModel extends ViewModel {
     public MutableLiveData<Integer> pageNoLivedata = new MutableLiveData<>(1);
     public MutableLiveData<String> searchQueryLiveData = new MutableLiveData<>("");
     public MutableLiveData<List<CRMCustDataResponseItem>> customerQueryLiveData = new MutableLiveData<List<CRMCustDataResponseItem>>();
+    public SingleLiveEvent<Void> getMfiClassificationData = new SingleLiveEvent<>();
+    public SingleLiveEvent<Void> getValidationData = new SingleLiveEvent<>();
+
 
     @Inject
     public AocpvViewModel(AocpvRepository aocpvRepository) {
@@ -134,11 +140,51 @@ public class AocpvViewModel extends ViewModel {
             case 2:
                 //Save monthly expense details
                 break;
+            case 5:
+               getMfiClassificationData.call();
+
+            case 6:
+               getValidationData.call();
         }
-        nextPage.call(); //Add this line to move to next screen
+        //Add this line to move to next screen
+        nextPage.call();
     }
 
     public void callMonthlyExpenseApi() {
 
+    }
+
+    public void callMFIClassification(Context mContext,MfiData mfiData){
+        aocpvRepository.mfiClassification(mfiData).enqueue(new Callback<ResponseBody>() {
+            @Override
+            public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
+               String response1  = String.valueOf(response.body());
+               Toast.makeText(mContext,"data updated",Toast.LENGTH_SHORT).show();
+              Log.d("mfi",response1);
+            }
+
+            @Override
+            public void onFailure(Call<ResponseBody> call, Throwable t) {
+              Toast.makeText(mContext,"Something went wrong",Toast.LENGTH_SHORT).show();
+              t.printStackTrace();
+            }
+        });
+    }
+
+    public void callValidationData(Context mContext, ValidationRequestModel validationRequestModel){
+        aocpvRepository.validationData(validationRequestModel).enqueue(new Callback<ResponseBody>() {
+            @Override
+            public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
+                ValidationResponse validationResponse = new ValidationResponse();
+               // validationResponse = response.body();
+                String response1 = String.valueOf(response.body());
+                Toast.makeText(mContext,response1.toString(),Toast.LENGTH_SHORT).show();nextPage.call();
+            }
+
+            @Override
+            public void onFailure(Call<ResponseBody> call, Throwable t) {
+                 Toast.makeText(mContext,"Something went wrong",Toast.LENGTH_SHORT).show();
+            }
+        });
     }
 }

@@ -12,6 +12,7 @@ import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
 
 import com.suryodaybank.jyotiassisted.databinding.FragmentAocpvValidationBinding;
+import com.suryodaybank.jyotiassisted.models.ValidationRequestModel;
 import com.suryodaybank.jyotiassisted.viewmodels.AocpvViewModel;
 
 import java.util.ArrayList;
@@ -37,6 +38,10 @@ public class AocpvValidationFragment extends Fragment {
         super.onViewCreated(view, savedInstanceState);
         aocpvViewModel = new ViewModelProvider(requireActivity()).get(AocpvViewModel.class);
         setupViews();
+        aocpvViewModel.getValidationData.observe(getViewLifecycleOwner(), unused -> {
+            ValidationRequestModel validationRequestModel = new ValidationRequestModel("12345683");
+            aocpvViewModel.callValidationData(getActivity(),validationRequestModel);
+        });
     }
 
     private void setupViews() {

@@ -2,11 +2,11 @@ package com.suryodaybank.jyotiassisted.repositories;
 
 import com.google.gson.JsonObject;
 import com.suryodaybank.jyotiassisted.models.DataModel;
-import com.suryodaybank.jyotiassisted.models.CRMCustDataResponseItem;
 import com.suryodaybank.jyotiassisted.models.CustomerDetailsRequest;
-import com.suryodaybank.jyotiassisted.models.DataModel;
+import com.suryodaybank.jyotiassisted.models.MfiData;
 import com.suryodaybank.jyotiassisted.models.PreApprove;
 import com.suryodaybank.jyotiassisted.models.Response;
+import com.suryodaybank.jyotiassisted.models.ValidationRequestModel;
 import com.suryodaybank.jyotiassisted.services.AocpvService;
 import com.suryodaybank.jyotiassisted.utils.PreApproveStatus;
 
@@ -47,5 +47,17 @@ public class AocpvRepository {
 
     public Call<Response> getUserDetail(DataModel<CustomerDetailsRequest> customerDetailsRequestDataModel) {
         return aocpvService.getCustomerDetails(customerDetailsRequestDataModel);
+    }
+
+    public Call<ResponseBody> mfiClassification(MfiData mfiData){
+        DataModel<MfiData> mfiDataDataModel = new DataModel<MfiData>();
+        mfiDataDataModel.setData(mfiData);
+    return aocpvService.getMFISuccess(mfiDataDataModel);
+    }
+
+    public  Call<ResponseBody> validationData(ValidationRequestModel validationRequestModel){
+        DataModel<ValidationRequestModel> validationRequestModelDataModel1 = new DataModel<ValidationRequestModel>();
+        validationRequestModelDataModel1.setData(validationRequestModel);
+        return aocpvService.getValidationData(validationRequestModelDataModel1);
     }
 }
