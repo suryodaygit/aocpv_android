@@ -1,12 +1,11 @@
 package com.suryodaybank.jyotiassisted.services;
 
 import com.google.gson.JsonObject;
-import com.suryodaybank.jyotiassisted.models.DataModel;
-import com.suryodaybank.jyotiassisted.models.CRMCustDataResponseItem;
 import com.suryodaybank.jyotiassisted.models.CustomerDetailsRequest;
 import com.suryodaybank.jyotiassisted.models.DataModel;
 import com.suryodaybank.jyotiassisted.models.PreApprove;
 import com.suryodaybank.jyotiassisted.models.Response;
+import com.suryodaybank.jyotiassisted.models.SaveIncomeRequest;
 
 import java.util.List;
 
@@ -25,4 +24,7 @@ public interface AocpvService {
 
     @POST("customer/getData")
     Call<Response> getCustomerDetails(@Body DataModel<CustomerDetailsRequest> customerDetailsRequestDataModel);
+
+    @POST("aocp/customer/saveData")
+    Call<ResponseBody> saveIncomeDetails(@Body DataModel<SaveIncomeRequest> body);
 }

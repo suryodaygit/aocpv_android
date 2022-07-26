@@ -13,6 +13,7 @@ import com.suryodaybank.jyotiassisted.models.CustomerDetailsRequest;
 import com.suryodaybank.jyotiassisted.models.DataModel;
 import com.suryodaybank.jyotiassisted.models.MonthlyIncome;
 import com.suryodaybank.jyotiassisted.models.PreApprove;
+import com.suryodaybank.jyotiassisted.models.SaveIncomeRequest;
 import com.suryodaybank.jyotiassisted.repositories.AocpvRepository;
 import com.suryodaybank.jyotiassisted.utils.PreApproveStatus;
 import com.suryodaybank.jyotiassisted.utils.SingleLiveEvent;
@@ -40,6 +41,8 @@ public class AocpvViewModel extends ViewModel {
     public MutableLiveData<Integer> pageNoLivedata = new MutableLiveData<>(1);
     public MutableLiveData<String> searchQueryLiveData = new MutableLiveData<>("");
     public MutableLiveData<List<CRMCustDataResponseItem>> customerQueryLiveData = new MutableLiveData<List<CRMCustDataResponseItem>>();
+
+    public SingleLiveEvent<Void> getMonthlyIncomeData = new SingleLiveEvent();
 
     @Inject
     public AocpvViewModel(AocpvRepository aocpvRepository) {
@@ -132,13 +135,31 @@ public class AocpvViewModel extends ViewModel {
                 //Save utility details
                 break;
             case 2:
-                //Save monthly expense details
+                //Save monthly income details
+                getMonthlyIncomeData.call();
                 break;
         }
-        nextPage.call(); //Add this line to move to next screen
+//        nextPage.call(); //Add this line to move to next screen
     }
 
     public void callMonthlyExpenseApi() {
 
+    }
+
+    public void callMonthlyIncomeApi(SaveIncomeRequest saveIncomeRequest) {
+        saveIncomeRequest.setApplicationNo("12345681"); //TODO: Need to generate random
+        aocpvRepository.saveIncomeDetails(saveIncomeRequest).enqueue(new Callback<ResponseBody>() {
+            @Override
+            public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
+                if (response.isSuccessful()) {
+                    nextPage.call();
+                }
+            }
+
+            @Override
+            public void onFailure(Call<ResponseBody> call, Throwable t) {
+                t.printStackTrace();
+            }
+        });
     }
 }
