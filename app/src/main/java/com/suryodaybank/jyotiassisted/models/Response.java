@@ -1,9 +1,13 @@
 package com.suryodaybank.jyotiassisted.models;
 
-public class Response{
-	private CustomerDetailsRequest customerDetailsRequest;
+import com.google.gson.annotations.SerializedName;
 
-	public CustomerDetailsRequest getData(){
-		return customerDetailsRequest;
+public class Response{
+
+	@SerializedName("Data")
+	private Data data;
+
+	public Data getData(){
+		return data;
 	}
 }

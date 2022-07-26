@@ -3,9 +3,8 @@ package com.suryodaybank.jyotiassisted.repositories;
 import com.suryodaybank.jyotiassisted.models.CRMCustDataResponseItem;
 import com.suryodaybank.jyotiassisted.models.CustomerDetailsRequest;
 import com.suryodaybank.jyotiassisted.models.DataModel;
-import com.suryodaybank.jyotiassisted.models.LoginRequest;
-import com.suryodaybank.jyotiassisted.models.LoginResponse;
 import com.suryodaybank.jyotiassisted.models.PreApprove;
+import com.suryodaybank.jyotiassisted.models.Response;
 import com.suryodaybank.jyotiassisted.services.AocpvService;
 
 import java.util.List;
@@ -28,7 +27,7 @@ public class AocpvRepository {
     }
 
 
-    public Call<DataModel<CRMCustDataResponseItem>> getUserDetail(DataModel<CustomerDetailsRequest> customerDetailsRequestDataModel) {
+    public Call<Response> getUserDetail(DataModel<CustomerDetailsRequest> customerDetailsRequestDataModel) {
         return aocpvService.getCustomerDetails(customerDetailsRequestDataModel);
     }
 }

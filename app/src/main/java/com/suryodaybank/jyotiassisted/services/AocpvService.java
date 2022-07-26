@@ -3,8 +3,8 @@ package com.suryodaybank.jyotiassisted.services;
 import com.suryodaybank.jyotiassisted.models.CRMCustDataResponseItem;
 import com.suryodaybank.jyotiassisted.models.CustomerDetailsRequest;
 import com.suryodaybank.jyotiassisted.models.DataModel;
-import com.suryodaybank.jyotiassisted.models.LoginResponse;
 import com.suryodaybank.jyotiassisted.models.PreApprove;
+import com.suryodaybank.jyotiassisted.models.Response;
 
 import java.util.List;
 
@@ -18,6 +18,6 @@ public interface AocpvService {
     Call<List<PreApprove>> getPreApprovalList();
 
     @POST("customer/getData")
-    Call<DataModel<CRMCustDataResponseItem>> getCustomerDetails(@Body DataModel<CustomerDetailsRequest> customerDetailsRequestDataModel);
+    Call<Response> getCustomerDetails(@Body DataModel<CustomerDetailsRequest> customerDetailsRequestDataModel);
 
 }

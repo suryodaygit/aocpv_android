@@ -12,6 +12,7 @@ import android.graphics.Bitmap;
 import android.net.Uri;
 import android.os.Bundle;
 import android.provider.MediaStore;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -35,8 +36,12 @@ import com.suryodaybank.jyotiassisted.viewmodels.AocpvViewModel;
 
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
+import java.util.List;
 import java.util.Locale;
 
+import dagger.hilt.android.AndroidEntryPoint;
+
+@AndroidEntryPoint
 public class PersonalDetailAocpvFragment extends Fragment {
     private int REQUEST_CAMERA = 0, SELECT_FILE = 1;
     ActivityResultLauncher<Intent> cameraLaunch;
@@ -91,12 +96,39 @@ public class PersonalDetailAocpvFragment extends Fragment {
     }
 
     private void setupObserver() {
-        aocpvViewModel.customerQueryLiveData.observe(getViewLifecycleOwner(), new Observer<CRMCustDataResponseItem>() {
-            @Override
-            public void onChanged(CRMCustDataResponseItem crmCustDataResponseItem) {
-                if(crmCustDataResponseItem!= null){
-                    binding.etCustomerId.setText(crmCustDataResponseItem.getCIFNUMBER());
 
+        aocpvViewModel.customerQueryLiveData.observe(getViewLifecycleOwner(), new Observer<List<CRMCustDataResponseItem>>() {
+            @Override
+            public void onChanged(List<CRMCustDataResponseItem> crmCustDataResponseItems) {
+
+                if (crmCustDataResponseItems != null) {
+
+                    binding.etCustomerId.setText(crmCustDataResponseItems.get(0).getCIFNUMBER());
+                    binding.etDOB.setText(crmCustDataResponseItems.get(0).getDOB());
+                    binding.etFirstName.setText(crmCustDataResponseItems.get(0).getnAMEMOBILEOWNER());
+                    binding.etMobileNum.setText(crmCustDataResponseItems.get(0).getrEGISTEREDMOBILE());
+                    int index = 2;
+
+//                    for (int i=0 ; i< 2; i++){
+//                        if(crmCustDataResponseItems.get(0).getAddressDetails().getAddressDet().get(i).getADDRESSTYPE().equalsIgnoreCase("Permanent")){
+//                            index = i;
+//                            Log.e("check index",String.valueOf(index));
+//                        }
+//
+//                    }
+
+
+                    binding.etAddLine1.setText(crmCustDataResponseItems.get(0).getAddressDetails().getAddressDet().get(index).getADDRESS1());
+                    binding.etAddLine2.setText(crmCustDataResponseItems.get(0).getAddressDetails().getAddressDet().get(index).getADDRESS2());
+                    binding.etAddLine3.setText(crmCustDataResponseItems.get(0).getAddressDetails().getAddressDet().get(index).getADDRESS3());
+                    binding.etCity.setText(crmCustDataResponseItems.get(0).getAddressDetails().getAddressDet().get(index).getCITY());
+                    binding.etState.setText(crmCustDataResponseItems.get(0).getAddressDetails().getAddressDet().get(index).getSTATE());
+                    binding.etPincode.setText(crmCustDataResponseItems.get(0).getAddressDetails().getAddressDet().get(index).getPINCODE());
+                    binding.etDistrict.setText(crmCustDataResponseItems.get(0).getAddressDetails().getAddressDet().get(index).getDISTRICT());
+
+
+                } else {
+                    Toast.makeText(getContext(), "Something Went wrong", Toast.LENGTH_SHORT).show();
                 }
 
             }

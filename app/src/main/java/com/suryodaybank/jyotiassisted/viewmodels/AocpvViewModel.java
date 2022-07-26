@@ -8,7 +8,6 @@ import androidx.lifecycle.ViewModel;
 import com.suryodaybank.jyotiassisted.models.CRMCustDataResponseItem;
 import com.suryodaybank.jyotiassisted.models.CustomerDetailsRequest;
 import com.suryodaybank.jyotiassisted.models.DataModel;
-import com.suryodaybank.jyotiassisted.models.LoginRequest;
 import com.suryodaybank.jyotiassisted.models.MonthlyIncome;
 import com.suryodaybank.jyotiassisted.models.PreApprove;
 import com.suryodaybank.jyotiassisted.repositories.AocpvRepository;
@@ -33,7 +32,7 @@ public class AocpvViewModel extends ViewModel {
     public MutableLiveData<List<MonthlyIncome>> monthlyIncomeLivedata = new MutableLiveData<>(new ArrayList<>());
     public MutableLiveData<Integer> pageNoLivedata = new MutableLiveData<>(1);
     public MutableLiveData<String> searchQueryLiveData = new MutableLiveData<>("");
-    public MutableLiveData<CRMCustDataResponseItem> customerQueryLiveData = new MutableLiveData<CRMCustDataResponseItem>();
+    public MutableLiveData<List<CRMCustDataResponseItem>> customerQueryLiveData = new MutableLiveData<List<CRMCustDataResponseItem>>();
 
     @Inject
     public AocpvViewModel(AocpvRepository aocpvRepository) {
@@ -53,23 +52,22 @@ public class AocpvViewModel extends ViewModel {
         customerDetailsRequest.setBranchCode("");
 
         body.setData(customerDetailsRequest);
-        aocpvRepository.getUserDetail(body).enqueue(new Callback<DataModel<CRMCustDataResponseItem>>() {
-            @Override
-            public void onResponse(Call<DataModel<CRMCustDataResponseItem>> call, Response<DataModel<CRMCustDataResponseItem>> response) {
-                if (response.isSuccessful()) {
-                    customerQueryLiveData.postValue(response.body().getData());
+       aocpvRepository.getUserDetail(body).enqueue(new Callback<com.suryodaybank.jyotiassisted.models.Response>() {
+           @Override
+           public void onResponse(Call<com.suryodaybank.jyotiassisted.models.Response> call, Response<com.suryodaybank.jyotiassisted.models.Response> response) {
+               if(response.isSuccessful()){
+                   customerQueryLiveData.setValue(response.body().getData().getCRMCustDataResponse());
+               }else {
+                   Log.d(TAG, "onResponse: " + response.errorBody().toString());
+                   customerQueryLiveData.setValue(null);
+               }
+           }
 
-                } else {
-                    //Error
-                    Log.d(TAG, "onResponse: " + response.errorBody().toString());
-                }
-            }
-
-            @Override
-            public void onFailure(Call<DataModel<CRMCustDataResponseItem>> call, Throwable t) {
-
-            }
-        });
+           @Override
+           public void onFailure(Call<com.suryodaybank.jyotiassisted.models.Response> call, Throwable t) {
+               t.printStackTrace();
+           }
+       });
     }
 
     private void getPreApproveList() {
