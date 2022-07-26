@@ -127,6 +127,7 @@ public class AocpvViewModel extends ViewModel {
         switch (index) {
             case 0:
                 //Save customer details
+                saveCustomerDetailsApi();
                 break;
             case 1:
                 //Save utility details
@@ -136,6 +137,10 @@ public class AocpvViewModel extends ViewModel {
                 break;
         }
         nextPage.call(); //Add this line to move to next screen
+    }
+
+    private void saveCustomerDetailsApi() {
+
     }
 
     public void callMonthlyExpenseApi() {

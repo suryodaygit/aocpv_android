@@ -31,6 +31,7 @@ import androidx.lifecycle.ViewModelProvider;
 
 import com.suryodaybank.jyotiassisted.databinding.FragmentPersonalDetailAocpvBinding;
 import com.suryodaybank.jyotiassisted.models.CRMCustDataResponseItem;
+import com.suryodaybank.jyotiassisted.models.CustomerSaveData;
 import com.suryodaybank.jyotiassisted.utils.Constants;
 import com.suryodaybank.jyotiassisted.viewmodels.AocpvViewModel;
 
@@ -97,11 +98,16 @@ public class PersonalDetailAocpvFragment extends Fragment {
 
     private void setupObserver() {
 
+
+
         aocpvViewModel.customerQueryLiveData.observe(getViewLifecycleOwner(), new Observer<List<CRMCustDataResponseItem>>() {
             @Override
             public void onChanged(List<CRMCustDataResponseItem> crmCustDataResponseItems) {
 
                 if (crmCustDataResponseItems != null) {
+
+                    CustomerSaveData customerSaveData = new CustomerSaveData();
+
 
                     binding.etCustomerId.setText(crmCustDataResponseItems.get(0).getCIFNUMBER());
                     binding.etDOB.setText(crmCustDataResponseItems.get(0).getDOB());

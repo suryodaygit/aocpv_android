@@ -1,10 +1,9 @@
 package com.suryodaybank.jyotiassisted.repositories;
 
 import com.google.gson.JsonObject;
+import com.suryodaybank.jyotiassisted.models.CustomerSaveData;
 import com.suryodaybank.jyotiassisted.models.DataModel;
-import com.suryodaybank.jyotiassisted.models.CRMCustDataResponseItem;
 import com.suryodaybank.jyotiassisted.models.CustomerDetailsRequest;
-import com.suryodaybank.jyotiassisted.models.DataModel;
 import com.suryodaybank.jyotiassisted.models.PreApprove;
 import com.suryodaybank.jyotiassisted.models.Response;
 import com.suryodaybank.jyotiassisted.services.AocpvService;
@@ -48,4 +47,9 @@ public class AocpvRepository {
     public Call<Response> getUserDetail(DataModel<CustomerDetailsRequest> customerDetailsRequestDataModel) {
         return aocpvService.getCustomerDetails(customerDetailsRequestDataModel);
     }
+
+    public Call<ResponseBody> saveUserDetail(DataModel<CustomerSaveData> customerSaveDataDataModel) {
+        return aocpvService.saveCustomerDetails(customerSaveDataDataModel);
+    }
+
 }
