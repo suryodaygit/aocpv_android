@@ -2,7 +2,11 @@ package com.suryodaybank.jyotiassisted.services;
 
 import com.google.gson.JsonObject;
 import com.suryodaybank.jyotiassisted.models.DataModel;
+import com.suryodaybank.jyotiassisted.models.CRMCustDataResponseItem;
+import com.suryodaybank.jyotiassisted.models.CustomerDetailsRequest;
+import com.suryodaybank.jyotiassisted.models.DataModel;
 import com.suryodaybank.jyotiassisted.models.PreApprove;
+import com.suryodaybank.jyotiassisted.models.Response;
 
 import java.util.List;
 
@@ -18,4 +22,7 @@ public interface AocpvService {
 
     @POST("aocpv/v1/updateStatus")
     Call<ResponseBody> updateStatus(@Body DataModel<JsonObject> body);
+
+    @POST("customer/getData")
+    Call<Response> getCustomerDetails(@Body DataModel<CustomerDetailsRequest> customerDetailsRequestDataModel);
 }
