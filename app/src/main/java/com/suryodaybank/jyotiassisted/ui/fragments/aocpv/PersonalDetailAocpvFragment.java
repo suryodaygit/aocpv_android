@@ -65,7 +65,7 @@ public class PersonalDetailAocpvFragment extends Fragment {
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-        aocpvViewModel = new ViewModelProvider(this).get(AocpvViewModel.class);
+        aocpvViewModel = new ViewModelProvider(requireActivity()).get(AocpvViewModel.class);
         setupViews();
         setupObserver();
         cameraLaunch = registerForActivityResult(new ActivityResultContracts.StartActivityForResult(),

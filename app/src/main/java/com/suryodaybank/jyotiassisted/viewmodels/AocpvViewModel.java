@@ -7,14 +7,15 @@ import android.widget.Toast;
 import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.ViewModel;
 
+import com.suryodaybank.jyotiassisted.R;
 import com.suryodaybank.jyotiassisted.models.CRMCustDataResponseItem;
 import com.suryodaybank.jyotiassisted.models.CustomerDetailsRequest;
 import com.suryodaybank.jyotiassisted.models.DataModel;
-import com.suryodaybank.jyotiassisted.R;
 import com.suryodaybank.jyotiassisted.models.MonthlyIncome;
 import com.suryodaybank.jyotiassisted.models.PreApprove;
 import com.suryodaybank.jyotiassisted.repositories.AocpvRepository;
 import com.suryodaybank.jyotiassisted.utils.PreApproveStatus;
+import com.suryodaybank.jyotiassisted.utils.SingleLiveEvent;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -33,6 +34,7 @@ public class AocpvViewModel extends ViewModel {
     private static final String TAG = "AocpvViewModel";
 
     private final AocpvRepository aocpvRepository;
+    public SingleLiveEvent<Void> nextPage = new SingleLiveEvent<>();
     public MutableLiveData<List<PreApprove>> preApprovesLivedata = new MutableLiveData<>(new ArrayList<>());
     public MutableLiveData<List<MonthlyIncome>> monthlyIncomeLivedata = new MutableLiveData<>(new ArrayList<>());
     public MutableLiveData<Integer> pageNoLivedata = new MutableLiveData<>(1);
@@ -57,22 +59,22 @@ public class AocpvViewModel extends ViewModel {
         customerDetailsRequest.setBranchCode("");
 
         body.setData(customerDetailsRequest);
-       aocpvRepository.getUserDetail(body).enqueue(new Callback<com.suryodaybank.jyotiassisted.models.Response>() {
-           @Override
-           public void onResponse(Call<com.suryodaybank.jyotiassisted.models.Response> call, Response<com.suryodaybank.jyotiassisted.models.Response> response) {
-               if(response.isSuccessful()){
-                   customerQueryLiveData.setValue(response.body().getData().getCRMCustDataResponse());
-               }else {
-                   Log.d(TAG, "onResponse: " + response.errorBody().toString());
-                   customerQueryLiveData.setValue(null);
-               }
-           }
+        aocpvRepository.getUserDetail(body).enqueue(new Callback<com.suryodaybank.jyotiassisted.models.Response>() {
+            @Override
+            public void onResponse(Call<com.suryodaybank.jyotiassisted.models.Response> call, Response<com.suryodaybank.jyotiassisted.models.Response> response) {
+                if (response.isSuccessful()) {
+                    customerQueryLiveData.setValue(response.body().getData().getCRMCustDataResponse());
+                } else {
+                    Log.d(TAG, "onResponse: " + response.errorBody().toString());
+                    customerQueryLiveData.setValue(null);
+                }
+            }
 
-           @Override
-           public void onFailure(Call<com.suryodaybank.jyotiassisted.models.Response> call, Throwable t) {
-               t.printStackTrace();
-           }
-       });
+            @Override
+            public void onFailure(Call<com.suryodaybank.jyotiassisted.models.Response> call, Throwable t) {
+                t.printStackTrace();
+            }
+        });
     }
 
     private void getPreApproveList() {
@@ -119,5 +121,24 @@ public class AocpvViewModel extends ViewModel {
                 t.printStackTrace();
             }
         });
+    }
+
+    public void saveData(int index) {
+        switch (index) {
+            case 0:
+                //Save customer details
+                break;
+            case 1:
+                //Save utility details
+                break;
+            case 2:
+                //Save monthly expense details
+                break;
+        }
+        nextPage.call(); //Add this line to move to next screen
+    }
+
+    public void callMonthlyExpenseApi() {
+
     }
 }

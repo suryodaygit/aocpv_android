@@ -10,12 +10,18 @@ import android.view.ViewGroup;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
+import androidx.lifecycle.ViewModelProvider;
 
 import com.suryodaybank.jyotiassisted.databinding.FragmentMonthlyExpenseAocpvBinding;
+import com.suryodaybank.jyotiassisted.viewmodels.AocpvViewModel;
 
+import dagger.hilt.android.AndroidEntryPoint;
+
+@AndroidEntryPoint
 public class MonthlyExpenseAocpvFragment extends Fragment {
 
     private FragmentMonthlyExpenseAocpvBinding binding;
+    private AocpvViewModel aocpvViewModel;
 
     public MonthlyExpenseAocpvFragment() {
         // Required empty public constructor
@@ -31,6 +37,7 @@ public class MonthlyExpenseAocpvFragment extends Fragment {
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
+        aocpvViewModel = new ViewModelProvider(requireActivity()).get(AocpvViewModel.class);
         setupViews();
     }
 

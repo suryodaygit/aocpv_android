@@ -28,13 +28,18 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.core.content.ContextCompat;
 import androidx.fragment.app.Fragment;
+import androidx.lifecycle.ViewModelProvider;
 
 import com.suryodaybank.jyotiassisted.databinding.FragmentOwnershipDetailsAocpvBinding;
+import com.suryodaybank.jyotiassisted.viewmodels.AocpvViewModel;
 
 import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
 
+import dagger.hilt.android.AndroidEntryPoint;
+
+@AndroidEntryPoint
 public class OwnershipDetailsAocpvFragment extends Fragment {
     private int REQUEST_CAMERA = 0, SELECT_FILE = 1;
 
@@ -45,6 +50,8 @@ public class OwnershipDetailsAocpvFragment extends Fragment {
     ActivityResultLauncher<String> galleryLaunchBusiness;
 
     private String userChoosenTask;
+
+    private AocpvViewModel aocpvViewModel;
 
     public OwnershipDetailsAocpvFragment() {
         // Required empty public constructor
@@ -61,6 +68,7 @@ public class OwnershipDetailsAocpvFragment extends Fragment {
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
+        aocpvViewModel = new ViewModelProvider(requireActivity()).get(AocpvViewModel.class);
         setupViews();
 
         cameraLaunchUtility = registerForActivityResult(new ActivityResultContracts.StartActivityForResult(),

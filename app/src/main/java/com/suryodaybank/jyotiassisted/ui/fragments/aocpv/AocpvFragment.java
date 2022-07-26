@@ -59,6 +59,12 @@ public class AocpvFragment extends Fragment {
                 binding.tvPageNo.setText(getString(R.string.page_no, integer, TOTAL_PAGE));
             }
         });
+        aocpvViewModel.nextPage.observe(getViewLifecycleOwner(), new Observer<Void>() {
+            @Override
+            public void onChanged(Void moveNext) {
+                moveToNextPage();
+            }
+        });
     }
 
     private void setupViews() {
@@ -92,7 +98,8 @@ public class AocpvFragment extends Fragment {
         builder.setPositiveButton(R.string.yes, new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialogInterface, int i) {
-                moveToNextPage();
+                int currentItem = binding.aocpvViewPager.getCurrentItem();
+                aocpvViewModel.saveData(currentItem);
             }
         });
         builder.setNegativeButton(R.string.no, new DialogInterface.OnClickListener() {
