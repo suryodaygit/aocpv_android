@@ -124,7 +124,7 @@ public class AocpvFragment extends Fragment {
 
     private void moveToPreviousPage() {
         int currentItem = binding.aocpvViewPager.getCurrentItem();
-        binding.aocpvViewPager.setCurrentItem(2);
+        binding.aocpvViewPager.setCurrentItem(currentItem - 1);
         aocpvViewModel.pageNoLivedata.setValue(binding.aocpvViewPager.getCurrentItem() + 1);
     }
 
