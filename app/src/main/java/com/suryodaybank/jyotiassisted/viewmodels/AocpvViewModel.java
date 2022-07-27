@@ -173,6 +173,12 @@ public class AocpvViewModel extends ViewModel {
                     nextPage.call();
                 }
             }
+            @Override
+            public void onFailure(Call<ResponseBody> call, Throwable t) {
+
+            }
+        });
+    }
 
     public void callOwnershipDetailAPI(UtilityDataRequest utilityDataRequest) {
         utilityDataRequest.setApplicationNo("12345681");//TODO: Need to generate random
@@ -190,12 +196,11 @@ public class AocpvViewModel extends ViewModel {
             }
         });
 
-            @Override
-            public void onFailure(Call<ResponseBody> call, Throwable t) {
 
-            }
-        });
     }
+
+
+
 
     public void callPersonalDetailAPI(CustomerSaveData customerSaveData) {
         customerSaveData.setApplicationNo("12345681"); //TODO: Need to generate random
