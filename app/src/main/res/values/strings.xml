@@ -51,7 +51,7 @@
     <string name="i_am_a_resident_indian">I am a Resident Indian</string>
     <string name="residence_address_is_same_as_permanent_address">Residence Address is same as Permanent Address</string>
     <string name="proof_of_communication_address">Proof of communication address</string>
-    <string name="check_message">ALL THE ABOVE INFO ARE CORRECT?</string>
+    <string name="check_message">All the above info are correct?</string>
     <string name="ok">Ok</string>
     <string name="no">No</string>
     <string name="ownership_details">Ownership details</string>
@@ -154,4 +154,7 @@
     <string name="something_is_wrong">Something is wrong</string>
     <string name="save_confirmation_dialog">Do you want to save?</string>
     <string name="confirm">Confirm</string>
+    <string name="validate">Validate</string>
+    <string name="validate_otp">Validate OTP</string>
+    <string name="your_otp_here">Check your phone for the OTP</string>
 </resources>

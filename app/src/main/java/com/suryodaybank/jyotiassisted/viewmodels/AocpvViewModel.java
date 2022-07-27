@@ -166,10 +166,10 @@ public class AocpvViewModel extends ViewModel {
             case 3:
                 getMonthlyExpenseData.call();
                 break;
-            case 5:
+            case 4:
                 getMfiClassificationData.call();
                 break;
-            case 6:
+            case 5:
                 getValidationData.call();
                 break;
         }
