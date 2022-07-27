@@ -4,6 +4,7 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
@@ -27,14 +28,17 @@ import java.util.List;
 import dagger.hilt.android.AndroidEntryPoint;
 
 @AndroidEntryPoint
-public class MfiClassificationAocpvFragment extends Fragment {
+public class MfiClassificationAocpvFragment extends Fragment implements AdapterView.OnItemSelectedListener {
 
     private AocpvViewModel aocpvViewModel;
     private FragmentMfiClassificationAocpvBinding binding;
     private RadioButton selectedRadioButton;
     private String selectedRadioButtonText = "Yes";
-    private String extingPurpose = "";
+    private String extingPurpose = "jhdjhsjdhsj";
     private List<PurposeOfLoan> purposeOfLoans = new ArrayList<PurposeOfLoan>();
+    private String selectedPurposeLoan="";
+    private String loanCode="";
+
 
     public MfiClassificationAocpvFragment() {
         // Required empty public constructor
@@ -51,16 +55,15 @@ public class MfiClassificationAocpvFragment extends Fragment {
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         aocpvViewModel = new ViewModelProvider(requireActivity()).get(AocpvViewModel.class);
-        init();
         setSpinnerList();
         setSpinerAdapter();
+        init();
 
         aocpvViewModel.getMfiClassificationData.observe(getViewLifecycleOwner(), unused -> {
-            extingPurpose = binding.etExistingPurpose.getText().toString();
+           // extingPurpose = binding.etExistingPurpose.getText().toString();
             if (extingPurpose.equals("")) {
                 // Toast.makeText(getActivity(),"Please enter purpose",Toast.LENGTH_SHORT).show();
             } else {
-                extingPurpose = "hskhdkh";
                 callMfiAPI();
             }
         });
@@ -88,12 +91,12 @@ public class MfiClassificationAocpvFragment extends Fragment {
 
     private void callMfiAPI() {
         if (selectedRadioButtonText.equals("Yes")) {
-            MfiData mfiData = new MfiData("MFI", "12345681", "for renovaton of house",
+            MfiData mfiData = new MfiData("MFI", "123456783", selectedPurposeLoan,loanCode,
                     extingPurpose, selectedRadioButtonText, "9887970808", binding.tvMaxEligibilityAmount.toString());
             aocpvViewModel.callMFIClassification(getActivity(), mfiData);
         } else {
             // just send blank mobile no
-            MfiData mfiData = new MfiData("MFI", "12345681", "for renovation of house",
+            MfiData mfiData = new MfiData("MFI", "123456783", selectedPurposeLoan,loanCode,
                     extingPurpose, selectedRadioButtonText, "9808989898", binding.tvMaxEligibilityAmount.toString());
             aocpvViewModel.callMFIClassification(getActivity(), mfiData);
         }
@@ -226,13 +229,27 @@ public class MfiClassificationAocpvFragment extends Fragment {
 
     private void setSpinerAdapter(){
         List<String> purposeLoan = new ArrayList();
+        int position=0;
         for (int i=0;i<=purposeOfLoans.size()-1;i++){
+            position =i;
             purposeLoan.add(purposeOfLoans.get(i).getPurposeOfLoan());
         }
-        ArrayAdapter<String> adapter = new ArrayAdapter<String>(getActivity(),
-                R.layout.spinner_view, purposeLoan);
+        ArrayAdapter<String> adapter = new ArrayAdapter<>(getActivity(),
+                R.layout.spinner_view,R.id.tvText,purposeLoan);
         binding.purposeSpinner.setAdapter(adapter);
+        binding.purposeSpinner.setOnItemSelectedListener(this);
+        selectedPurposeLoan = binding.purposeSpinner.getSelectedItem().toString();
+        loanCode = purposeOfLoans.get(position).getPurposeCode();
     }
 
 
+    @Override
+    public void onItemSelected(AdapterView<?> adapterView, View view, int position, long l) {
+        selectedPurposeLoan = adapterView.getItemAtPosition(position).toString();
+    }
+
+    @Override
+    public void onNothingSelected(AdapterView<?> adapterView) {
+
+    }
 }

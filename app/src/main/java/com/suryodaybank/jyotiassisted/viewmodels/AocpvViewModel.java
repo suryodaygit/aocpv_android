@@ -173,7 +173,7 @@ public class AocpvViewModel extends ViewModel {
                 getValidationData.call();
                 break;
         }
-//        nextPage.call(); //Add this line to move to next screen
+       nextPage.call(); //Add this line to move to next screen
     }
 
     public void callMonthlyExpenseApi(SaveExpenseRequest saveExpenseRequest) {
@@ -251,9 +251,12 @@ public class AocpvViewModel extends ViewModel {
         aocpvRepository.mfiClassification(mfiData).enqueue(new Callback<ResponseBody>() {
             @Override
             public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
+                if(response.isSuccessful()){
                 String response1 = String.valueOf(response.body());
                 Toast.makeText(mContext, "data updated", Toast.LENGTH_SHORT).show();
                 Log.d("mfi", response1);
+                    nextPage.call();
+                }
             }
 
             @Override
@@ -268,10 +271,14 @@ public class AocpvViewModel extends ViewModel {
         aocpvRepository.validationData(validationRequestModel).enqueue(new Callback<ValidationResponse>() {
             @Override
             public void onResponse(Call<ValidationResponse> call, Response<ValidationResponse> response) {
-                ValidationResponse validationResponse = new ValidationResponse();
-                validationResponse = response.body();
-                validationDataMutableLiveData.setValue(validationResponse.getData());
-                //  Toast.makeText(mContext,response.toString(),Toast.LENGTH_SHORT).show();nextPage.call();
+               if(response.isSuccessful()) {
+                   ValidationResponse validationResponse = new ValidationResponse();
+                   validationResponse = response.body();
+                   validationDataMutableLiveData.setValue(validationResponse.getData());
+                   if (response.isSuccessful()) {
+                       nextPage.call();
+                   }
+               }
             }
 
             @Override
