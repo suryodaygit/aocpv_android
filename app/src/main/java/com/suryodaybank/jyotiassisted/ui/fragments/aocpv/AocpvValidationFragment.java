@@ -1,7 +1,6 @@
 package com.suryodaybank.jyotiassisted.ui.fragments.aocpv;
 
 import android.os.Bundle;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -21,7 +20,6 @@ import com.suryodaybank.jyotiassisted.viewmodels.AocpvViewModel;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Objects;
 
 import dagger.hilt.android.AndroidEntryPoint;
 
@@ -31,8 +29,8 @@ public class AocpvValidationFragment extends Fragment {
     private FragmentAocpvValidationBinding binding;
     private AocpvViewModel aocpvViewModel;
     private ValidationData validationDetailsData = new ValidationData();
-    private List<AddressData> addressData= new ArrayList<>();
-    private List<OwnerAddress> ownerAddressData= new ArrayList<>();
+    private List<AddressData> addressData = new ArrayList<>();
+    private List<OwnerAddress> ownerAddressData = new ArrayList<>();
 
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container,
@@ -48,10 +46,10 @@ public class AocpvValidationFragment extends Fragment {
         setupViews();
         aocpvViewModel.getValidationData.observe(getViewLifecycleOwner(), unused -> {
             ValidationRequestModel validationRequestModel = new ValidationRequestModel("123456783");
-            aocpvViewModel.callValidationData(getActivity(),validationRequestModel);
+            aocpvViewModel.callValidationData(getActivity(), validationRequestModel);
         });
 
-        aocpvViewModel.validationDataMutableLiveData.observe(getViewLifecycleOwner(),validationData -> {
+        aocpvViewModel.validationDataMutableLiveData.observe(getViewLifecycleOwner(), validationData -> {
             validationDetailsData = validationData;
             addressData = validationData.getAddress();
             ownerAddressData = validationData.getOwnerAddress();
@@ -71,15 +69,15 @@ public class AocpvValidationFragment extends Fragment {
         binding.documentSpinner.setAdapter(proofAdapter);
     }
 
-    private void setData(){
-        String customerId  = validationDetailsData.getCustomerId();
+    private void setData() {
+        String customerId = validationDetailsData.getCustomerId();
         binding.etCustomerId.setText(customerId);
         binding.etFirstName.setText(validationDetailsData.getName());
         binding.etDateOfBirth.setText(validationDetailsData.getDateOfBirth());
         binding.etMobileNum.setText(validationDetailsData.getMobileNo());
         binding.etTypeOfResidence.setText("");
         binding.etAddressCommunication.setText("");
-        for(int i=0;i<=addressData.size() - 1;i++) {
+        for (int i = 0; i <= addressData.size() - 1; i++) {
             binding.etAddLine1.setText(addressData.get(i).getAddress_Line1());
             binding.etAddLine2.setText(addressData.get(i).getAddress_Line2());
             binding.etAddLine3.setText(addressData.get(i).getAddress_Line3());
@@ -103,7 +101,7 @@ public class AocpvValidationFragment extends Fragment {
         binding.etUtilityBills.setText(validationDetailsData.getUtilityBill());
         binding.etRelation.setText(validationDetailsData.getRelationshipWithOwner());
 
-        for (int i=0; i<=ownerAddressData.size()-1;i++){
+        for (int i = 0; i <= ownerAddressData.size() - 1; i++) {
             binding.etUtilityAddLine1.setText(ownerAddressData.get(i).getAddress_Line1());
             binding.etUtilityAddLine2.setText(ownerAddressData.get(i).getAddress_Line2());
             binding.etUtilityAddLine3.setText(ownerAddressData.get(i).getAddress_Line3());
@@ -114,11 +112,11 @@ public class AocpvValidationFragment extends Fragment {
             binding.etUtilityCity.setText(ownerAddressData.get(i).getCity());
         }
 
-        if(validationDetailsData.getMobileLinkToAadhar().equals("Yes")){
+        if (validationDetailsData.getMobileLinkToAadhar().equals("Yes")) {
             binding.rbYes.setChecked(true);
             binding.etMobileNo.setVisibility(View.VISIBLE);
             binding.etMobileNo.setText(validationDetailsData.getMobile2());
-        }else {
+        } else {
             binding.rbNo.setChecked(true);
             binding.etMobileNo.setVisibility(View.GONE);
         }
