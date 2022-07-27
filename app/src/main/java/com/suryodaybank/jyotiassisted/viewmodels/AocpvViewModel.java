@@ -10,11 +10,13 @@ import androidx.lifecycle.ViewModel;
 import com.suryodaybank.jyotiassisted.R;
 import com.suryodaybank.jyotiassisted.models.CRMCustDataResponseItem;
 import com.suryodaybank.jyotiassisted.models.CustomerDetailsRequest;
+import com.suryodaybank.jyotiassisted.models.CustomerSaveData;
 import com.suryodaybank.jyotiassisted.models.DataModel;
 import com.suryodaybank.jyotiassisted.models.MonthlyIncome;
 import com.suryodaybank.jyotiassisted.models.PreApprove;
 import com.suryodaybank.jyotiassisted.models.SaveExpenseRequest;
 import com.suryodaybank.jyotiassisted.models.SaveIncomeRequest;
+import com.suryodaybank.jyotiassisted.models.UtilityAddressItem;
 import com.suryodaybank.jyotiassisted.repositories.AocpvRepository;
 import com.suryodaybank.jyotiassisted.utils.PreApproveStatus;
 import com.suryodaybank.jyotiassisted.utils.SingleLiveEvent;
@@ -45,6 +47,8 @@ public class AocpvViewModel extends ViewModel {
 
     public SingleLiveEvent<Void> getMonthlyIncomeData = new SingleLiveEvent<>();
     public SingleLiveEvent<Void> getMonthlyExpenseData = new SingleLiveEvent<>();
+    public SingleLiveEvent<Void> getCustomerDetails = new SingleLiveEvent<>();
+    public SingleLiveEvent<Void> getUtilityDetails = new SingleLiveEvent<>();
 
     //Calculation data for monthly balance
     public long totalMonthlyIncome = 0;
@@ -84,6 +88,11 @@ public class AocpvViewModel extends ViewModel {
                 t.printStackTrace();
             }
         });
+    }
+
+    private void getUtilityDetails() {
+        DataModel<UtilityAddressItem> body = new DataModel<>();
+
     }
 
     private void getPreApproveList() {
@@ -136,6 +145,7 @@ public class AocpvViewModel extends ViewModel {
         switch (index) {
             case 0:
                 //Save customer details
+                getCustomerDetails.call();
                 break;
             case 1:
                 //Save utility details
@@ -154,6 +164,23 @@ public class AocpvViewModel extends ViewModel {
     public void callMonthlyExpenseApi(SaveExpenseRequest saveExpenseRequest) {
         saveExpenseRequest.setApplicationNo("12345681"); //TODO: Need to generate random
         aocpvRepository.saveExpenseDetails(saveExpenseRequest).enqueue(new Callback<ResponseBody>() {
+            @Override
+            public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
+                if (response.isSuccessful()) {
+                    nextPage.call();
+                }
+            }
+
+            @Override
+            public void onFailure(Call<ResponseBody> call, Throwable t) {
+
+            }
+        });
+    }
+
+    public void callPersonalDetailAPI(CustomerSaveData customerSaveData) {
+        customerSaveData.setApplicationNo("12345681"); //TODO: Need to generate random
+        aocpvRepository.saveUserDetail(customerSaveData).enqueue(new Callback<ResponseBody>() {
             @Override
             public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
                 if (response.isSuccessful()) {

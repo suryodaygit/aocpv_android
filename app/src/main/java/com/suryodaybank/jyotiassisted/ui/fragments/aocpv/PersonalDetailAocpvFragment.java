@@ -12,7 +12,6 @@ import android.graphics.Bitmap;
 import android.net.Uri;
 import android.os.Bundle;
 import android.provider.MediaStore;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -30,11 +29,15 @@ import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
 
 import com.suryodaybank.jyotiassisted.databinding.FragmentPersonalDetailAocpvBinding;
+import com.suryodaybank.jyotiassisted.models.AddressDetails;
+import com.suryodaybank.jyotiassisted.models.AddressItem;
 import com.suryodaybank.jyotiassisted.models.CRMCustDataResponseItem;
+import com.suryodaybank.jyotiassisted.models.CustomerSaveData;
 import com.suryodaybank.jyotiassisted.utils.Constants;
 import com.suryodaybank.jyotiassisted.viewmodels.AocpvViewModel;
 
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
 import java.util.Locale;
@@ -97,11 +100,16 @@ public class PersonalDetailAocpvFragment extends Fragment {
 
     private void setupObserver() {
 
+
+
         aocpvViewModel.customerQueryLiveData.observe(getViewLifecycleOwner(), new Observer<List<CRMCustDataResponseItem>>() {
             @Override
             public void onChanged(List<CRMCustDataResponseItem> crmCustDataResponseItems) {
 
                 if (crmCustDataResponseItems != null) {
+
+                    CustomerSaveData customerSaveData = new CustomerSaveData();
+
 
                     binding.etCustomerId.setText(crmCustDataResponseItems.get(0).getCIFNUMBER());
                     binding.etDOB.setText(crmCustDataResponseItems.get(0).getDOB());
@@ -134,6 +142,44 @@ public class PersonalDetailAocpvFragment extends Fragment {
             }
         });
 
+        aocpvViewModel.getCustomerDetails.observe(getViewLifecycleOwner(), unused -> {
+            prepareCustomerDetails();
+                }
+                );
+
+//        aocpvViewModel.getMonthlyIncomeData.observe(getViewLifecycleOwner(), unused -> {
+//            prepareDataAndCallApi();
+
+
+    }
+
+    private void prepareCustomerDetails() {
+        AddressItem addressDetItem = new AddressItem();
+        ArrayList<AddressItem> addressDetItems = new ArrayList<>();
+        addressDetItem.setAddressLine1(binding.etAddLine1.getText().toString());
+        addressDetItem.setAddressLine2(binding.etAddLine2.getText().toString());
+        addressDetItem.setAddressLine3(binding.etAddLine3.getText().toString());
+        addressDetItem.setCity(binding.etCity.getText().toString());
+        addressDetItem.setPincode(binding.etPincode.getText().toString());
+        addressDetItem.setDistrict(binding.etDistrict.getText().toString());
+        addressDetItem.setState(binding.etState.getText().toString());
+        addressDetItem.setCountry("india");
+        addressDetItems.add(0,addressDetItem);
+
+
+        CustomerSaveData customerSaveData = new CustomerSaveData();
+        customerSaveData.setFlowStatus("PD");
+        customerSaveData.setApplicationNo("12345681");
+        customerSaveData.setCustomerId(binding.etCustomerId.getText().toString());
+        customerSaveData.setName(binding.etFirstName.getText().toString());
+        customerSaveData.setMobileNo(binding.etMobileNum.getText().toString());
+        customerSaveData.setDateOfBirth("09/09/2022");
+        customerSaveData.setImage("");
+        customerSaveData.setAddress(addressDetItems);
+
+
+
+        aocpvViewModel.callPersonalDetailAPI(customerSaveData);
     }
 
     private void selectImage() {
