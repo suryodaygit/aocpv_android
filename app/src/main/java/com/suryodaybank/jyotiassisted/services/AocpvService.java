@@ -5,6 +5,7 @@ import com.suryodaybank.jyotiassisted.models.CustomerDetailsRequest;
 import com.suryodaybank.jyotiassisted.models.DataModel;
 import com.suryodaybank.jyotiassisted.models.PreApprove;
 import com.suryodaybank.jyotiassisted.models.Response;
+import com.suryodaybank.jyotiassisted.models.SaveExpenseRequest;
 import com.suryodaybank.jyotiassisted.models.SaveIncomeRequest;
 
 import java.util.List;
@@ -27,4 +28,7 @@ public interface AocpvService {
 
     @POST("aocp/customer/saveData")
     Call<ResponseBody> saveIncomeDetails(@Body DataModel<SaveIncomeRequest> body);
+
+    @POST("aocp/customer/saveData")
+    Call<ResponseBody> saveExpenseDetails(@Body DataModel<SaveExpenseRequest> body);
 }
