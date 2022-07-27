@@ -169,9 +169,6 @@ public class AocpvViewModel extends ViewModel {
             case 4:
                 getMfiClassificationData.call();
                 break;
-            case 5:
-                getValidationData.call();
-                break;
         }
     }
 

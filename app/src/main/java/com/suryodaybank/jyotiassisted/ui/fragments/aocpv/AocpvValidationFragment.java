@@ -44,11 +44,9 @@ public class AocpvValidationFragment extends Fragment {
         super.onViewCreated(view, savedInstanceState);
         aocpvViewModel = new ViewModelProvider(requireActivity()).get(AocpvViewModel.class);
         setupViews();
-        aocpvViewModel.getValidationData.observe(getViewLifecycleOwner(), unused -> {
-            ValidationRequestModel validationRequestModel = new ValidationRequestModel("123456783");
-            aocpvViewModel.callValidationData(getActivity(), validationRequestModel);
-        });
 
+        ValidationRequestModel validationRequestModel = new ValidationRequestModel("123456783");
+        aocpvViewModel.callValidationData(getActivity(), validationRequestModel);
         aocpvViewModel.validationDataMutableLiveData.observe(getViewLifecycleOwner(), validationData -> {
             validationDetailsData = validationData;
             addressData = validationData.getAddress();
