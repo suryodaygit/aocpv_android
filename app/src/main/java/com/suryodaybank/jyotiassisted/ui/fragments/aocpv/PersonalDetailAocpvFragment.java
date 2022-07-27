@@ -198,7 +198,8 @@ public class PersonalDetailAocpvFragment extends Fragment {
         customerSaveData.setCustomerId(binding.etCustomerId.getText().toString());
         customerSaveData.setName(binding.etFirstName.getText().toString());
         customerSaveData.setMobileNo(binding.etMobileNum.getText().toString());
-        customerSaveData.setDateOfBirth("09/09/2022");
+        customerSaveData.setDateOfBirth(binding.etDOB.getText().toString());
+        customerSaveData.setBranchId("10011");
         customerSaveData.setImage(encoded_image);
         customerSaveData.setAddress(addressDetItems);
 

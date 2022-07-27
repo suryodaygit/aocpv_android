@@ -7,24 +7,60 @@ import com.google.gson.annotations.SerializedName;
 
 public class LoginResponse {
 
-    @SerializedName("BRCD")
-    private String mBRCD;
     @SerializedName("UID1")
-    private String mUID1;
-    public String getBRCD() {
-        return mBRCD;
+    private String uID1;
+
+    @SerializedName("name")
+    private String name;
+
+    @SerializedName("mobile")
+    private String mobile;
+
+    public String getuID1() {
+        return uID1;
     }
 
-    public void setBRCD(String bRCD) {
-        mBRCD = bRCD;
+    public void setuID1(String uID1) {
+        this.uID1 = uID1;
     }
 
-    public String getUID1() {
-        return mUID1;
+    public String getName() {
+        return name;
     }
 
-    public void setUID1(String uID1) {
-        mUID1 = uID1;
+    public void setName(String name) {
+        this.name = name;
     }
+
+    public String getMobile() {
+        return mobile;
+    }
+
+    public void setMobile(String mobile) {
+        this.mobile = mobile;
+    }
+
+    public String getUserrole() {
+        return userrole;
+    }
+
+    public void setUserrole(String userrole) {
+        this.userrole = userrole;
+    }
+
+    public String getbRCD() {
+        return bRCD;
+    }
+
+    public void setbRCD(String bRCD) {
+        this.bRCD = bRCD;
+    }
+
+    @SerializedName("userrole")
+    private String userrole;
+
+    @SerializedName("BRCD")
+    private String bRCD;
+
 
 }

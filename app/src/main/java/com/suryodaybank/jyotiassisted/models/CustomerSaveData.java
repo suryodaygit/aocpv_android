@@ -47,6 +47,17 @@ public class CustomerSaveData {
     @SerializedName("applicationNo")
     private String applicationNo;
 
+    public String getBranchId() {
+        return branchId;
+    }
+
+    public void setBranchId(String branchId) {
+        this.branchId = branchId;
+    }
+
+    @SerializedName("branchid")
+    private String branchId;
+
     @SerializedName("customerId")
     private String customerId;
 

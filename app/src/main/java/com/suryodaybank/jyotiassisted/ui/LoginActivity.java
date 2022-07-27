@@ -81,14 +81,14 @@ public class LoginActivity extends AppCompatActivity {
         if (gpsTracker.canGetLocation()) {
             double latitude = gpsTracker.getLatitude();
             double longitude = gpsTracker.getLongitude();
-            Toast.makeText(LoginActivity.this, String.valueOf(latitude), Toast.LENGTH_SHORT).show();
-            Toast.makeText(LoginActivity.this, String.valueOf(longitude), Toast.LENGTH_SHORT).show();
+          //  Toast.makeText(LoginActivity.this, String.valueOf(latitude), Toast.LENGTH_SHORT).show();
+         //   Toast.makeText(LoginActivity.this, String.valueOf(longitude), Toast.LENGTH_SHORT).show();
             try {
                 Geocoder geocoder = new Geocoder(LoginActivity.this, Locale.getDefault());
 
                 addresses = geocoder.getFromLocation(latitude, longitude, 1); // Here 1 represent max location result to returned, by documents it recommended 1 to 5
 
-                Toast.makeText(LoginActivity.this, addresses.get(0).getAddressLine(0), Toast.LENGTH_SHORT).show();
+               // Toast.makeText(LoginActivity.this, addresses.get(0).getAddressLine(0), Toast.LENGTH_SHORT).show();
             } catch (IOException e) {
                 e.printStackTrace();
             }
