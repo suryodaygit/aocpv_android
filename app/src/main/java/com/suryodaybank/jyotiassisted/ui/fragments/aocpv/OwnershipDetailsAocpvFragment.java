@@ -4,7 +4,6 @@ import static android.app.Activity.RESULT_OK;
 import static com.suryodaybank.jyotiassisted.utils.Constants.MY_CAMERA_PERMISSION_CODE;
 
 import android.Manifest;
-import android.app.Activity;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.pm.PackageManager;
@@ -13,7 +12,7 @@ import android.graphics.Bitmap;
 import android.net.Uri;
 import android.os.Bundle;
 import android.provider.MediaStore;
-import android.util.Log;
+import android.util.Base64;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -22,7 +21,6 @@ import android.widget.Toast;
 import androidx.activity.result.ActivityResult;
 import androidx.activity.result.ActivityResultCallback;
 import androidx.activity.result.ActivityResultLauncher;
-import androidx.activity.result.contract.ActivityResultContract;
 import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -32,11 +30,11 @@ import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
 
 import com.suryodaybank.jyotiassisted.databinding.FragmentOwnershipDetailsAocpvBinding;
-import com.suryodaybank.jyotiassisted.models.AddressItem;
 import com.suryodaybank.jyotiassisted.models.UtilityAddressItem;
 import com.suryodaybank.jyotiassisted.models.UtilityDataRequest;
 import com.suryodaybank.jyotiassisted.viewmodels.AocpvViewModel;
 
+import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
@@ -56,6 +54,9 @@ public class OwnershipDetailsAocpvFragment extends Fragment {
     private String userChoosenTask;
 
     private AocpvViewModel aocpvViewModel;
+    private String encoded_image_string;
+    private String utilityImageEncoded;
+    private String businessImageEncoded;
 
     public OwnershipDetailsAocpvFragment() {
         // Required empty public constructor
@@ -84,6 +85,9 @@ public class OwnershipDetailsAocpvFragment extends Fragment {
                             Bundle bundle = result.getData().getExtras();
                             Bitmap bitmap = (Bitmap) bundle.get("data");
                             binding.billImg.setImageBitmap(bitmap);
+                            int nh = (int) ( bitmap.getHeight() * (512.0 / bitmap.getWidth()) );
+                            Bitmap scaled = Bitmap.createScaledBitmap(bitmap, 512, nh, true);
+                            utilityImageEncoded = convertbitmaptoString(scaled);
                         }
                     }
                 });
@@ -96,6 +100,9 @@ public class OwnershipDetailsAocpvFragment extends Fragment {
                             Bundle bundle = result.getData().getExtras();
                             Bitmap bitmap = (Bitmap) bundle.get("data");
                             binding.businessImg.setImageBitmap(bitmap);
+                            int nh = (int) ( bitmap.getHeight() * (512.0 / bitmap.getWidth()) );
+                            Bitmap scaled = Bitmap.createScaledBitmap(bitmap, 512, nh, true);
+                            businessImageEncoded = convertbitmaptoString(scaled);
                         }
                     }
                 });
@@ -105,6 +112,18 @@ public class OwnershipDetailsAocpvFragment extends Fragment {
                     @Override
                     public void onActivityResult(Uri result) {
                         binding.billImg.setImageURI(result);
+
+                        try {
+
+                            Bitmap bitmap = MediaStore.Images.Media.getBitmap(getContext().getContentResolver() , result);
+                            int nh = (int) ( bitmap.getHeight() * (512.0 / bitmap.getWidth()) );
+                            Bitmap scaled = Bitmap.createScaledBitmap(bitmap, 512, nh, true);
+                            utilityImageEncoded = convertbitmaptoString(scaled);
+
+                        }
+                        catch (Exception e) {
+                            //handle exception
+                        }
                     }
                 });
 
@@ -113,6 +132,17 @@ public class OwnershipDetailsAocpvFragment extends Fragment {
                     @Override
                     public void onActivityResult(Uri result) {
                         binding.businessImg.setImageURI(result);
+                        try {
+
+                            Bitmap bitmap = MediaStore.Images.Media.getBitmap(getContext().getContentResolver() , result);
+                            int nh = (int) ( bitmap.getHeight() * (512.0 / bitmap.getWidth()) );
+                            Bitmap scaled = Bitmap.createScaledBitmap(bitmap, 512, nh, true);
+                            businessImageEncoded = convertbitmaptoString(scaled);
+
+                        }
+                        catch (Exception e) {
+                            //handle exception
+                        }
                     }
                 });
 
@@ -131,6 +161,14 @@ public class OwnershipDetailsAocpvFragment extends Fragment {
                 selectImage("businessPhoto");
             }
         });
+    }
+
+    private String convertbitmaptoString(Bitmap scaled) {
+        ByteArrayOutputStream byteArrayOutputStream = new ByteArrayOutputStream();
+        scaled.compress(Bitmap.CompressFormat.PNG, 100, byteArrayOutputStream);
+        byte[] byteArray = byteArrayOutputStream .toByteArray();
+        encoded_image_string = Base64.encodeToString(byteArray, Base64.DEFAULT);
+        return encoded_image_string;
     }
 
     private void setUpObserver() {

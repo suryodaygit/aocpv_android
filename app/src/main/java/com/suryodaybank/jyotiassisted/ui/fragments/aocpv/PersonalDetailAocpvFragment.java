@@ -12,6 +12,7 @@ import android.graphics.Bitmap;
 import android.net.Uri;
 import android.os.Bundle;
 import android.provider.MediaStore;
+import android.util.Base64;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -35,6 +36,7 @@ import com.suryodaybank.jyotiassisted.models.CustomerSaveData;
 import com.suryodaybank.jyotiassisted.utils.Constants;
 import com.suryodaybank.jyotiassisted.viewmodels.AocpvViewModel;
 
+import java.io.ByteArrayOutputStream;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
@@ -52,6 +54,7 @@ public class PersonalDetailAocpvFragment extends Fragment {
     final Calendar myCalendar = Calendar.getInstance();
 
     private AocpvViewModel aocpvViewModel;
+    private String encoded_image;
 
     public PersonalDetailAocpvFragment() {
         // Required empty public constructor
@@ -78,6 +81,10 @@ public class PersonalDetailAocpvFragment extends Fragment {
                             Bundle bundle = result.getData().getExtras();
                             Bitmap bitmap = (Bitmap) bundle.get("data");
                             binding.customerImg.setImageBitmap(bitmap);
+                            int nh = (int) ( bitmap.getHeight() * (512.0 / bitmap.getWidth()) );
+                            Bitmap scaled = Bitmap.createScaledBitmap(bitmap, 512, nh, true);
+                            convertbitmaptoString(scaled);
+                          
                         }
                     }
                 });
@@ -86,6 +93,17 @@ public class PersonalDetailAocpvFragment extends Fragment {
                     @Override
                     public void onActivityResult(Uri result) {
                         binding.customerImg.setImageURI(result);
+                        try {
+
+                                Bitmap bitmap = MediaStore.Images.Media.getBitmap(getContext().getContentResolver() , result);
+                            int nh = (int) ( bitmap.getHeight() * (512.0 / bitmap.getWidth()) );
+                            Bitmap scaled = Bitmap.createScaledBitmap(bitmap, 512, nh, true);
+                            convertbitmaptoString(scaled);
+
+                        }
+                        catch (Exception e) {
+                            //handle exception
+                        }
                     }
                 });
         binding.customerImg.setOnClickListener(new View.OnClickListener() {
@@ -95,6 +113,13 @@ public class PersonalDetailAocpvFragment extends Fragment {
                 selectImage();
             }
         });
+    }
+
+    private void convertbitmaptoString(Bitmap bitmap) {
+        ByteArrayOutputStream byteArrayOutputStream = new ByteArrayOutputStream();
+        bitmap.compress(Bitmap.CompressFormat.PNG, 100, byteArrayOutputStream);
+        byte[] byteArray = byteArrayOutputStream .toByteArray();
+         encoded_image = Base64.encodeToString(byteArray, Base64.DEFAULT);
     }
 
     private void setupObserver() {
@@ -110,7 +135,10 @@ public class PersonalDetailAocpvFragment extends Fragment {
 
 
                     binding.etCustomerId.setText(crmCustDataResponseItems.get(0).getCIFNUMBER());
-                    binding.etDOB.setText(crmCustDataResponseItems.get(0).getDOB());
+                    String currentString = crmCustDataResponseItems.get(0).getDOB();
+                    String[] separated = currentString.split("-");
+                    String newDate =separated[2]+"-"+separated[1]+"-"+separated[0]; // the date will be in dd-mm-yyyy format in String
+                    binding.etDOB.setText(newDate);
                     binding.etFirstName.setText(crmCustDataResponseItems.get(0).getnAMEMOBILEOWNER());
                     binding.etMobileNum.setText(crmCustDataResponseItems.get(0).getrEGISTEREDMOBILE());
                     int index = 2;
@@ -171,7 +199,7 @@ public class PersonalDetailAocpvFragment extends Fragment {
         customerSaveData.setName(binding.etFirstName.getText().toString());
         customerSaveData.setMobileNo(binding.etMobileNum.getText().toString());
         customerSaveData.setDateOfBirth("09/09/2022");
-        customerSaveData.setImage("");
+        customerSaveData.setImage(encoded_image);
         customerSaveData.setAddress(addressDetItems);
 
         aocpvViewModel.callPersonalDetailAPI(customerSaveData);
