@@ -7,6 +7,7 @@ import com.suryodaybank.jyotiassisted.models.CustomerDetailsRequest;
 import com.suryodaybank.jyotiassisted.models.PreApprove;
 import com.suryodaybank.jyotiassisted.models.Response;
 import com.suryodaybank.jyotiassisted.models.SaveIncomeRequest;
+import com.suryodaybank.jyotiassisted.models.UtilityDataRequest;
 import com.suryodaybank.jyotiassisted.services.AocpvService;
 import com.suryodaybank.jyotiassisted.utils.PreApproveStatus;
 
@@ -49,8 +50,10 @@ public class AocpvRepository {
         return aocpvService.getCustomerDetails(customerDetailsRequestDataModel);
     }
 
-    public Call<ResponseBody> saveUserDetail(DataModel<CustomerSaveData> customerSaveDataDataModel) {
-        return aocpvService.saveCustomerDetails(customerSaveDataDataModel);
+    public Call<ResponseBody> saveUserDetail(CustomerSaveData customerSaveDataDataModel) {
+        DataModel<CustomerSaveData> body = new DataModel<>();
+        body.setData(customerSaveDataDataModel);
+        return aocpvService.saveCustomerDetails(body);
     }
 
     public Call<ResponseBody> saveIncomeDetails(SaveIncomeRequest incomeRequest) {
@@ -58,6 +61,11 @@ public class AocpvRepository {
         body.setData(incomeRequest);
         return aocpvService.saveIncomeDetails(body);
     }
+
+    public Call<ResponseBody> saveUtilityDetails(UtilityDataRequest utilityDataRequest) {
+        DataModel<UtilityDataRequest> body = new DataModel<>();
+        body.setData(utilityDataRequest);
+        return aocpvService.saveUtilityDetails(body);
+    }
 }
 
-}

@@ -13,6 +13,38 @@ public class AddressItem {
     @SerializedName("country")
     private String country;
 
+    public void setAddressLine3(String addressLine3) {
+        this.addressLine3 = addressLine3;
+    }
+
+    public void setPincode(String pincode) {
+        this.pincode = pincode;
+    }
+
+    public void setCountry(String country) {
+        this.country = country;
+    }
+
+    public void setCity(String city) {
+        this.city = city;
+    }
+
+    public void setAddressLine1(String addressLine1) {
+        this.addressLine1 = addressLine1;
+    }
+
+    public void setAddressLine2(String addressLine2) {
+        this.addressLine2 = addressLine2;
+    }
+
+    public void setDistrict(String district) {
+        this.district = district;
+    }
+
+    public void setState(String state) {
+        this.state = state;
+    }
+
     @SerializedName("city")
     private String city;
 
