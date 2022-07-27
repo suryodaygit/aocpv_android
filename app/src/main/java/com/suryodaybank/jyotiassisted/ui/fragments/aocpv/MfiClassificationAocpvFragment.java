@@ -15,6 +15,7 @@ import androidx.lifecycle.ViewModelProvider;
 
 import com.suryodaybank.jyotiassisted.databinding.FragmentMfiClassificationAocpvBinding;
 import com.suryodaybank.jyotiassisted.models.MfiData;
+import com.suryodaybank.jyotiassisted.models.ValidationData;
 import com.suryodaybank.jyotiassisted.viewmodels.AocpvViewModel;
 
 import dagger.hilt.android.AndroidEntryPoint;
@@ -36,7 +37,6 @@ public class MfiClassificationAocpvFragment extends Fragment {
                              Bundle savedInstanceState) {
         binding = FragmentMfiClassificationAocpvBinding.inflate(inflater,container,false);
         return binding.getRoot();
-
   }
 
     @Override

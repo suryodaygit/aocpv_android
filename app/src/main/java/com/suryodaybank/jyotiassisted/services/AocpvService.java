@@ -7,6 +7,7 @@ import com.suryodaybank.jyotiassisted.models.MfiData;
 import com.suryodaybank.jyotiassisted.models.PreApprove;
 import com.suryodaybank.jyotiassisted.models.Response;
 import com.suryodaybank.jyotiassisted.models.ValidationRequestModel;
+import com.suryodaybank.jyotiassisted.models.ValidationResponse;
 
 import java.util.List;
 
@@ -30,5 +31,5 @@ public interface AocpvService {
     Call<ResponseBody> getMFISuccess(@Body DataModel<MfiData> mfiData);
 
     @POST("aocp/customer/fetchById")
-    Call<ResponseBody> getValidationData(@Body DataModel<ValidationRequestModel> validationRequestModelDataModel);
+    Call<ValidationResponse> getValidationData(@Body DataModel<ValidationRequestModel> body);
 }

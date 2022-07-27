@@ -14,6 +14,7 @@ import com.suryodaybank.jyotiassisted.models.DataModel;
 import com.suryodaybank.jyotiassisted.models.MfiData;
 import com.suryodaybank.jyotiassisted.models.MonthlyIncome;
 import com.suryodaybank.jyotiassisted.models.PreApprove;
+import com.suryodaybank.jyotiassisted.models.ValidationData;
 import com.suryodaybank.jyotiassisted.models.ValidationResponse;
 import com.suryodaybank.jyotiassisted.models.ValidationRequestModel;
 import com.suryodaybank.jyotiassisted.repositories.AocpvRepository;
@@ -45,6 +46,7 @@ public class AocpvViewModel extends ViewModel {
     public MutableLiveData<List<CRMCustDataResponseItem>> customerQueryLiveData = new MutableLiveData<List<CRMCustDataResponseItem>>();
     public SingleLiveEvent<Void> getMfiClassificationData = new SingleLiveEvent<>();
     public SingleLiveEvent<Void> getValidationData = new SingleLiveEvent<>();
+    public MutableLiveData<ValidationData> validationDataMutableLiveData = new MutableLiveData<>();
 
 
     @Inject
@@ -172,19 +174,19 @@ public class AocpvViewModel extends ViewModel {
     }
 
     public void callValidationData(Context mContext, ValidationRequestModel validationRequestModel){
-        aocpvRepository.validationData(validationRequestModel).enqueue(new Callback<ResponseBody>() {
-            @Override
-            public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
-                ValidationResponse validationResponse = new ValidationResponse();
-               // validationResponse = response.body();
-                String response1 = String.valueOf(response.body());
-                Toast.makeText(mContext,response1.toString(),Toast.LENGTH_SHORT).show();nextPage.call();
-            }
+        aocpvRepository.validationData(validationRequestModel).enqueue(new Callback<ValidationResponse>() {
+           @Override
+           public void onResponse(Call<ValidationResponse> call, Response<ValidationResponse> response) {
+               ValidationResponse validationResponse =new ValidationResponse();
+               validationResponse = response.body();
+               validationDataMutableLiveData.setValue(validationResponse.getData());
+             //  Toast.makeText(mContext,response.toString(),Toast.LENGTH_SHORT).show();nextPage.call();
+           }
 
-            @Override
-            public void onFailure(Call<ResponseBody> call, Throwable t) {
-                 Toast.makeText(mContext,"Something went wrong",Toast.LENGTH_SHORT).show();
-            }
-        });
+           @Override
+           public void onFailure(Call<ValidationResponse> call, Throwable t) {
+               Toast.makeText(mContext,"Something went wrong",Toast.LENGTH_SHORT).show();
+           }
+       });
     }
 }

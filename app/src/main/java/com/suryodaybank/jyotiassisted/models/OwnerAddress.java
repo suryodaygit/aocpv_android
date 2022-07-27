@@ -2,7 +2,7 @@ package com.suryodaybank.jyotiassisted.models;
 
 import com.google.gson.annotations.SerializedName;
 
-public class AddressData {
+public class OwnerAddress {
     @SerializedName("address_Line1")
     String address_Line1;
     @SerializedName("address_Line2")

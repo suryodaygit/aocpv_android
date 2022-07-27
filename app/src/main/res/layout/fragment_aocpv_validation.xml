@@ -82,9 +82,6 @@
             app:layout_constraintStart_toStartOf="@id/guideline1"
             app:layout_constraintTop_toBottomOf="@+id/tvFirstName" />
 
-
-        zz
-
         <TextView
             android:id="@+id/tvDateOfBirth"
             style="@style/Aocpv.SubTitle"

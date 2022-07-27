@@ -7,6 +7,7 @@ import com.suryodaybank.jyotiassisted.models.MfiData;
 import com.suryodaybank.jyotiassisted.models.PreApprove;
 import com.suryodaybank.jyotiassisted.models.Response;
 import com.suryodaybank.jyotiassisted.models.ValidationRequestModel;
+import com.suryodaybank.jyotiassisted.models.ValidationResponse;
 import com.suryodaybank.jyotiassisted.services.AocpvService;
 import com.suryodaybank.jyotiassisted.utils.PreApproveStatus;
 
@@ -55,9 +56,9 @@ public class AocpvRepository {
     return aocpvService.getMFISuccess(mfiDataDataModel);
     }
 
-    public  Call<ResponseBody> validationData(ValidationRequestModel validationRequestModel){
-        DataModel<ValidationRequestModel> validationRequestModelDataModel1 = new DataModel<ValidationRequestModel>();
-        validationRequestModelDataModel1.setData(validationRequestModel);
-        return aocpvService.getValidationData(validationRequestModelDataModel1);
+    public  Call<ValidationResponse> validationData(ValidationRequestModel validationRequestModel){
+        DataModel<ValidationRequestModel> dataModel = new DataModel<>();
+        dataModel.setData(validationRequestModel);
+        return aocpvService.getValidationData(dataModel);
     }
 }
