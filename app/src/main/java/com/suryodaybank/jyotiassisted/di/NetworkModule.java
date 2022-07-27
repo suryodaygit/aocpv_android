@@ -5,6 +5,8 @@ import com.suryodaybank.jyotiassisted.services.RetroServiceInterface;
 import com.suryodaybank.jyotiassisted.utils.Constants;
 import com.suryodaybank.jyotiassisted.utils.HeaderInterceptor;
 
+import java.util.concurrent.TimeUnit;
+
 import javax.inject.Singleton;
 
 import dagger.Module;
@@ -38,7 +40,9 @@ public class NetworkModule {
         HeaderInterceptor headerInterceptor = new HeaderInterceptor();
         OkHttpClient.Builder clientBuilder = new OkHttpClient.Builder()
                 .addInterceptor(headerInterceptor)
-                .addInterceptor(interceptor);
+                .addInterceptor(interceptor)
+                .readTimeout(120, TimeUnit.SECONDS)
+                .connectTimeout(120,TimeUnit.SECONDS);
         return clientBuilder.build();
     }
 

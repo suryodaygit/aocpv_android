@@ -1,14 +1,18 @@
 package com.suryodaybank.jyotiassisted.services;
 
 import com.google.gson.JsonObject;
+import com.suryodaybank.jyotiassisted.models.DataModel;
 import com.suryodaybank.jyotiassisted.models.CustomerDetailsRequest;
 import com.suryodaybank.jyotiassisted.models.CustomerSaveData;
 import com.suryodaybank.jyotiassisted.models.DataModel;
+import com.suryodaybank.jyotiassisted.models.MfiData;
 import com.suryodaybank.jyotiassisted.models.PreApprove;
 import com.suryodaybank.jyotiassisted.models.Response;
 import com.suryodaybank.jyotiassisted.models.SaveExpenseRequest;
 import com.suryodaybank.jyotiassisted.models.SaveIncomeRequest;
 import com.suryodaybank.jyotiassisted.models.UtilityDataRequest;
+import com.suryodaybank.jyotiassisted.models.ValidationRequestModel;
+import com.suryodaybank.jyotiassisted.models.ValidationResponse;
 
 import java.util.List;
 
@@ -39,4 +43,10 @@ public interface AocpvService {
 
     @POST("aocp/customer/saveData")
     Call<ResponseBody> saveUtilityDetails(@Body DataModel<UtilityDataRequest> body);
+
+    @POST("aocp/customer/saveData")
+    Call<ResponseBody> getMFISuccess(@Body DataModel<MfiData> mfiData);
+
+    @POST("aocp/customer/fetchById")
+    Call<ValidationResponse> getValidationData(@Body DataModel<ValidationRequestModel> body);
 }
