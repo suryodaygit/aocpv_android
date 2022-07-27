@@ -203,7 +203,6 @@ public class PersonalDetailAocpvFragment extends Fragment {
         customerSaveData.setImage(encoded_image);
         customerSaveData.setAddress(addressDetItems);
 
-
         aocpvViewModel.callPersonalDetailAPI(customerSaveData);
     }
 

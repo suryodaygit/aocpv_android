@@ -14,6 +14,7 @@ import androidx.fragment.app.FragmentActivity;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.navigation.Navigation;
+import androidx.navigation.fragment.NavHostFragment;
 import androidx.viewpager2.adapter.FragmentStateAdapter;
 import androidx.viewpager2.widget.ViewPager2;
 
@@ -26,7 +27,7 @@ import dagger.hilt.android.AndroidEntryPoint;
 @AndroidEntryPoint
 public class AocpvFragment extends Fragment {
 
-    private static final int TOTAL_PAGE = 6;
+    private static final int TOTAL_PAGE = 5;
     private static final String TAG = "AocpvFragment";
 
     private FragmentAocpvBinding binding;
@@ -43,6 +44,7 @@ public class AocpvFragment extends Fragment {
         binding = FragmentAocpvBinding.inflate(inflater, container, false);
         return binding.getRoot();
     }
+
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
@@ -91,13 +93,17 @@ public class AocpvFragment extends Fragment {
     }
 
     private void showConfirmationDialog() {
+        int currentItem = binding.aocpvViewPager.getCurrentItem();
+        int message = R.string.save_confirmation_dialog;
+        if (currentItem == 0) {
+            message = R.string.check_message;
+        }
         AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
         builder.setTitle(R.string.confirm);
-        builder.setMessage(R.string.save_confirmation_dialog);
+        builder.setMessage(message);
         builder.setPositiveButton(R.string.yes, new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialogInterface, int i) {
-                int currentItem = binding.aocpvViewPager.getCurrentItem();
                 aocpvViewModel.saveData(currentItem);
             }
         });
@@ -105,6 +111,10 @@ public class AocpvFragment extends Fragment {
             @Override
             public void onClick(DialogInterface dialogInterface, int i) {
                 dialogInterface.dismiss();
+                if (currentItem == 0) {
+                    //Go back if personal details are wrong
+                    NavHostFragment.findNavController(AocpvFragment.this).navigateUp();
+                }
             }
         });
         builder.show();
@@ -144,8 +154,6 @@ public class AocpvFragment extends Fragment {
                     return new MonthlyIncomeAocpvFragment();
                 case 3:
                     return new MonthlyExpenseAocpvFragment();
-                case 4:
-                    return new CustomerClassificationAocpvFragment();
                 default:
                     return new MfiClassificationAocpvFragment();
             }
