@@ -28,9 +28,13 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.core.content.ContextCompat;
 import androidx.fragment.app.Fragment;
+import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
 
 import com.suryodaybank.jyotiassisted.databinding.FragmentOwnershipDetailsAocpvBinding;
+import com.suryodaybank.jyotiassisted.models.AddressItem;
+import com.suryodaybank.jyotiassisted.models.UtilityAddressItem;
+import com.suryodaybank.jyotiassisted.models.UtilityDataRequest;
 import com.suryodaybank.jyotiassisted.viewmodels.AocpvViewModel;
 
 import java.io.File;
@@ -70,6 +74,7 @@ public class OwnershipDetailsAocpvFragment extends Fragment {
         super.onViewCreated(view, savedInstanceState);
         aocpvViewModel = new ViewModelProvider(requireActivity()).get(AocpvViewModel.class);
         setupViews();
+        setUpObserver();
 
         cameraLaunchUtility = registerForActivityResult(new ActivityResultContracts.StartActivityForResult(),
                 new ActivityResultCallback<ActivityResult>() {
@@ -126,6 +131,57 @@ public class OwnershipDetailsAocpvFragment extends Fragment {
                 selectImage("businessPhoto");
             }
         });
+    }
+
+    private void setUpObserver() {
+        aocpvViewModel.getUtilityDetails.observe(getViewLifecycleOwner(), new Observer<Void>() {
+            @Override
+            public void onChanged(Void unused) {
+                prepareOwnershipDetails();
+            }
+        });
+
+
+    }
+
+    private void prepareOwnershipDetails() {
+        UtilityDataRequest utilityDataRequest = new UtilityDataRequest();
+        utilityDataRequest.setFlowStatus("UD");
+        utilityDataRequest.setApplicationNo("12345681");
+        utilityDataRequest.setHouseOwnership(binding.ownershipSpinner.getSelectedItem().toString());
+        utilityDataRequest.setRoofType("kaccha");
+        utilityDataRequest.setResidenceStability(binding.etResidenceStability.getText().toString());
+        utilityDataRequest.setUtilityBill(binding.utilitySpinner.getSelectedItem().toString());
+        utilityDataRequest.setRelationshipWithOwner(binding.ownerSpinner.getSelectedItem().toString());
+        utilityDataRequest.setUtilityBillPhoto("");
+        ArrayList<UtilityAddressItem> addressItems = new ArrayList<>();
+        UtilityAddressItem utilityAddressItem = new UtilityAddressItem();
+        utilityAddressItem.setAddressLine1(binding.etAddLine1.getText().toString());
+        utilityAddressItem.setAddressLine2(binding.etAddLine2.getText().toString());
+        utilityAddressItem.setAddressLine3(binding.etAddLine3.getText().toString());
+        utilityAddressItem.setPincode(binding.etPincode.getText().toString());
+        utilityAddressItem.setCity(binding.etCity.getText().toString());
+        utilityAddressItem.setState(binding.etState.getText().toString());
+        addressItems.add(0,utilityAddressItem);
+        utilityDataRequest.setAddress(addressItems);
+        ArrayList<String> otherAsset = new ArrayList<>();
+
+
+        if(binding.checkBox1.isChecked()){
+            otherAsset.add(binding.checkBox1.getText().toString());
+        }else if(binding.checkBox2.isChecked()){
+            otherAsset.add(binding.checkBox2.getText().toString());
+        }else if(binding.checkBox3.isChecked()){
+            otherAsset.add(binding.checkBox3.getText().toString());
+        }else if(binding.checkBox4.isChecked()){
+            otherAsset.add(binding.checkBox4.getText().toString());
+        }
+
+        utilityDataRequest.setOtherAssets(otherAsset);
+        utilityDataRequest.setVintage(binding.etVintage.getText().toString());
+        utilityDataRequest.setBuisnessPhoto("");
+
+        aocpvViewModel.callOwnershipDetailAPI(utilityDataRequest);
     }
 
     private void checkForPermissions() {

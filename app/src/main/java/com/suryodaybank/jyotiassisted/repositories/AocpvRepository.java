@@ -1,11 +1,15 @@
 package com.suryodaybank.jyotiassisted.repositories;
 
 import com.google.gson.JsonObject;
-import com.suryodaybank.jyotiassisted.models.DataModel;
 import com.suryodaybank.jyotiassisted.models.CustomerDetailsRequest;
+import com.suryodaybank.jyotiassisted.models.CustomerSaveData;
+import com.suryodaybank.jyotiassisted.models.DataModel;
 import com.suryodaybank.jyotiassisted.models.MfiData;
 import com.suryodaybank.jyotiassisted.models.PreApprove;
 import com.suryodaybank.jyotiassisted.models.Response;
+import com.suryodaybank.jyotiassisted.models.SaveExpenseRequest;
+import com.suryodaybank.jyotiassisted.models.SaveIncomeRequest;
+import com.suryodaybank.jyotiassisted.models.UtilityDataRequest;
 import com.suryodaybank.jyotiassisted.models.ValidationRequestModel;
 import com.suryodaybank.jyotiassisted.models.ValidationResponse;
 import com.suryodaybank.jyotiassisted.services.AocpvService;
@@ -50,13 +54,37 @@ public class AocpvRepository {
         return aocpvService.getCustomerDetails(customerDetailsRequestDataModel);
     }
 
-    public Call<ResponseBody> mfiClassification(MfiData mfiData){
-        DataModel<MfiData> mfiDataDataModel = new DataModel<MfiData>();
-        mfiDataDataModel.setData(mfiData);
-    return aocpvService.getMFISuccess(mfiDataDataModel);
+    public Call<ResponseBody> saveUserDetail(CustomerSaveData customerSaveDataDataModel) {
+        DataModel<CustomerSaveData> body = new DataModel<>();
+        body.setData(customerSaveDataDataModel);
+        return aocpvService.saveCustomerDetails(body);
     }
 
-    public  Call<ValidationResponse> validationData(ValidationRequestModel validationRequestModel){
+    public Call<ResponseBody> saveIncomeDetails(SaveIncomeRequest incomeRequest) {
+        DataModel<SaveIncomeRequest> body = new DataModel<>();
+        body.setData(incomeRequest);
+        return aocpvService.saveIncomeDetails(body);
+    }
+
+    public Call<ResponseBody> saveExpenseDetails(SaveExpenseRequest expenseRequest) {
+        DataModel<SaveExpenseRequest> body = new DataModel<>();
+        body.setData(expenseRequest);
+        return aocpvService.saveExpenseDetails(body);
+    }
+
+    public Call<ResponseBody> saveUtilityDetails(UtilityDataRequest utilityDataRequest) {
+        DataModel<UtilityDataRequest> body = new DataModel<>();
+        body.setData(utilityDataRequest);
+        return aocpvService.saveUtilityDetails(body);
+    }
+
+    public Call<ResponseBody> mfiClassification(MfiData mfiData) {
+        DataModel<MfiData> mfiDataDataModel = new DataModel<MfiData>();
+        mfiDataDataModel.setData(mfiData);
+        return aocpvService.getMFISuccess(mfiDataDataModel);
+    }
+
+    public Call<ValidationResponse> validationData(ValidationRequestModel validationRequestModel) {
         DataModel<ValidationRequestModel> dataModel = new DataModel<>();
         dataModel.setData(validationRequestModel);
         return aocpvService.getValidationData(dataModel);

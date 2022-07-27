@@ -10,13 +10,18 @@ import androidx.lifecycle.ViewModel;
 import com.suryodaybank.jyotiassisted.R;
 import com.suryodaybank.jyotiassisted.models.CRMCustDataResponseItem;
 import com.suryodaybank.jyotiassisted.models.CustomerDetailsRequest;
+import com.suryodaybank.jyotiassisted.models.CustomerSaveData;
 import com.suryodaybank.jyotiassisted.models.DataModel;
 import com.suryodaybank.jyotiassisted.models.MfiData;
 import com.suryodaybank.jyotiassisted.models.MonthlyIncome;
 import com.suryodaybank.jyotiassisted.models.PreApprove;
+import com.suryodaybank.jyotiassisted.models.SaveExpenseRequest;
+import com.suryodaybank.jyotiassisted.models.SaveIncomeRequest;
+import com.suryodaybank.jyotiassisted.models.UtilityAddressItem;
+import com.suryodaybank.jyotiassisted.models.UtilityDataRequest;
 import com.suryodaybank.jyotiassisted.models.ValidationData;
-import com.suryodaybank.jyotiassisted.models.ValidationResponse;
 import com.suryodaybank.jyotiassisted.models.ValidationRequestModel;
+import com.suryodaybank.jyotiassisted.models.ValidationResponse;
 import com.suryodaybank.jyotiassisted.repositories.AocpvRepository;
 import com.suryodaybank.jyotiassisted.utils.PreApproveStatus;
 import com.suryodaybank.jyotiassisted.utils.SingleLiveEvent;
@@ -44,10 +49,18 @@ public class AocpvViewModel extends ViewModel {
     public MutableLiveData<Integer> pageNoLivedata = new MutableLiveData<>(1);
     public MutableLiveData<String> searchQueryLiveData = new MutableLiveData<>("");
     public MutableLiveData<List<CRMCustDataResponseItem>> customerQueryLiveData = new MutableLiveData<List<CRMCustDataResponseItem>>();
-    public SingleLiveEvent<Void> getMfiClassificationData = new SingleLiveEvent<>();
-    public SingleLiveEvent<Void> getValidationData = new SingleLiveEvent<>();
     public MutableLiveData<ValidationData> validationDataMutableLiveData = new MutableLiveData<>();
 
+    public SingleLiveEvent<Void> getMonthlyIncomeData = new SingleLiveEvent<>();
+    public SingleLiveEvent<Void> getMonthlyExpenseData = new SingleLiveEvent<>();
+    public SingleLiveEvent<Void> getCustomerDetails = new SingleLiveEvent<>();
+    public SingleLiveEvent<Void> getUtilityDetails = new SingleLiveEvent<>();
+    public SingleLiveEvent<Void> getMfiClassificationData = new SingleLiveEvent<>();
+    public SingleLiveEvent<Void> getValidationData = new SingleLiveEvent<>();
+
+    //Calculation data for monthly balance
+    public long totalMonthlyIncome = 0;
+    public long totalMonthlyEmi = 0;
 
     @Inject
     public AocpvViewModel(AocpvRepository aocpvRepository) {
@@ -83,6 +96,11 @@ public class AocpvViewModel extends ViewModel {
                 t.printStackTrace();
             }
         });
+    }
+
+    private void getUtilityDetails() {
+        DataModel<UtilityAddressItem> body = new DataModel<>();
+
     }
 
     private void getPreApproveList() {
@@ -135,58 +153,131 @@ public class AocpvViewModel extends ViewModel {
         switch (index) {
             case 0:
                 //Save customer details
+                getCustomerDetails.call();
                 break;
             case 1:
                 //Save utility details
+                getUtilityDetails.call();
                 break;
             case 2:
-                //Save monthly expense details
+                //Save monthly income details
+                getMonthlyIncomeData.call();
+                break;
+            case 3:
+                getMonthlyExpenseData.call();
                 break;
             case 5:
-               getMfiClassificationData.call();
-
+                getMfiClassificationData.call();
+                break;
             case 6:
-               getValidationData.call();
+                getValidationData.call();
+                break;
         }
-        //Add this line to move to next screen
-        nextPage.call();
+//        nextPage.call(); //Add this line to move to next screen
     }
 
-    public void callMonthlyExpenseApi() {
-
-    }
-
-    public void callMFIClassification(Context mContext,MfiData mfiData){
-        aocpvRepository.mfiClassification(mfiData).enqueue(new Callback<ResponseBody>() {
+    public void callMonthlyExpenseApi(SaveExpenseRequest saveExpenseRequest) {
+        saveExpenseRequest.setApplicationNo("12345681"); //TODO: Need to generate random
+        aocpvRepository.saveExpenseDetails(saveExpenseRequest).enqueue(new Callback<ResponseBody>() {
             @Override
             public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
-               String response1  = String.valueOf(response.body());
-               Toast.makeText(mContext,"data updated",Toast.LENGTH_SHORT).show();
-              Log.d("mfi",response1);
+                if (response.isSuccessful()) {
+                    nextPage.call();
+                }
             }
 
             @Override
             public void onFailure(Call<ResponseBody> call, Throwable t) {
-              Toast.makeText(mContext,"Something went wrong",Toast.LENGTH_SHORT).show();
-              t.printStackTrace();
+
             }
         });
     }
 
-    public void callValidationData(Context mContext, ValidationRequestModel validationRequestModel){
-        aocpvRepository.validationData(validationRequestModel).enqueue(new Callback<ValidationResponse>() {
-           @Override
-           public void onResponse(Call<ValidationResponse> call, Response<ValidationResponse> response) {
-               ValidationResponse validationResponse =new ValidationResponse();
-               validationResponse = response.body();
-               validationDataMutableLiveData.setValue(validationResponse.getData());
-             //  Toast.makeText(mContext,response.toString(),Toast.LENGTH_SHORT).show();nextPage.call();
-           }
+    public void callOwnershipDetailAPI(UtilityDataRequest utilityDataRequest) {
+        utilityDataRequest.setApplicationNo("12345681");//TODO: Need to generate random
+        aocpvRepository.saveUtilityDetails(utilityDataRequest).enqueue(new Callback<ResponseBody>() {
+            @Override
+            public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
+                if (response.isSuccessful()) {
+                    nextPage.call();
+                }
+            }
 
-           @Override
-           public void onFailure(Call<ValidationResponse> call, Throwable t) {
-               Toast.makeText(mContext,"Something went wrong",Toast.LENGTH_SHORT).show();
-           }
-       });
+            @Override
+            public void onFailure(Call<ResponseBody> call, Throwable t) {
+
+            }
+        });
+
+
+    }
+
+
+    public void callPersonalDetailAPI(CustomerSaveData customerSaveData) {
+        customerSaveData.setApplicationNo("12345681"); //TODO: Need to generate random
+        aocpvRepository.saveUserDetail(customerSaveData).enqueue(new Callback<ResponseBody>() {
+            @Override
+            public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
+                if (response.isSuccessful()) {
+                    nextPage.call();
+                }
+            }
+
+            @Override
+            public void onFailure(Call<ResponseBody> call, Throwable t) {
+
+            }
+        });
+    }
+
+    public void callMonthlyIncomeApi(SaveIncomeRequest saveIncomeRequest) {
+        saveIncomeRequest.setApplicationNo("12345681"); //TODO: Need to generate random
+        aocpvRepository.saveIncomeDetails(saveIncomeRequest).enqueue(new Callback<ResponseBody>() {
+            @Override
+            public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
+                if (response.isSuccessful()) {
+                    nextPage.call();
+                }
+            }
+
+            @Override
+            public void onFailure(Call<ResponseBody> call, Throwable t) {
+                t.printStackTrace();
+            }
+        });
+    }
+
+    public void callMFIClassification(Context mContext, MfiData mfiData) {
+        aocpvRepository.mfiClassification(mfiData).enqueue(new Callback<ResponseBody>() {
+            @Override
+            public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
+                String response1 = String.valueOf(response.body());
+                Toast.makeText(mContext, "data updated", Toast.LENGTH_SHORT).show();
+                Log.d("mfi", response1);
+            }
+
+            @Override
+            public void onFailure(Call<ResponseBody> call, Throwable t) {
+                Toast.makeText(mContext, "Something went wrong", Toast.LENGTH_SHORT).show();
+                t.printStackTrace();
+            }
+        });
+    }
+
+    public void callValidationData(Context mContext, ValidationRequestModel validationRequestModel) {
+        aocpvRepository.validationData(validationRequestModel).enqueue(new Callback<ValidationResponse>() {
+            @Override
+            public void onResponse(Call<ValidationResponse> call, Response<ValidationResponse> response) {
+                ValidationResponse validationResponse = new ValidationResponse();
+                validationResponse = response.body();
+                validationDataMutableLiveData.setValue(validationResponse.getData());
+                //  Toast.makeText(mContext,response.toString(),Toast.LENGTH_SHORT).show();nextPage.call();
+            }
+
+            @Override
+            public void onFailure(Call<ValidationResponse> call, Throwable t) {
+                Toast.makeText(mContext, "Something went wrong", Toast.LENGTH_SHORT).show();
+            }
+        });
     }
 }

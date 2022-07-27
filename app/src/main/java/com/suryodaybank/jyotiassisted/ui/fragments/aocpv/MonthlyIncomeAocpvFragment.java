@@ -14,6 +14,7 @@ import androidx.navigation.Navigation;
 import androidx.recyclerview.widget.LinearLayoutManager;
 
 import com.suryodaybank.jyotiassisted.databinding.FragmentMonthlyIncomeAocpvBinding;
+import com.suryodaybank.jyotiassisted.models.SaveIncomeRequest;
 import com.suryodaybank.jyotiassisted.ui.adapter.MonthlyIncomeAdapter;
 import com.suryodaybank.jyotiassisted.viewmodels.AocpvViewModel;
 
@@ -59,7 +60,8 @@ public class MonthlyIncomeAocpvFragment extends Fragment {
         aocpvViewModel.monthlyIncomeLivedata.observe(getViewLifecycleOwner(), monthlyIncomes -> {
             monthlyIncomeAdapter.submitList(monthlyIncomes);
             monthlyIncomeAdapter.notifyDataSetChanged();
-            double sumIncome = 0, sumEmi = 0;
+
+            long sumIncome = 0, sumEmi = 0;
             if (monthlyIncomes.isEmpty()) {
                 binding.tvNoItemFound.setVisibility(View.VISIBLE);
             } else {
@@ -69,8 +71,16 @@ public class MonthlyIncomeAocpvFragment extends Fragment {
                     sumEmi += monthlyIncomes.get(i).getMonthlyLoanEmi();
                 }
             }
+
+            aocpvViewModel.totalMonthlyIncome = sumIncome;
+            aocpvViewModel.totalMonthlyEmi = sumEmi;
+
             binding.tvTotalMonthlyIncome.setText(sumIncome + "");
             binding.tvTotalMonthlyEmi.setText(sumEmi + "");
+        });
+
+        aocpvViewModel.getMonthlyIncomeData.observe(getViewLifecycleOwner(), unused -> {
+            prepareDataAndCallApi();
         });
     }
 
@@ -86,5 +96,13 @@ public class MonthlyIncomeAocpvFragment extends Fragment {
                 navController.navigate(AocpvFragmentDirections.actionAocpvFragmentToAddMonthlyHouseholdFragment());
             }
         });
+    }
+
+    private void prepareDataAndCallApi() {
+        SaveIncomeRequest saveIncomeRequest = new SaveIncomeRequest();
+        saveIncomeRequest.setTotalMonthlyIncome(binding.tvTotalMonthlyIncome.getText().toString());
+        saveIncomeRequest.setTotalMonthlyEmi(binding.tvTotalMonthlyEmi.getText().toString());
+        saveIncomeRequest.setIncomeDetails(monthlyIncomeAdapter.getCurrentList());
+        aocpvViewModel.callMonthlyIncomeApi(saveIncomeRequest);
     }
 }
