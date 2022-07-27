@@ -29,7 +29,6 @@ import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
 
 import com.suryodaybank.jyotiassisted.databinding.FragmentPersonalDetailAocpvBinding;
-import com.suryodaybank.jyotiassisted.models.AddressDetails;
 import com.suryodaybank.jyotiassisted.models.AddressItem;
 import com.suryodaybank.jyotiassisted.models.CRMCustDataResponseItem;
 import com.suryodaybank.jyotiassisted.models.CustomerSaveData;
@@ -101,7 +100,6 @@ public class PersonalDetailAocpvFragment extends Fragment {
     private void setupObserver() {
 
 
-
         aocpvViewModel.customerQueryLiveData.observe(getViewLifecycleOwner(), new Observer<List<CRMCustDataResponseItem>>() {
             @Override
             public void onChanged(List<CRMCustDataResponseItem> crmCustDataResponseItems) {
@@ -143,9 +141,9 @@ public class PersonalDetailAocpvFragment extends Fragment {
         });
 
         aocpvViewModel.getCustomerDetails.observe(getViewLifecycleOwner(), unused -> {
-            prepareCustomerDetails();
+                    prepareCustomerDetails();
                 }
-                );
+        );
 
 //        aocpvViewModel.getMonthlyIncomeData.observe(getViewLifecycleOwner(), unused -> {
 //            prepareDataAndCallApi();
@@ -164,7 +162,7 @@ public class PersonalDetailAocpvFragment extends Fragment {
         addressDetItem.setDistrict(binding.etDistrict.getText().toString());
         addressDetItem.setState(binding.etState.getText().toString());
         addressDetItem.setCountry("india");
-        addressDetItems.add(0,addressDetItem);
+        addressDetItems.add(0, addressDetItem);
 
 
         CustomerSaveData customerSaveData = new CustomerSaveData();
@@ -176,7 +174,6 @@ public class PersonalDetailAocpvFragment extends Fragment {
         customerSaveData.setDateOfBirth("09/09/2022");
         customerSaveData.setImage("");
         customerSaveData.setAddress(addressDetItems);
-
 
 
         aocpvViewModel.callPersonalDetailAPI(customerSaveData);
