@@ -9,6 +9,54 @@ public class UtilityDataRequest {
     @SerializedName("houseOwnership")
     private String houseOwnership;
 
+    public void setHouseOwnership(String houseOwnership) {
+        this.houseOwnership = houseOwnership;
+    }
+
+    public void setUtilityBillPhoto(String utilityBillPhoto) {
+        this.utilityBillPhoto = utilityBillPhoto;
+    }
+
+    public void setAddress(List<UtilityAddressItem> address) {
+        this.address = address;
+    }
+
+    public void setOtherAssets(List<String> otherAssets) {
+        this.otherAssets = otherAssets;
+    }
+
+    public void setUtilityBill(String utilityBill) {
+        this.utilityBill = utilityBill;
+    }
+
+    public void setApplicationNo(String applicationNo) {
+        this.applicationNo = applicationNo;
+    }
+
+    public void setRoofType(String roofType) {
+        this.roofType = roofType;
+    }
+
+    public void setVintage(String vintage) {
+        this.vintage = vintage;
+    }
+
+    public void setBuisnessPhoto(String buisnessPhoto) {
+        this.buisnessPhoto = buisnessPhoto;
+    }
+
+    public void setFlowStatus(String flowStatus) {
+        this.flowStatus = flowStatus;
+    }
+
+    public void setResidenceStability(String residenceStability) {
+        this.residenceStability = residenceStability;
+    }
+
+    public void setRelationshipWithOwner(String relationshipWithOwner) {
+        this.relationshipWithOwner = relationshipWithOwner;
+    }
+
     @SerializedName("utilityBillPhoto")
     private String utilityBillPhoto;
 

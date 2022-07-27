@@ -9,10 +9,8 @@ import android.widget.ArrayAdapter;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
-import androidx.lifecycle.ViewModelProvider;
 
 import com.suryodaybank.jyotiassisted.databinding.FragmentUtilityDetailsAocpvBinding;
-import com.suryodaybank.jyotiassisted.viewmodels.AocpvViewModel;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -20,7 +18,6 @@ import java.util.List;
 public class UtilityDetailsAocpvFragment extends Fragment {
 
     private FragmentUtilityDetailsAocpvBinding binding;
-    private AocpvViewModel aocpvViewModel;
 
     public UtilityDetailsAocpvFragment() {
         // Required empty public constructor
@@ -36,14 +33,7 @@ public class UtilityDetailsAocpvFragment extends Fragment {
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-        aocpvViewModel = new ViewModelProvider(requireActivity()).get(AocpvViewModel.class);
         setupViews();
-        setUpObserver();
-    }
-
-    private void setUpObserver() {
-
-
     }
 
     private void setupViews() {

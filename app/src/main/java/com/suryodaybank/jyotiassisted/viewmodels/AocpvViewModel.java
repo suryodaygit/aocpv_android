@@ -16,6 +16,7 @@ import com.suryodaybank.jyotiassisted.models.MonthlyIncome;
 import com.suryodaybank.jyotiassisted.models.PreApprove;
 import com.suryodaybank.jyotiassisted.models.SaveIncomeRequest;
 import com.suryodaybank.jyotiassisted.models.UtilityAddressItem;
+import com.suryodaybank.jyotiassisted.models.UtilityDataRequest;
 import com.suryodaybank.jyotiassisted.repositories.AocpvRepository;
 import com.suryodaybank.jyotiassisted.utils.PreApproveStatus;
 import com.suryodaybank.jyotiassisted.utils.SingleLiveEvent;
@@ -143,6 +144,7 @@ public class AocpvViewModel extends ViewModel {
                 break;
             case 1:
                 //Save utility details
+                getUtilityDetails.call();
 
                 break;
             case 2:
@@ -154,7 +156,22 @@ public class AocpvViewModel extends ViewModel {
     }
 
 
-    public void callMonthlyExpenseApi() {
+    public void callOwnershipDetailAPI(UtilityDataRequest utilityDataRequest) {
+        utilityDataRequest.setApplicationNo("12345681");//TODO: Need to generate random
+        aocpvRepository.saveUtilityDetails(utilityDataRequest).enqueue(new Callback<ResponseBody>() {
+            @Override
+            public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
+                if (response.isSuccessful()) {
+                    nextPage.call();
+                }
+            }
+
+            @Override
+            public void onFailure(Call<ResponseBody> call, Throwable t) {
+
+            }
+        });
+
 
     }
 

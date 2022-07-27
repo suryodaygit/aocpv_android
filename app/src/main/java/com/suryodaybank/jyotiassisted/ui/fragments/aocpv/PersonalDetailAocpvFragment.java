@@ -166,7 +166,6 @@ public class PersonalDetailAocpvFragment extends Fragment {
         addressDetItem.setCountry("india");
         addressDetItems.add(0,addressDetItem);
 
-
         CustomerSaveData customerSaveData = new CustomerSaveData();
         customerSaveData.setFlowStatus("PD");
         customerSaveData.setApplicationNo("12345681");
