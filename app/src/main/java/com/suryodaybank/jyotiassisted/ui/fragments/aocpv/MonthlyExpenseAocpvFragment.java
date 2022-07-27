@@ -13,6 +13,7 @@ import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
 
 import com.suryodaybank.jyotiassisted.databinding.FragmentMonthlyExpenseAocpvBinding;
+import com.suryodaybank.jyotiassisted.models.SaveExpenseRequest;
 import com.suryodaybank.jyotiassisted.viewmodels.AocpvViewModel;
 
 import dagger.hilt.android.AndroidEntryPoint;
@@ -39,6 +40,7 @@ public class MonthlyExpenseAocpvFragment extends Fragment {
         super.onViewCreated(view, savedInstanceState);
         aocpvViewModel = new ViewModelProvider(requireActivity()).get(AocpvViewModel.class);
         setupViews();
+        setupObserver();
     }
 
     private void setupViews() {
@@ -50,28 +52,31 @@ public class MonthlyExpenseAocpvFragment extends Fragment {
 
             @Override
             public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
-                int sum = 0;
+                long sum = 0;
 
                 if (!binding.etFood.getText().toString().isEmpty()) {
-                    sum += Integer.parseInt(binding.etFood.getText().toString());
+                    sum += Long.parseLong(binding.etFood.getText().toString());
                 }
                 if (!binding.etRent.getText().toString().isEmpty()) {
-                    sum += Integer.parseInt(binding.etRent.getText().toString());
+                    sum += Long.parseLong(binding.etRent.getText().toString());
                 }
                 if (!binding.etMiscTransportation.getText().toString().isEmpty()) {
-                    sum += Integer.parseInt(binding.etMiscTransportation.getText().toString());
+                    sum += Long.parseLong(binding.etMiscTransportation.getText().toString());
                 }
                 if (!binding.etMiscEducation.getText().toString().isEmpty()) {
-                    sum += Integer.parseInt(binding.etMiscEducation.getText().toString());
+                    sum += Long.parseLong(binding.etMiscEducation.getText().toString());
                 }
                 if (!binding.etMiscMedical.getText().toString().isEmpty()) {
-                    sum += Integer.parseInt(binding.etMiscMedical.getText().toString());
+                    sum += Long.parseLong(binding.etMiscMedical.getText().toString());
                 }
                 if (!binding.etMiscOthers.getText().toString().isEmpty()) {
-                    sum += Integer.parseInt(binding.etMiscOthers.getText().toString());
+                    sum += Long.parseLong(binding.etMiscOthers.getText().toString());
                 }
 
                 binding.result.setText(String.valueOf(sum));
+
+                long monthlyBalance = aocpvViewModel.totalMonthlyIncome - (aocpvViewModel.totalMonthlyEmi + sum);
+                binding.tvResultMonthlyBalance.setText(String.valueOf(monthlyBalance));
             }
 
             @Override
@@ -85,5 +90,30 @@ public class MonthlyExpenseAocpvFragment extends Fragment {
         binding.etMiscEducation.addTextChangedListener(textWatcher);
         binding.etMiscMedical.addTextChangedListener(textWatcher);
         binding.etMiscOthers.addTextChangedListener(textWatcher);
+
+        //For First time only
+        long monthlyBalance = aocpvViewModel.totalMonthlyIncome - (aocpvViewModel.totalMonthlyEmi);
+        binding.tvResultMonthlyBalance.setText(String.valueOf(monthlyBalance));
+    }
+
+    private void setupObserver() {
+        aocpvViewModel.getMonthlyExpenseData.observe(getViewLifecycleOwner(), unused -> {
+            prepareDataAndCallApi();
+        });
+    }
+
+    private void prepareDataAndCallApi() {
+        SaveExpenseRequest saveExpenseRequest = new SaveExpenseRequest();
+        saveExpenseRequest.setFoodAndUtility(binding.etFood.getText().toString());
+        saveExpenseRequest.setRent(binding.etRent.getText().toString());
+        saveExpenseRequest.setTransportation(binding.etMiscTransportation.getText().toString());
+        saveExpenseRequest.setEducation(binding.etMiscEducation.getText().toString());
+        saveExpenseRequest.setMedical(binding.etMiscMedical.getText().toString());
+        saveExpenseRequest.setOther(binding.etMiscOthers.getText().toString());
+        saveExpenseRequest.setTotal(binding.result.getText().toString());
+        saveExpenseRequest.setMonthlyBalance(binding.tvResultMonthlyBalance.getText().toString());
+        saveExpenseRequest.setCustomerClassification("amber"); //TODO: May be need to calculate as per data
+
+        aocpvViewModel.callMonthlyExpenseApi(saveExpenseRequest);
     }
 }

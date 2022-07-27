@@ -14,6 +14,7 @@ import com.suryodaybank.jyotiassisted.models.CustomerSaveData;
 import com.suryodaybank.jyotiassisted.models.DataModel;
 import com.suryodaybank.jyotiassisted.models.MonthlyIncome;
 import com.suryodaybank.jyotiassisted.models.PreApprove;
+import com.suryodaybank.jyotiassisted.models.SaveExpenseRequest;
 import com.suryodaybank.jyotiassisted.models.SaveIncomeRequest;
 import com.suryodaybank.jyotiassisted.models.UtilityAddressItem;
 import com.suryodaybank.jyotiassisted.models.UtilityDataRequest;
@@ -45,9 +46,14 @@ public class AocpvViewModel extends ViewModel {
     public MutableLiveData<String> searchQueryLiveData = new MutableLiveData<>("");
     public MutableLiveData<List<CRMCustDataResponseItem>> customerQueryLiveData = new MutableLiveData<List<CRMCustDataResponseItem>>();
 
-    public SingleLiveEvent<Void> getMonthlyIncomeData = new SingleLiveEvent();
-    public SingleLiveEvent<Void> getCustomerDetails = new SingleLiveEvent();
-    public SingleLiveEvent<Void> getUtilityDetails = new SingleLiveEvent();
+    public SingleLiveEvent<Void> getMonthlyIncomeData = new SingleLiveEvent<>();
+    public SingleLiveEvent<Void> getMonthlyExpenseData = new SingleLiveEvent<>();
+    public SingleLiveEvent<Void> getCustomerDetails = new SingleLiveEvent<>();
+    public SingleLiveEvent<Void> getUtilityDetails = new SingleLiveEvent<>();
+
+    //Calculation data for monthly balance
+    public long totalMonthlyIncome = 0;
+    public long totalMonthlyEmi = 0;
 
     @Inject
     public AocpvViewModel(AocpvRepository aocpvRepository) {
@@ -151,10 +157,22 @@ public class AocpvViewModel extends ViewModel {
                 //Save monthly income details
                 getMonthlyIncomeData.call();
                 break;
+            case 3:
+                getMonthlyExpenseData.call();
+                break;
         }
 //        nextPage.call(); //Add this line to move to next screen
     }
 
+    public void callMonthlyExpenseApi(SaveExpenseRequest saveExpenseRequest) {
+        saveExpenseRequest.setApplicationNo("12345681"); //TODO: Need to generate random
+        aocpvRepository.saveExpenseDetails(saveExpenseRequest).enqueue(new Callback<ResponseBody>() {
+            @Override
+            public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
+                if (response.isSuccessful()) {
+                    nextPage.call();
+                }
+            }
 
     public void callOwnershipDetailAPI(UtilityDataRequest utilityDataRequest) {
         utilityDataRequest.setApplicationNo("12345681");//TODO: Need to generate random
@@ -172,7 +190,11 @@ public class AocpvViewModel extends ViewModel {
             }
         });
 
+            @Override
+            public void onFailure(Call<ResponseBody> call, Throwable t) {
 
+            }
+        });
     }
 
     public void callPersonalDetailAPI(CustomerSaveData customerSaveData) {
@@ -191,7 +213,6 @@ public class AocpvViewModel extends ViewModel {
             }
         });
     }
-
 
     public void callMonthlyIncomeApi(SaveIncomeRequest saveIncomeRequest) {
         saveIncomeRequest.setApplicationNo("12345681"); //TODO: Need to generate random
