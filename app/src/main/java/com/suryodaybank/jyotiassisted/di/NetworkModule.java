@@ -42,7 +42,7 @@ public class NetworkModule {
                 .addInterceptor(headerInterceptor)
                 .addInterceptor(interceptor)
                 .readTimeout(120, TimeUnit.SECONDS)
-                .connectTimeout(120,TimeUnit.SECONDS);
+                .connectTimeout(120, TimeUnit.SECONDS);
         return clientBuilder.build();
     }
 

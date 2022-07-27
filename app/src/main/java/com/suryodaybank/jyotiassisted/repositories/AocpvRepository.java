@@ -1,9 +1,9 @@
 package com.suryodaybank.jyotiassisted.repositories;
 
 import com.google.gson.JsonObject;
+import com.suryodaybank.jyotiassisted.models.CustomerDetailsRequest;
 import com.suryodaybank.jyotiassisted.models.CustomerSaveData;
 import com.suryodaybank.jyotiassisted.models.DataModel;
-import com.suryodaybank.jyotiassisted.models.CustomerDetailsRequest;
 import com.suryodaybank.jyotiassisted.models.MfiData;
 import com.suryodaybank.jyotiassisted.models.PreApprove;
 import com.suryodaybank.jyotiassisted.models.Response;
@@ -78,13 +78,13 @@ public class AocpvRepository {
         return aocpvService.saveUtilityDetails(body);
     }
 
-    public Call<ResponseBody> mfiClassification(MfiData mfiData){
+    public Call<ResponseBody> mfiClassification(MfiData mfiData) {
         DataModel<MfiData> mfiDataDataModel = new DataModel<MfiData>();
         mfiDataDataModel.setData(mfiData);
-    return aocpvService.getMFISuccess(mfiDataDataModel);
+        return aocpvService.getMFISuccess(mfiDataDataModel);
     }
 
-    public  Call<ValidationResponse> validationData(ValidationRequestModel validationRequestModel){
+    public Call<ValidationResponse> validationData(ValidationRequestModel validationRequestModel) {
         DataModel<ValidationRequestModel> dataModel = new DataModel<>();
         dataModel.setData(validationRequestModel);
         return aocpvService.getValidationData(dataModel);

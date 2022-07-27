@@ -20,8 +20,8 @@ import com.suryodaybank.jyotiassisted.models.SaveIncomeRequest;
 import com.suryodaybank.jyotiassisted.models.UtilityAddressItem;
 import com.suryodaybank.jyotiassisted.models.UtilityDataRequest;
 import com.suryodaybank.jyotiassisted.models.ValidationData;
-import com.suryodaybank.jyotiassisted.models.ValidationResponse;
 import com.suryodaybank.jyotiassisted.models.ValidationRequestModel;
+import com.suryodaybank.jyotiassisted.models.ValidationResponse;
 import com.suryodaybank.jyotiassisted.repositories.AocpvRepository;
 import com.suryodaybank.jyotiassisted.utils.PreApproveStatus;
 import com.suryodaybank.jyotiassisted.utils.SingleLiveEvent;
@@ -167,10 +167,11 @@ public class AocpvViewModel extends ViewModel {
                 getMonthlyExpenseData.call();
                 break;
             case 5:
-               getMfiClassificationData.call();
-
+                getMfiClassificationData.call();
+                break;
             case 6:
-               getValidationData.call();
+                getValidationData.call();
+                break;
         }
 //        nextPage.call(); //Add this line to move to next screen
     }
@@ -184,6 +185,7 @@ public class AocpvViewModel extends ViewModel {
                     nextPage.call();
                 }
             }
+
             @Override
             public void onFailure(Call<ResponseBody> call, Throwable t) {
 
@@ -209,8 +211,6 @@ public class AocpvViewModel extends ViewModel {
 
 
     }
-
-
 
 
     public void callPersonalDetailAPI(CustomerSaveData customerSaveData) {
@@ -247,37 +247,37 @@ public class AocpvViewModel extends ViewModel {
         });
     }
 
-    public void callMFIClassification(Context mContext,MfiData mfiData){
+    public void callMFIClassification(Context mContext, MfiData mfiData) {
         aocpvRepository.mfiClassification(mfiData).enqueue(new Callback<ResponseBody>() {
             @Override
             public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
-               String response1  = String.valueOf(response.body());
-               Toast.makeText(mContext,"data updated",Toast.LENGTH_SHORT).show();
-              Log.d("mfi",response1);
+                String response1 = String.valueOf(response.body());
+                Toast.makeText(mContext, "data updated", Toast.LENGTH_SHORT).show();
+                Log.d("mfi", response1);
             }
 
             @Override
             public void onFailure(Call<ResponseBody> call, Throwable t) {
-              Toast.makeText(mContext,"Something went wrong",Toast.LENGTH_SHORT).show();
-              t.printStackTrace();
+                Toast.makeText(mContext, "Something went wrong", Toast.LENGTH_SHORT).show();
+                t.printStackTrace();
             }
         });
     }
 
-    public void callValidationData(Context mContext, ValidationRequestModel validationRequestModel){
+    public void callValidationData(Context mContext, ValidationRequestModel validationRequestModel) {
         aocpvRepository.validationData(validationRequestModel).enqueue(new Callback<ValidationResponse>() {
-           @Override
-           public void onResponse(Call<ValidationResponse> call, Response<ValidationResponse> response) {
-               ValidationResponse validationResponse =new ValidationResponse();
-               validationResponse = response.body();
-               validationDataMutableLiveData.setValue(validationResponse.getData());
-             //  Toast.makeText(mContext,response.toString(),Toast.LENGTH_SHORT).show();nextPage.call();
-           }
+            @Override
+            public void onResponse(Call<ValidationResponse> call, Response<ValidationResponse> response) {
+                ValidationResponse validationResponse = new ValidationResponse();
+                validationResponse = response.body();
+                validationDataMutableLiveData.setValue(validationResponse.getData());
+                //  Toast.makeText(mContext,response.toString(),Toast.LENGTH_SHORT).show();nextPage.call();
+            }
 
-           @Override
-           public void onFailure(Call<ValidationResponse> call, Throwable t) {
-               Toast.makeText(mContext,"Something went wrong",Toast.LENGTH_SHORT).show();
-           }
-       });
+            @Override
+            public void onFailure(Call<ValidationResponse> call, Throwable t) {
+                Toast.makeText(mContext, "Something went wrong", Toast.LENGTH_SHORT).show();
+            }
+        });
     }
 }
