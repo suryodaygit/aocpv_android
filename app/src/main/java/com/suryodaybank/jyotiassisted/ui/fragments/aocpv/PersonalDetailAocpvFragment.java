@@ -174,7 +174,6 @@ public class PersonalDetailAocpvFragment extends Fragment {
         customerSaveData.setImage("");
         customerSaveData.setAddress(addressDetItems);
 
-
         aocpvViewModel.callPersonalDetailAPI(customerSaveData);
     }
 

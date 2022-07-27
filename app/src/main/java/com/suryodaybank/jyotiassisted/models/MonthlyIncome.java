@@ -22,6 +22,8 @@ public class MonthlyIncome {
     private long monthlyIncome;
     @SerializedName("monthlyLoanEmi")
     private long monthlyLoanEmi;
+    @SerializedName("occCode")
+    private String occCode;
 
     public String getFamilyMember() {
         return familyMember;
@@ -85,6 +87,10 @@ public class MonthlyIncome {
 
     public void setMonthlyLoanEmi(long monthlyLoanEmi) {
         this.monthlyLoanEmi = monthlyLoanEmi;
+    }
+
+    public void setOccCode(String occCode) {
+        this.occCode = occCode;
     }
 
     @Override
