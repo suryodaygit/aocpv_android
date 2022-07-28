@@ -5,10 +5,12 @@ import static com.suryodaybank.jyotiassisted.utils.Constants.UID1;
 
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
 import android.location.Address;
 import android.location.Geocoder;
 import android.os.Bundle;
+import android.preference.PreferenceManager;
 import android.view.View;
 import android.widget.Toast;
 
@@ -56,7 +58,7 @@ public class LoginActivity extends AppCompatActivity {
     }
 
     private void getUserLogin() {
-        loginViewModel.getLoginApicall(binding.txtUsername.getText().toString(), binding.txtPassword.getText().toString());
+        loginViewModel.getLoginApicall(binding.txtUsername.getText().toString(), binding.txtPassword.getText().toString(),this);
     }
 
     private void callVersionApi() {
@@ -100,12 +102,6 @@ public class LoginActivity extends AppCompatActivity {
 
 
     private void setupObserver() {
-        loginViewModel.livedata.observe(this, new Observer<Object>() {
-            @Override
-            public void onChanged(Object o) {
-                createAlertDialog(o.toString());
-            }
-        });
         loginViewModel.loginlivedata.observe(this, new Observer<LoginResponse>() {
             @Override
             public void onChanged(LoginResponse data) {
@@ -117,12 +113,15 @@ public class LoginActivity extends AppCompatActivity {
                     startActivity(intent);
                     finish();
                 }
+                else{
+                    Toast.makeText(LoginActivity.this, "empty", Toast.LENGTH_SHORT).show();
+                }
             }
         });
         loginViewModel.errorlivedata.observe(this, new Observer<String>() {
             @Override
             public void onChanged(String s) {
-                Toast.makeText(LoginActivity.this, s, Toast.LENGTH_SHORT).show();
+                createAlertDialog(s);
             }
         });
     }
@@ -134,9 +133,9 @@ public class LoginActivity extends AppCompatActivity {
                 .setCancelable(false)
                 .setPositiveButton(R.string.ok, new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface dialog, int id) {
-                        // if this button is clicked, close
-                        // current activity
-                        LoginActivity.this.finish();
+                        dialog.dismiss();
+                        binding.txtUsername.setText("");
+                        binding.txtPassword.setText("");
                     }
                 });
 

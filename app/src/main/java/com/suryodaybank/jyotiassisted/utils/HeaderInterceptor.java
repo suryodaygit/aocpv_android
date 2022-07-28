@@ -26,13 +26,13 @@ public class HeaderInterceptor implements Interceptor {
                 .addHeader("X-To-ID", "MB")
                 .addHeader("X-Transaction-ID", "EabeDcEE-db3c-BddD-CbD7-4bAA992c75d4")
                 .addHeader("X-User-ID", "30639")
-                .addHeader("X-Request-ID", "IBR")
+                .addHeader("X-Request-ID", "AOCPV")
                 .addHeader("requestID", "IBR")
                 .addHeader("appId", "com.suryodaybank.assisted")
                 .addHeader("deviceId", "/aK0Qq/rzCTnGs6CClBKWjXvtG9QlGaK")
                 .addHeader("source", "AOCPV")
                 .addHeader("Content-Type", "application/json")
-                .addHeader("Cookie", ": HttpOnly")
+                .addHeader("Cookie", ": HttpOnly; : HttpOnly; : HttpOnly")
                 .addHeader("requestKey", "")
                 .addHeader("sessionId", "")
                 .addHeader("loginTime", "")
@@ -42,7 +42,6 @@ public class HeaderInterceptor implements Interceptor {
                 .addHeader("userId", "")
                 .addHeader("serverToken", "")
                 .build();
-
 
         Response response = chain.proceed(request);
         return response;
