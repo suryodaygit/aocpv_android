@@ -1,5 +1,8 @@
 package com.suryodaybank.jyotiassisted.ui.fragments.aocpv;
 
+import static com.suryodaybank.jyotiassisted.utils.Constants.BRANCH_CODE;
+import static com.suryodaybank.jyotiassisted.utils.Constants.ELIGIBILITY;
+
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -18,6 +21,7 @@ import com.suryodaybank.jyotiassisted.R;
 import com.suryodaybank.jyotiassisted.databinding.FragmentMfiClassificationAocpvBinding;
 import com.suryodaybank.jyotiassisted.models.MfiData;
 import com.suryodaybank.jyotiassisted.models.PurposeOfLoan;
+import com.suryodaybank.jyotiassisted.utils.SharedPreferenceUtils;
 import com.suryodaybank.jyotiassisted.viewmodels.AocpvViewModel;
 
 import java.util.ArrayList;
@@ -85,6 +89,10 @@ public class MfiClassificationAocpvFragment extends Fragment implements AdapterV
                 }
             }
         });
+
+        String eligibility = SharedPreferenceUtils.getInstance(getContext()).getString(ELIGIBILITY);
+        binding.tvMaxEligibilityAmount.setText(eligibility);
+
     }
 
     private void callMfiAPI() {

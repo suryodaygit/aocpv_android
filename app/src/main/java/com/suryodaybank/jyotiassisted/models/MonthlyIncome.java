@@ -19,9 +19,9 @@ public class MonthlyIncome {
     @SerializedName("unsecuredLoan")
     private String unsecuredLoan;
     @SerializedName("monthlyIncome")
-    private long monthlyIncome;
+    private String monthlyIncome;
     @SerializedName("monthlyLoanEmi")
-    private long monthlyLoanEmi;
+    private String monthlyLoanEmi;
     @SerializedName("occCode")
     private String occCode;
 
@@ -73,20 +73,24 @@ public class MonthlyIncome {
         this.unsecuredLoan = unsecuredLoan;
     }
 
-    public long getMonthlyIncome() {
+    public String getMonthlyIncome() {
         return monthlyIncome;
     }
 
-    public void setMonthlyIncome(long monthlyIncome) {
+    public void setMonthlyIncome(String monthlyIncome) {
         this.monthlyIncome = monthlyIncome;
     }
 
-    public long getMonthlyLoanEmi() {
+    public String getMonthlyLoanEmi() {
         return monthlyLoanEmi;
     }
 
-    public void setMonthlyLoanEmi(long monthlyLoanEmi) {
+    public void setMonthlyLoanEmi(String monthlyLoanEmi) {
         this.monthlyLoanEmi = monthlyLoanEmi;
+    }
+
+    public String getOccCode() {
+        return occCode;
     }
 
     public void setOccCode(String occCode) {

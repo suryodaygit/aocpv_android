@@ -1,5 +1,7 @@
 package com.suryodaybank.jyotiassisted.ui.fragments.aocpv;
 
+import static com.suryodaybank.jyotiassisted.utils.Constants.ELIGIBILITY;
+
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -15,8 +17,12 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 
 import com.suryodaybank.jyotiassisted.databinding.FragmentMonthlyIncomeAocpvBinding;
 import com.suryodaybank.jyotiassisted.models.SaveIncomeRequest;
+import com.suryodaybank.jyotiassisted.ui.LoginActivity;
 import com.suryodaybank.jyotiassisted.ui.adapter.MonthlyIncomeAdapter;
+import com.suryodaybank.jyotiassisted.utils.SharedPreferenceUtils;
 import com.suryodaybank.jyotiassisted.viewmodels.AocpvViewModel;
+
+import java.util.concurrent.atomic.AtomicLong;
 
 import dagger.hilt.android.AndroidEntryPoint;
 
@@ -67,8 +73,8 @@ public class MonthlyIncomeAocpvFragment extends Fragment {
             } else {
                 binding.tvNoItemFound.setVisibility(View.GONE);
                 for (int i = 0; i < monthlyIncomes.size(); i++) {
-                    sumIncome += monthlyIncomes.get(i).getMonthlyIncome();
-                    sumEmi += monthlyIncomes.get(i).getMonthlyLoanEmi();
+                    sumIncome += Long.parseLong(monthlyIncomes.get(i).getMonthlyIncome());
+                    sumEmi += Long.parseLong(monthlyIncomes.get(i).getMonthlyLoanEmi());
                 }
             }
 
@@ -77,6 +83,10 @@ public class MonthlyIncomeAocpvFragment extends Fragment {
 
             binding.tvTotalMonthlyIncome.setText(sumIncome + "");
             binding.tvTotalMonthlyEmi.setText(sumEmi + "");
+
+            int amount = (int) ((sumIncome * 0.5) -sumEmi);
+            String eligibility = String.valueOf(amount);
+            SharedPreferenceUtils.getInstance(getActivity()).putString(ELIGIBILITY,eligibility);
         });
 
         aocpvViewModel.getMonthlyIncomeData.observe(getViewLifecycleOwner(), unused -> {

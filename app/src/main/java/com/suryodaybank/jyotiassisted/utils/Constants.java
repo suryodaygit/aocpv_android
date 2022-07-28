@@ -15,5 +15,6 @@ public class Constants {
     public static final String IMAGE_PATH_UTILITY = "";
     public static final String IMAGE_PATH_BUSINESS = "";
     public static final int MY_CAMERA_PERMISSION_CODE = 100;
+    public static final String ELIGIBILITY = "10000";
 
 }
