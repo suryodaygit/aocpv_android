@@ -1,9 +1,9 @@
 package com.suryodaybank.jyotiassisted.ui;
 
 import static com.suryodaybank.jyotiassisted.utils.Constants.BRANCH_CODE;
-import static com.suryodaybank.jyotiassisted.utils.Constants.CUSTOMER_MOBILE;
-import static com.suryodaybank.jyotiassisted.utils.Constants.CUSTOMER_NAME;
 import static com.suryodaybank.jyotiassisted.utils.Constants.UID1;
+import static com.suryodaybank.jyotiassisted.utils.Constants.USER_MOBILE;
+import static com.suryodaybank.jyotiassisted.utils.Constants.USER_NAME;
 
 import android.content.DialogInterface;
 import android.content.Intent;
@@ -110,8 +110,8 @@ public class LoginActivity extends AppCompatActivity {
                 if (data != null) {
                     SharedPreferenceUtils.getInstance(LoginActivity.this).putString(UID1, data.getuID1());
                     SharedPreferenceUtils.getInstance(LoginActivity.this).putString(BRANCH_CODE, data.getbRCD());
-                    SharedPreferenceUtils.getInstance(LoginActivity.this).putString(CUSTOMER_NAME, data.getName());
-                    SharedPreferenceUtils.getInstance(LoginActivity.this).putString(CUSTOMER_MOBILE, data.getMobile());
+                    SharedPreferenceUtils.getInstance(LoginActivity.this).putString(USER_MOBILE, data.getMobile());
+                    SharedPreferenceUtils.getInstance(LoginActivity.this).putString(USER_NAME, data.getName());
 
                     Intent intent = new Intent(binding.getRoot().getContext(), MainActivity.class);
                     startActivity(intent);

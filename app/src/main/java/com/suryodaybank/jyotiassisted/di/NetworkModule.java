@@ -39,7 +39,7 @@ public class NetworkModule {
         interceptor.level(HttpLoggingInterceptor.Level.BODY);
         HeaderInterceptor headerInterceptor = new HeaderInterceptor();
         OkHttpClient.Builder clientBuilder = new OkHttpClient.Builder()
-           //     .addInterceptor(headerInterceptor)
+                .addInterceptor(headerInterceptor)
                 .addInterceptor(interceptor)
                 .readTimeout(140, TimeUnit.SECONDS)
                 .connectTimeout(140, TimeUnit.SECONDS);

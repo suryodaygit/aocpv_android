@@ -1,11 +1,11 @@
 package com.suryodaybank.jyotiassisted.ui.fragments;
 
 import static com.suryodaybank.jyotiassisted.utils.Constants.BRANCH_CODE;
-import static com.suryodaybank.jyotiassisted.utils.Constants.CUSTOMER_MOBILE;
-import static com.suryodaybank.jyotiassisted.utils.Constants.CUSTOMER_NAME;
 import static com.suryodaybank.jyotiassisted.utils.Constants.IMAGE_PATH;
 import static com.suryodaybank.jyotiassisted.utils.Constants.MY_CAMERA_PERMISSION_CODE;
 import static com.suryodaybank.jyotiassisted.utils.Constants.UID1;
+import static com.suryodaybank.jyotiassisted.utils.Constants.USER_MOBILE;
+import static com.suryodaybank.jyotiassisted.utils.Constants.USER_NAME;
 
 import android.Manifest;
 import android.app.Activity;
@@ -70,9 +70,10 @@ public class HomeFragment extends Fragment {
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         String userId = SharedPreferenceUtils.getInstance(getContext()).getString(UID1);
-        String userName = SharedPreferenceUtils.getInstance(getContext()).getString(CUSTOMER_NAME);
-        String userMobile = SharedPreferenceUtils.getInstance(getContext()).getString(CUSTOMER_MOBILE);
+
+        String userMobile = SharedPreferenceUtils.getInstance(getContext()).getString(USER_MOBILE);
         String profile_pic = SharedPreferenceUtils.getInstance(getContext()).getString(IMAGE_PATH);
+        String userName = SharedPreferenceUtils.getInstance(getContext()).getString(USER_NAME);
         if (!profile_pic.equalsIgnoreCase("")) {
             byte[] b = Base64.decode(profile_pic, Base64.DEFAULT);
             Bitmap bitmap = BitmapFactory.decodeByteArray(b, 0, b.length);

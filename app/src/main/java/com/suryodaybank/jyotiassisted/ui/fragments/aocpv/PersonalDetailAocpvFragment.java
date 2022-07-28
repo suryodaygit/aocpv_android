@@ -132,7 +132,7 @@ public class PersonalDetailAocpvFragment extends Fragment {
                     binding.etCustomerId.setText(crmCustDataResponseItems.get(0).getCIFNUMBER());
                     String currentString = crmCustDataResponseItems.get(0).getDOB();
                     String[] separated = currentString.split("-");
-                    String newDate = separated[2] + "-" + separated[1] + "-" + separated[0]; // the date will be in dd-mm-yyyy format in String
+                    String newDate = separated[2] + "/" + separated[1] + "/" + separated[0]; // the date will be in dd-mm-yyyy format in String
                     binding.etDOB.setText(newDate);
                     binding.etFirstName.setText(crmCustDataResponseItems.get(0).getnAMEMOBILEOWNER());
                     binding.etMobileNum.setText(crmCustDataResponseItems.get(0).getrEGISTEREDMOBILE());

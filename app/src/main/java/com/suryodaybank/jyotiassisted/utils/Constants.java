@@ -9,9 +9,9 @@ public class Constants {
     public static final String LONGITUDE = "";
     public static final String ADDRESS = "";
     public static final String BRANCH_CODE = "BRCD";
-    public static final String CUSTOMER_NAME = "";
-    public static final String CUSTOMER_MOBILE = "";
-    public static final String IMAGE_PATH = "";
+    public static final String USER_NAME = "name";
+    public static final String USER_MOBILE = "mobile";
+    public static final String IMAGE_PATH = "image";
     public static final String IMAGE_PATH_UTILITY = "";
     public static final String IMAGE_PATH_BUSINESS = "";
     public static final int MY_CAMERA_PERMISSION_CODE = 100;

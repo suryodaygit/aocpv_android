@@ -108,7 +108,7 @@ public class LoginViewModel extends ViewModel {
                         if (jsonObject.has("errorMessage")) {
                             JSONArray array = jsonObject.getJSONArray("details");
                             String notAuthorizedUser = array.get(0).toString();
-                            Toast.makeText(mContext,notAuthorizedUser,Toast.LENGTH_SHORT).show();
+                           // Toast.makeText(mContext,notAuthorizedUser,Toast.LENGTH_SHORT).show();
                             errorlivedata.postValue(notAuthorizedUser);
                         }else {
                             String lockUser = jsonObject.getJSONObject("Error").getJSONObject("data").getString("UserStatus");
