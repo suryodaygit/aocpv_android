@@ -10,6 +10,7 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
+import androidx.navigation.fragment.NavHostFragment;
 
 import com.suryodaybank.jyotiassisted.databinding.FragmentAocpvValidationBinding;
 import com.suryodaybank.jyotiassisted.models.AddressData;
@@ -65,6 +66,12 @@ public class AocpvValidationFragment extends Fragment {
         ArrayAdapter<String> proofAdapter = new ArrayAdapter<>(getContext(), android.R.layout.simple_spinner_item, proofList);
         proofAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         binding.documentSpinner.setAdapter(proofAdapter);
+
+        binding.btnSubmit.setOnClickListener(view -> {
+            //TODO: Enter number dynamically
+            NavHostFragment.findNavController(this)
+                    .navigate(AocpvValidationFragmentDirections.actionAocpvValidationFragmentToOtpValidationAocpvFragment("919898302748"));
+        });
     }
 
     private void setData() {

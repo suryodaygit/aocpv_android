@@ -19,12 +19,19 @@ public class ErrorModel {
         @SerializedName("message")
         private String message;
 
+        @SerializedName("Description")
+        private String description;
+
         public String getCode() {
             return code;
         }
 
         public String getMessage() {
             return message;
+        }
+
+        public String getDescription() {
+            return description;
         }
     }
 }

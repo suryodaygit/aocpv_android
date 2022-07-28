@@ -38,9 +38,26 @@
     <fragment
         android:id="@+id/aocpvValidationFragment"
         android:name="com.suryodaybank.jyotiassisted.ui.fragments.aocpv.AocpvValidationFragment"
-        tools:layout="@layout/fragment_aocpv_validation" />
+        tools:layout="@layout/fragment_aocpv_validation">
+        <action
+            android:id="@+id/action_aocpvValidationFragment_to_otpValidationAocpvFragment"
+            app:destination="@id/otpValidationAocpvFragment" />
+    </fragment>
     <dialog
         android:id="@+id/preApproveFilterFragment"
         android:name="com.suryodaybank.jyotiassisted.ui.dialogs.PreApproveFilterFragment"
         tools:layout="@layout/fragment_pre_approve_filter" />
+    <fragment
+        android:id="@+id/otpValidationAocpvFragment"
+        android:name="com.suryodaybank.jyotiassisted.ui.fragments.aocpv.OtpValidationAocpvFragment"
+        tools:layout="@layout/fragment_otp_validation_aocpv">
+        <action
+            android:id="@+id/action_otpValidationAocpvFragment_to_preApproveFragment"
+            app:destination="@id/preApproveFragment"
+            app:popUpTo="@id/preApproveFragment"
+            app:popUpToInclusive="true" />
+        <argument
+            android:name="mobile"
+            app:argType="string" />
+    </fragment>
 </navigation>

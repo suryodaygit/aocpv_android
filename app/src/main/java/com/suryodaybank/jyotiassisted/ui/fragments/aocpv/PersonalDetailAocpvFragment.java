@@ -81,10 +81,10 @@ public class PersonalDetailAocpvFragment extends Fragment {
                             Bundle bundle = result.getData().getExtras();
                             Bitmap bitmap = (Bitmap) bundle.get("data");
                             binding.customerImg.setImageBitmap(bitmap);
-                            int nh = (int) ( bitmap.getHeight() * (512.0 / bitmap.getWidth()) );
+                            int nh = (int) (bitmap.getHeight() * (512.0 / bitmap.getWidth()));
                             Bitmap scaled = Bitmap.createScaledBitmap(bitmap, 512, nh, true);
                             convertbitmaptoString(scaled);
-                          
+
                         }
                     }
                 });
@@ -95,13 +95,12 @@ public class PersonalDetailAocpvFragment extends Fragment {
                         binding.customerImg.setImageURI(result);
                         try {
 
-                                Bitmap bitmap = MediaStore.Images.Media.getBitmap(getContext().getContentResolver() , result);
-                            int nh = (int) ( bitmap.getHeight() * (512.0 / bitmap.getWidth()) );
+                            Bitmap bitmap = MediaStore.Images.Media.getBitmap(getContext().getContentResolver(), result);
+                            int nh = (int) (bitmap.getHeight() * (512.0 / bitmap.getWidth()));
                             Bitmap scaled = Bitmap.createScaledBitmap(bitmap, 512, nh, true);
                             convertbitmaptoString(scaled);
 
-                        }
-                        catch (Exception e) {
+                        } catch (Exception e) {
                             //handle exception
                         }
                     }
@@ -118,8 +117,8 @@ public class PersonalDetailAocpvFragment extends Fragment {
     private void convertbitmaptoString(Bitmap bitmap) {
         ByteArrayOutputStream byteArrayOutputStream = new ByteArrayOutputStream();
         bitmap.compress(Bitmap.CompressFormat.PNG, 100, byteArrayOutputStream);
-        byte[] byteArray = byteArrayOutputStream .toByteArray();
-         encoded_image = Base64.encodeToString(byteArray, Base64.DEFAULT);
+        byte[] byteArray = byteArrayOutputStream.toByteArray();
+        encoded_image = Base64.encodeToString(byteArray, Base64.DEFAULT);
     }
 
     private void setupObserver() {
@@ -130,14 +129,10 @@ public class PersonalDetailAocpvFragment extends Fragment {
             public void onChanged(List<CRMCustDataResponseItem> crmCustDataResponseItems) {
 
                 if (crmCustDataResponseItems != null) {
-
-                    CustomerSaveData customerSaveData = new CustomerSaveData();
-
-
                     binding.etCustomerId.setText(crmCustDataResponseItems.get(0).getCIFNUMBER());
                     String currentString = crmCustDataResponseItems.get(0).getDOB();
                     String[] separated = currentString.split("-");
-                    String newDate =separated[2]+"-"+separated[1]+"-"+separated[0]; // the date will be in dd-mm-yyyy format in String
+                    String newDate = separated[2] + "-" + separated[1] + "-" + separated[0]; // the date will be in dd-mm-yyyy format in String
                     binding.etDOB.setText(newDate);
                     binding.etFirstName.setText(crmCustDataResponseItems.get(0).getnAMEMOBILEOWNER());
                     binding.etMobileNum.setText(crmCustDataResponseItems.get(0).getrEGISTEREDMOBILE());
@@ -169,14 +164,8 @@ public class PersonalDetailAocpvFragment extends Fragment {
         });
 
         aocpvViewModel.getCustomerDetails.observe(getViewLifecycleOwner(), unused -> {
-                    prepareCustomerDetails();
-                }
-        );
-
-//        aocpvViewModel.getMonthlyIncomeData.observe(getViewLifecycleOwner(), unused -> {
-//            prepareDataAndCallApi();
-
-
+            prepareCustomerDetails();
+        });
     }
 
     private void prepareCustomerDetails() {
