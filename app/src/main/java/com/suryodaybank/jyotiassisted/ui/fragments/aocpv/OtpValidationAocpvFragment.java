@@ -85,7 +85,7 @@ public class OtpValidationAocpvFragment extends Fragment {
                 .setPositiveButton(R.string.ok, (dialogInterface, i) -> {
                     dialogInterface.dismiss();
                     NavHostFragment.findNavController(OtpValidationAocpvFragment.this)
-                            .navigate(OtpValidationAocpvFragmentDirections.actionOtpValidationAocpvFragmentToPreApproveFragment());
+                            .navigate(OtpValidationAocpvFragmentDirections.actionOtpValidationAocpvFragmentToHomeFragment());
                 });
         builder.show();
     }

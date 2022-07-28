@@ -52,9 +52,9 @@
         android:name="com.suryodaybank.jyotiassisted.ui.fragments.aocpv.OtpValidationAocpvFragment"
         tools:layout="@layout/fragment_otp_validation_aocpv">
         <action
-            android:id="@+id/action_otpValidationAocpvFragment_to_preApproveFragment"
-            app:destination="@id/preApproveFragment"
-            app:popUpTo="@id/preApproveFragment"
+            android:id="@+id/action_otpValidationAocpvFragment_to_homeFragment"
+            app:destination="@id/homeFragment"
+            app:popUpTo="@id/homeFragment"
             app:popUpToInclusive="true" />
         <argument
             android:name="mobile"
