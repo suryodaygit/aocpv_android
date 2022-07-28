@@ -59,5 +59,8 @@
         <argument
             android:name="mobile"
             app:argType="string" />
+        <argument
+            android:name="applicationNo"
+            app:argType="string" />
     </fragment>
 </navigation>

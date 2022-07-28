@@ -8,11 +8,13 @@ import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.appcompat.app.AlertDialog;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.navigation.fragment.NavHostFragment;
 
+import com.suryodaybank.jyotiassisted.R;
 import com.suryodaybank.jyotiassisted.databinding.FragmentOtpValidationAocpvBinding;
 import com.suryodaybank.jyotiassisted.viewmodels.OtpAocpvViewModel;
 
@@ -53,12 +55,9 @@ public class OtpValidationAocpvFragment extends Fragment {
             public void onClick(View view) {
                 String otp = binding.pinView.getText().toString();
                 if (otp.length() == 6)
-                    otpAocpvViewModel.validateOtp(otp);
+                    otpAocpvViewModel.validateOtp(otp, navArgs.getApplicationNo());
                 else
                     otpAocpvViewModel.messageLiveData.setValue("Enter valid OTP");
-
-                /*NavHostFragment.findNavController(OtpValidationAocpvFragment.this)
-                        .navigate(OtpValidationAocpvFragmentDirections.actionOtpValidationAocpvFragmentToPreApproveFragment());*/
             }
         });
     }
@@ -73,9 +72,21 @@ public class OtpValidationAocpvFragment extends Fragment {
         otpAocpvViewModel.finalSuccessCall.observe(getViewLifecycleOwner(), new Observer<Void>() {
             @Override
             public void onChanged(Void unused) {
-                NavHostFragment.findNavController(OtpValidationAocpvFragment.this)
-                        .navigate(OtpValidationAocpvFragmentDirections.actionOtpValidationAocpvFragmentToPreApproveFragment());
+                showFinalSuccessMessage();
             }
         });
+    }
+
+    private void showFinalSuccessMessage() {
+        AlertDialog.Builder builder = new AlertDialog.Builder(getActivity())
+                .setTitle("Success")
+                .setMessage("Aocpv application id generated successfully.")
+                .setCancelable(false)
+                .setPositiveButton(R.string.ok, (dialogInterface, i) -> {
+                    dialogInterface.dismiss();
+                    NavHostFragment.findNavController(OtpValidationAocpvFragment.this)
+                            .navigate(OtpValidationAocpvFragmentDirections.actionOtpValidationAocpvFragmentToPreApproveFragment());
+                });
+        builder.show();
     }
 }

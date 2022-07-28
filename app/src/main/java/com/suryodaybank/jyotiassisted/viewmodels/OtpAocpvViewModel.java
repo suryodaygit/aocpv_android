@@ -46,13 +46,13 @@ public class OtpAocpvViewModel extends ViewModel {
         });
     }
 
-    public void validateOtp(String otp) {
+    public void validateOtp(String otp, String applicationNo) {
         otpAocpvRepository.validateOtp(otp).enqueue(new Callback<ResponseBody>() {
             @Override
             public void onResponse(@NonNull Call<ResponseBody> call, @NonNull Response<ResponseBody> response) {
                 if (response.isSuccessful()) {
                     messageLiveData.setValue("OTP validation successfully");
-                    finalAocpvCall("12345681"); //TODO: Need to pass original applicationNo
+                    finalAocpvCall(applicationNo);
                 } else {
                     String message = Utils.getErrorMessage(response.errorBody());
                     messageLiveData.setValue(message);

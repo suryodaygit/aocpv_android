@@ -68,9 +68,9 @@ public class AocpvValidationFragment extends Fragment {
         binding.documentSpinner.setAdapter(proofAdapter);
 
         binding.btnSubmit.setOnClickListener(view -> {
-            //TODO: Enter number dynamically
+            //TODO: Enter number dynamically, Handle random applicationNo
             NavHostFragment.findNavController(this)
-                    .navigate(AocpvValidationFragmentDirections.actionAocpvValidationFragmentToOtpValidationAocpvFragment("919898302748"));
+                    .navigate(AocpvValidationFragmentDirections.actionAocpvValidationFragmentToOtpValidationAocpvFragment("919898302748", "12345681"));
         });
     }
 
