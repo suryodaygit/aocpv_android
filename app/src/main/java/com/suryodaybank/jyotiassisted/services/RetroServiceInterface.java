@@ -6,6 +6,8 @@ import com.suryodaybank.jyotiassisted.models.LoginResponse;
 import com.suryodaybank.jyotiassisted.models.VersionRequest;
 import com.suryodaybank.jyotiassisted.models.VersionResponse;
 
+import org.json.JSONObject;
+
 import retrofit2.Call;
 import retrofit2.http.Body;
 import retrofit2.http.POST;

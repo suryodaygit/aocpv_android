@@ -41,8 +41,8 @@ public class NetworkModule {
         OkHttpClient.Builder clientBuilder = new OkHttpClient.Builder()
                 .addInterceptor(headerInterceptor)
                 .addInterceptor(interceptor)
-                .readTimeout(120, TimeUnit.SECONDS)
-                .connectTimeout(120, TimeUnit.SECONDS);
+                .readTimeout(140, TimeUnit.SECONDS)
+                .connectTimeout(140, TimeUnit.SECONDS);
         return clientBuilder.build();
     }
 
