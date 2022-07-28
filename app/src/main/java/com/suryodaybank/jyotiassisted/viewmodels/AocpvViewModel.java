@@ -17,7 +17,6 @@ import com.suryodaybank.jyotiassisted.models.MonthlyIncome;
 import com.suryodaybank.jyotiassisted.models.PreApprove;
 import com.suryodaybank.jyotiassisted.models.SaveExpenseRequest;
 import com.suryodaybank.jyotiassisted.models.SaveIncomeRequest;
-import com.suryodaybank.jyotiassisted.models.UtilityAddressItem;
 import com.suryodaybank.jyotiassisted.models.UtilityDataRequest;
 import com.suryodaybank.jyotiassisted.models.ValidationData;
 import com.suryodaybank.jyotiassisted.models.ValidationRequestModel;
@@ -25,6 +24,7 @@ import com.suryodaybank.jyotiassisted.models.ValidationResponse;
 import com.suryodaybank.jyotiassisted.repositories.AocpvRepository;
 import com.suryodaybank.jyotiassisted.utils.PreApproveStatus;
 import com.suryodaybank.jyotiassisted.utils.SingleLiveEvent;
+import com.suryodaybank.jyotiassisted.utils.Utils;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -44,6 +44,7 @@ public class AocpvViewModel extends ViewModel {
 
     private final AocpvRepository aocpvRepository;
     public SingleLiveEvent<Void> nextPage = new SingleLiveEvent<>();
+    public SingleLiveEvent<String> messageLiveData = new SingleLiveEvent<>();
     public MutableLiveData<List<PreApprove>> preApprovesLivedata = new MutableLiveData<>(new ArrayList<>());
     public MutableLiveData<List<MonthlyIncome>> monthlyIncomeLivedata = new MutableLiveData<>(new ArrayList<>());
     public MutableLiveData<Integer> pageNoLivedata = new MutableLiveData<>(1);
@@ -56,7 +57,6 @@ public class AocpvViewModel extends ViewModel {
     public SingleLiveEvent<Void> getCustomerDetails = new SingleLiveEvent<>();
     public SingleLiveEvent<Void> getUtilityDetails = new SingleLiveEvent<>();
     public SingleLiveEvent<Void> getMfiClassificationData = new SingleLiveEvent<>();
-    public SingleLiveEvent<Void> getValidationData = new SingleLiveEvent<>();
 
     //Calculation data for monthly balance
     public long totalMonthlyIncome = 0;
@@ -86,8 +86,8 @@ public class AocpvViewModel extends ViewModel {
                 if (response.isSuccessful()) {
                     customerQueryLiveData.setValue(response.body().getData().getCRMCustDataResponse());
                 } else {
-                    Log.d(TAG, "onResponse: " + response.errorBody().toString());
-                    customerQueryLiveData.setValue(null);
+                    String message = Utils.getErrorMessage(response.errorBody());
+                    messageLiveData.setValue(message);
                 }
             }
 
@@ -96,11 +96,6 @@ public class AocpvViewModel extends ViewModel {
                 t.printStackTrace();
             }
         });
-    }
-
-    private void getUtilityDetails() {
-        DataModel<UtilityAddressItem> body = new DataModel<>();
-
     }
 
     private void getPreApproveList() {

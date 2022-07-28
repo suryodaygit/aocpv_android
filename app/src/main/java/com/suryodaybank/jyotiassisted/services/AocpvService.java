@@ -5,6 +5,7 @@ import com.suryodaybank.jyotiassisted.models.CustomerDetailsRequest;
 import com.suryodaybank.jyotiassisted.models.CustomerSaveData;
 import com.suryodaybank.jyotiassisted.models.DataModel;
 import com.suryodaybank.jyotiassisted.models.MfiData;
+import com.suryodaybank.jyotiassisted.models.OtpRequest;
 import com.suryodaybank.jyotiassisted.models.PreApprove;
 import com.suryodaybank.jyotiassisted.models.Response;
 import com.suryodaybank.jyotiassisted.models.SaveExpenseRequest;
@@ -18,7 +19,10 @@ import java.util.List;
 import okhttp3.ResponseBody;
 import retrofit2.Call;
 import retrofit2.http.Body;
+import retrofit2.http.GET;
+import retrofit2.http.Headers;
 import retrofit2.http.POST;
+import retrofit2.http.Path;
 
 public interface AocpvService {
 
@@ -48,4 +52,19 @@ public interface AocpvService {
 
     @POST("aocp/customer/fetchById")
     Call<ValidationResponse> getValidationData(@Body DataModel<ValidationRequestModel> body);
+
+    @Headers({
+            "X-Request-ID: NOVOPAY"
+    })
+    @POST("aocp/sendOtp/email")
+    Call<ResponseBody> sendOtp(@Body DataModel<OtpRequest> body);
+
+    @Headers({
+            "X-Request-ID: NOVOPAY"
+    })
+    @GET("aocp/validateOTP/{otp}")
+    Call<ResponseBody> validateOtp(@Path("otp") String otp);
+
+    @POST("aocp/customer/updateStatus")
+    Call<ResponseBody> finalAocpvCall(@Body DataModel<JsonObject> body);
 }
