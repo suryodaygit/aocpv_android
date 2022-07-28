@@ -80,7 +80,7 @@ public class OtpValidationAocpvFragment extends Fragment {
     private void showFinalSuccessMessage() {
         AlertDialog.Builder builder = new AlertDialog.Builder(getActivity())
                 .setTitle("Success")
-                .setMessage("Aocpv application id generated successfully.")
+                .setMessage("Application id 12345681 generated successfully.")
                 .setCancelable(false)
                 .setPositiveButton(R.string.ok, (dialogInterface, i) -> {
                     dialogInterface.dismiss();
