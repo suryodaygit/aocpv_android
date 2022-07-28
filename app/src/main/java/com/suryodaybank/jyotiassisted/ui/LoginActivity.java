@@ -115,7 +115,6 @@ public class LoginActivity extends AppCompatActivity {
                     SharedPreferenceUtils.getInstance(LoginActivity.this).putString(UID1, data.getuID1());
                     SharedPreferenceUtils.getInstance(LoginActivity.this).putString(BRANCH_CODE, data.getbRCD());
                     SharedPreferenceUtils.getInstance(LoginActivity.this).putString(CUSTOMER_NAME, data.getName());
-                    SharedPreferenceUtils.getInstance(LoginActivity.this).putString(CUSTOMER_NAME, data.getName());
                     SharedPreferenceUtils.getInstance(LoginActivity.this).putString(CUSTOMER_MOBILE, data.getMobile());
 
                     Intent intent = new Intent(binding.getRoot().getContext(), MainActivity.class);
