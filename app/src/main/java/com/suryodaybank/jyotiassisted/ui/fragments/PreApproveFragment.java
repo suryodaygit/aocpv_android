@@ -20,6 +20,7 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import com.suryodaybank.jyotiassisted.databinding.FragmentPreApproveBinding;
 import com.suryodaybank.jyotiassisted.models.PreApprove;
 import com.suryodaybank.jyotiassisted.ui.adapter.PreApproveAdapter;
+import com.suryodaybank.jyotiassisted.utils.PreApproveStatus;
 import com.suryodaybank.jyotiassisted.utils.ProgressDialog;
 import com.suryodaybank.jyotiassisted.viewmodels.AocpvViewModel;
 
@@ -62,9 +63,14 @@ public class PreApproveFragment extends Fragment {
     private void setupView() {
         preApproveAdapter.setOnClickListener(new PreApproveAdapter.OnClickListener() {
             @Override
-            public void onProceed() {
+            public void onProceed(PreApprove preApprove) {
                 NavController navController = Navigation.findNavController(binding.getRoot());
-                navController.navigate(PreApproveFragmentDirections.actionPreApproveFragmentToAocpvFragment());
+                if (preApprove.getStatus().equals(PreApproveStatus.COMPLETED.status)) {
+                    navController.navigate(PreApproveFragmentDirections
+                            .actionPreApproveFragmentToAocpvValidationFragment().setStatus(PreApproveStatus.COMPLETED.status));
+                } else {
+                    navController.navigate(PreApproveFragmentDirections.actionPreApproveFragmentToAocpvFragment());
+                }
             }
 
             @Override

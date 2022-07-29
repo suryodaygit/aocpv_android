@@ -1,6 +1,7 @@
 package com.suryodaybank.jyotiassisted.ui.fragments.aocpv;
 
 import android.os.Bundle;
+import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -17,6 +18,7 @@ import com.suryodaybank.jyotiassisted.models.AddressData;
 import com.suryodaybank.jyotiassisted.models.OwnerAddress;
 import com.suryodaybank.jyotiassisted.models.ValidationData;
 import com.suryodaybank.jyotiassisted.models.ValidationRequestModel;
+import com.suryodaybank.jyotiassisted.utils.PreApproveStatus;
 import com.suryodaybank.jyotiassisted.utils.ProgressDialog;
 import com.suryodaybank.jyotiassisted.viewmodels.AocpvViewModel;
 
@@ -29,11 +31,18 @@ import dagger.hilt.android.AndroidEntryPoint;
 public class AocpvValidationFragment extends Fragment {
 
     private FragmentAocpvValidationBinding binding;
+    private AocpvValidationFragmentArgs navArgs;
     private AocpvViewModel aocpvViewModel;
     private ProgressDialog mProgressDialog;
     private ValidationData validationDetailsData = new ValidationData();
     private List<AddressData> addressData = new ArrayList<>();
     private List<OwnerAddress> ownerAddressData = new ArrayList<>();
+
+    @Override
+    public void onCreate(@Nullable Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        navArgs = AocpvValidationFragmentArgs.fromBundle(getArguments());
+    }
 
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container,
@@ -76,6 +85,14 @@ public class AocpvValidationFragment extends Fragment {
             NavHostFragment.findNavController(this)
                     .navigate(AocpvValidationFragmentDirections.actionAocpvValidationFragmentToOtpValidationAocpvFragment("919653499151", "12345681"));
         });
+        binding.btnEdit.setOnClickListener(view -> {
+            NavHostFragment.findNavController(this).navigateUp();
+        });
+
+        if (TextUtils.equals(navArgs.getStatus(), PreApproveStatus.COMPLETED.status)) {
+            binding.btnSubmit.setVisibility(View.GONE);
+            binding.btnEdit.setVisibility(View.GONE);
+        }
     }
 
     private void setupObserver() {
@@ -96,15 +113,18 @@ public class AocpvValidationFragment extends Fragment {
         binding.etMobileNum.setText(validationDetailsData.getMobileNo());
         binding.etTypeOfResidence.setText("");
         binding.etAddressCommunication.setText("");
-        for (int i = 0; i <= addressData.size() - 1; i++) {
-            binding.etAddLine1.setText(addressData.get(i).getAddress_Line1());
-            binding.etAddLine2.setText(addressData.get(i).getAddress_Line2());
-            binding.etAddLine3.setText(addressData.get(i).getAddress_Line3());
-            binding.etCountry.setText(addressData.get(i).getCountry());
-            binding.etState.setText(addressData.get(i).getState());
-            binding.etDistrict.setText(addressData.get(i).getDistrict());
-            binding.etCity.setText(addressData.get(i).getCity());
-            binding.etPincode.setText(addressData.get(i).getPinCode());
+
+        if (addressData != null) {
+            for (int i = 0; i <= addressData.size() - 1; i++) {
+                binding.etAddLine1.setText(addressData.get(i).getAddress_Line1());
+                binding.etAddLine2.setText(addressData.get(i).getAddress_Line2());
+                binding.etAddLine3.setText(addressData.get(i).getAddress_Line3());
+                binding.etCountry.setText(addressData.get(i).getCountry());
+                binding.etState.setText(addressData.get(i).getState());
+                binding.etDistrict.setText(addressData.get(i).getDistrict());
+                binding.etCity.setText(addressData.get(i).getCity());
+                binding.etPincode.setText(addressData.get(i).getPinCode());
+            }
         }
 
         binding.etFood.setText(validationDetailsData.getFoodAndUtility());
@@ -120,15 +140,17 @@ public class AocpvValidationFragment extends Fragment {
         binding.etUtilityBills.setText(validationDetailsData.getUtilityBill());
         binding.etRelation.setText(validationDetailsData.getRelationshipWithOwner());
 
-        for (int i = 0; i <= ownerAddressData.size() - 1; i++) {
-            binding.etUtilityAddLine1.setText(ownerAddressData.get(i).getAddress_Line1());
-            binding.etUtilityAddLine2.setText(ownerAddressData.get(i).getAddress_Line2());
-            binding.etUtilityAddLine3.setText(ownerAddressData.get(i).getAddress_Line3());
-            binding.etUtilityCountry.setText(ownerAddressData.get(i).getCountry());
-            binding.etUtilityState.setText(ownerAddressData.get(i).getState());
-            binding.etUtilityDistrict.setText(ownerAddressData.get(i).getDistrict());
-            binding.etUtilityPincode.setText(ownerAddressData.get(i).getPinCode());
-            binding.etUtilityCity.setText(ownerAddressData.get(i).getCity());
+        if (ownerAddressData != null) {
+            for (int i = 0; i <= ownerAddressData.size() - 1; i++) {
+                binding.etUtilityAddLine1.setText(ownerAddressData.get(i).getAddress_Line1());
+                binding.etUtilityAddLine2.setText(ownerAddressData.get(i).getAddress_Line2());
+                binding.etUtilityAddLine3.setText(ownerAddressData.get(i).getAddress_Line3());
+                binding.etUtilityCountry.setText(ownerAddressData.get(i).getCountry());
+                binding.etUtilityState.setText(ownerAddressData.get(i).getState());
+                binding.etUtilityDistrict.setText(ownerAddressData.get(i).getDistrict());
+                binding.etUtilityPincode.setText(ownerAddressData.get(i).getPinCode());
+                binding.etUtilityCity.setText(ownerAddressData.get(i).getCity());
+            }
         }
 
         if (validationDetailsData.getMobileLinkToAadhar().equals("Yes")) {

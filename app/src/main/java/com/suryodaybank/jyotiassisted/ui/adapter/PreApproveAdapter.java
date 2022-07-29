@@ -40,7 +40,7 @@ public class PreApproveAdapter extends ListAdapter<PreApprove, PreApproveAdapter
     public void onBindViewHolder(@NonNull PreApproveVH holder, int position) {
         PreApprove preApprove = getItem(position);
         holder.bind(preApprove);
-        holder.binding.btnProceed.setOnClickListener(view -> onClickListener.onProceed());
+        holder.binding.btnProceed.setOnClickListener(view -> onClickListener.onProceed(preApprove));
         holder.binding.btnNotInterested.setOnClickListener(view -> onClickListener.onNotInterested(preApprove));
         holder.binding.btnCall.setOnClickListener(view -> onClickListener.onCall(preApprove.getMobilePhone()));
     }
@@ -66,7 +66,7 @@ public class PreApproveAdapter extends ListAdapter<PreApprove, PreApproveAdapter
     }
 
     public interface OnClickListener {
-        void onProceed();
+        void onProceed(PreApprove preApprove);
 
         void onNotInterested(PreApprove preApprove);
 
