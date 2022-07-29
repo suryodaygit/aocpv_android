@@ -1,6 +1,9 @@
 package com.suryodaybank.jyotiassisted.ui;
 
+import static com.suryodaybank.jyotiassisted.utils.Constants.ADDRESS;
 import static com.suryodaybank.jyotiassisted.utils.Constants.BRANCH_CODE;
+import static com.suryodaybank.jyotiassisted.utils.Constants.LATITUDE;
+import static com.suryodaybank.jyotiassisted.utils.Constants.LONGITUDE;
 import static com.suryodaybank.jyotiassisted.utils.Constants.UID1;
 import static com.suryodaybank.jyotiassisted.utils.Constants.USER_MOBILE;
 import static com.suryodaybank.jyotiassisted.utils.Constants.USER_NAME;
@@ -90,7 +93,13 @@ public class LoginActivity extends AppCompatActivity {
             try {
                 Geocoder geocoder = new Geocoder(LoginActivity.this, Locale.getDefault());
 
-                addresses = geocoder.getFromLocation(latitude, longitude, 1); // Here 1 represent max location result to returned, by documents it recommended 1 to 5
+                addresses = geocoder.getFromLocation(latitude, longitude, 1);
+                SharedPreferenceUtils.getInstance(LoginActivity.this).putString(LATITUDE, String.valueOf(latitude));
+                SharedPreferenceUtils.getInstance(LoginActivity.this).putString(LONGITUDE, String.valueOf(longitude));
+                SharedPreferenceUtils.getInstance(LoginActivity.this).putString(ADDRESS, addresses.get(0).getAddressLine(0));
+
+
+                // Here 1 represent max location result to returned, by documents it recommended 1 to 5
 
             } catch (IOException e) {
                 e.printStackTrace();

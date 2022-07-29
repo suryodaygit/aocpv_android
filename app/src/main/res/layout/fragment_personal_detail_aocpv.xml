@@ -31,7 +31,18 @@
             app:shapeAppearanceOverlay="@style/ShapeAppearanceOverlay.App.CornerSize50Percent" />
 
         <TextView
-            android:id="@+id/tvImageCaption"
+            android:id="@+id/tvLatLong"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_margin="4dp"
+            android:gravity="center"
+            android:text="@string/customer_latLong"
+            android:textColor="@color/black"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/customerImg" />
+        <TextView
+            android:id="@+id/tvCurrentAddress"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_margin="4dp"
@@ -40,7 +51,7 @@
             android:textColor="@color/black"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/customerImg" />
+            app:layout_constraintTop_toBottomOf="@id/tvLatLong" />
 
         <TextView
             android:id="@+id/tvCustomerId"
@@ -48,10 +59,10 @@
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
             android:layout_margin="8dp"
-            android:text="@string/customer_id"
+            android:text="@string/address_details"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/tvImageCaption" />
+            app:layout_constraintTop_toBottomOf="@+id/tvCurrentAddress" />
 
         <EditText
             android:id="@+id/etCustomerId"

@@ -1,7 +1,11 @@
 package com.suryodaybank.jyotiassisted.ui.fragments.aocpv;
 
 import static android.app.Activity.RESULT_OK;
+import static com.suryodaybank.jyotiassisted.utils.Constants.ADDRESS;
+import static com.suryodaybank.jyotiassisted.utils.Constants.LATITUDE;
+import static com.suryodaybank.jyotiassisted.utils.Constants.LONGITUDE;
 import static com.suryodaybank.jyotiassisted.utils.Constants.MY_CAMERA_PERMISSION_CODE;
+import static com.suryodaybank.jyotiassisted.utils.Constants.UID1;
 
 import android.Manifest;
 import android.app.DatePickerDialog;
@@ -34,6 +38,7 @@ import com.suryodaybank.jyotiassisted.models.AddressItem;
 import com.suryodaybank.jyotiassisted.models.CRMCustDataResponseItem;
 import com.suryodaybank.jyotiassisted.models.CustomerSaveData;
 import com.suryodaybank.jyotiassisted.utils.Constants;
+import com.suryodaybank.jyotiassisted.utils.SharedPreferenceUtils;
 import com.suryodaybank.jyotiassisted.viewmodels.AocpvViewModel;
 
 import java.io.ByteArrayOutputStream;
@@ -55,6 +60,10 @@ public class PersonalDetailAocpvFragment extends Fragment {
 
     private AocpvViewModel aocpvViewModel;
     private String encoded_image;
+    private String lat ="";
+    private String lang ="";
+    private String address= "";
+
 
     public PersonalDetailAocpvFragment() {
         // Required empty public constructor
@@ -70,6 +79,13 @@ public class PersonalDetailAocpvFragment extends Fragment {
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
+         lat = SharedPreferenceUtils.getInstance(getContext()).getString(LATITUDE);
+         lang = SharedPreferenceUtils.getInstance(getContext()).getString(LONGITUDE);
+         address = SharedPreferenceUtils.getInstance(getContext()).getString(ADDRESS);
+
+        binding.tvCurrentAddress.setText(address);
+        String latLong = lat + "  " + lang;
+        binding.tvLatLong.setText(latLong);
         aocpvViewModel = new ViewModelProvider(requireActivity()).get(AocpvViewModel.class);
         setupViews();
         setupObserver();
@@ -116,10 +132,27 @@ public class PersonalDetailAocpvFragment extends Fragment {
     }
 
     private void convertbitmaptoString(Bitmap bitmap) {
+        Bitmap converetdImage = getResizedBitmap(bitmap, 312);
+
         ByteArrayOutputStream byteArrayOutputStream = new ByteArrayOutputStream();
-        bitmap.compress(Bitmap.CompressFormat.PNG, 100, byteArrayOutputStream);
+        converetdImage.compress(Bitmap.CompressFormat.PNG, 100, byteArrayOutputStream);
         byte[] byteArray = byteArrayOutputStream.toByteArray();
         encoded_image = Base64.encodeToString(byteArray, Base64.DEFAULT);
+    }
+
+    public Bitmap getResizedBitmap(Bitmap image, int maxSize) {
+        int width = image.getWidth();
+        int height = image.getHeight();
+
+        float bitmapRatio = (float) width / (float) height;
+        if (bitmapRatio > 1) {
+            width = maxSize;
+            height = (int) (width / bitmapRatio);
+        } else {
+            height = maxSize;
+            width = (int) (height * bitmapRatio);
+        }
+        return Bitmap.createScaledBitmap(image, width, height, true);
     }
 
     private void setupObserver() {
@@ -184,6 +217,9 @@ public class PersonalDetailAocpvFragment extends Fragment {
         customerSaveData.setBranchId("10011");
         customerSaveData.setImage(encoded_image);
         customerSaveData.setAddress(addressDetItems);
+        customerSaveData.setpLat(lat);
+        customerSaveData.setpLong(lang);
+        customerSaveData.setpAddress(address);
 
         aocpvViewModel.callPersonalDetailAPI(customerSaveData);
     }

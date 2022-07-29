@@ -44,8 +44,43 @@ public class CustomerSaveData {
     @SerializedName("address")
     private List<AddressItem> address;
 
+    public String getpLat() {
+        return pLat;
+    }
+
+    public void setpLat(String pLat) {
+        this.pLat = pLat;
+    }
+
+    public String getpLong() {
+        return pLong;
+    }
+
+    public void setpLong(String pLong) {
+        this.pLong = pLong;
+    }
+
+    public String getpAddress() {
+        return pAddress;
+    }
+
+    public void setpAddress(String pAddress) {
+        this.pAddress = pAddress;
+    }
+
     @SerializedName("applicationNo")
     private String applicationNo;
+
+    @SerializedName("pLat")
+    private String pLat;
+    @SerializedName("pLong")
+    private String pLong;
+
+    @SerializedName("pAddress")
+    private String pAddress;
+
+
+
 
     public String getBranchId() {
         return branchId;
