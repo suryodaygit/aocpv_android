@@ -84,6 +84,39 @@ public class UtilityDataRequest {
     @SerializedName("flowStatus")
     private String flowStatus;
 
+    @SerializedName("bLat")
+    private String bLat;
+
+    @SerializedName("bLong")
+    private String bLong;
+
+    @SerializedName("bAddress")
+    private String bAddress;
+
+    public String getbLat() {
+        return bLat;
+    }
+
+    public void setbLat(String bLat) {
+        this.bLat = bLat;
+    }
+
+    public String getbLong() {
+        return bLong;
+    }
+
+    public void setbLong(String bLong) {
+        this.bLong = bLong;
+    }
+
+    public String getbAddress() {
+        return bAddress;
+    }
+
+    public void setbAddress(String bAddress) {
+        this.bAddress = bAddress;
+    }
+
     @SerializedName("residenceStability")
     private String residenceStability;
 

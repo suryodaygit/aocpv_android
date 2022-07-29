@@ -1,6 +1,9 @@
 package com.suryodaybank.jyotiassisted.ui.fragments.aocpv;
 
 import static android.app.Activity.RESULT_OK;
+import static com.suryodaybank.jyotiassisted.utils.Constants.ADDRESS;
+import static com.suryodaybank.jyotiassisted.utils.Constants.LATITUDE;
+import static com.suryodaybank.jyotiassisted.utils.Constants.LONGITUDE;
 import static com.suryodaybank.jyotiassisted.utils.Constants.MY_CAMERA_PERMISSION_CODE;
 import static com.suryodaybank.jyotiassisted.utils.Constants.RESIDENT_STABILITY;
 import static com.suryodaybank.jyotiassisted.utils.Constants.ROOF_TYPE;
@@ -58,6 +61,9 @@ public class OwnershipDetailsAocpvFragment extends Fragment {
     ActivityResultLauncher<Intent> cameraLaunchBusiness;
     ActivityResultLauncher<String> galleryLaunchUtility;
     ActivityResultLauncher<String> galleryLaunchBusiness;
+    private String lat = "";
+    private String lang = "";
+    private String address = "";
 
     private String userChoosenTask;
 
@@ -83,6 +89,9 @@ public class OwnershipDetailsAocpvFragment extends Fragment {
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         aocpvViewModel = new ViewModelProvider(requireActivity()).get(AocpvViewModel.class);
+        lat = SharedPreferenceUtils.getInstance(getContext()).getString(LATITUDE);
+        lang = SharedPreferenceUtils.getInstance(getContext()).getString(LONGITUDE);
+        address = SharedPreferenceUtils.getInstance(getContext()).getString(ADDRESS);
         setupViews();
         setUpObserver();
 
@@ -173,11 +182,26 @@ public class OwnershipDetailsAocpvFragment extends Fragment {
     }
 
     private String convertbitmaptoString(Bitmap scaled) {
+        Bitmap converetdImage = getResizedBitmap(scaled, 312);
         ByteArrayOutputStream byteArrayOutputStream = new ByteArrayOutputStream();
-        scaled.compress(Bitmap.CompressFormat.PNG, 100, byteArrayOutputStream);
+        converetdImage.compress(Bitmap.CompressFormat.PNG, 100, byteArrayOutputStream);
         byte[] byteArray = byteArrayOutputStream .toByteArray();
         encoded_image_string = Base64.encodeToString(byteArray, Base64.DEFAULT);
         return encoded_image_string;
+    }
+    public Bitmap getResizedBitmap(Bitmap image, int maxSize) {
+        int width = image.getWidth();
+        int height = image.getHeight();
+
+        float bitmapRatio = (float) width / (float) height;
+        if (bitmapRatio > 1) {
+            width = maxSize;
+            height = (int) (width / bitmapRatio);
+        } else {
+            height = maxSize;
+            width = (int) (height * bitmapRatio);
+        }
+        return Bitmap.createScaledBitmap(image, width, height, true);
     }
 
     private void setUpObserver() {
@@ -218,7 +242,10 @@ public class OwnershipDetailsAocpvFragment extends Fragment {
         utilityDataRequest.setResidenceStability(binding.etResidenceStability.getText().toString());
         utilityDataRequest.setUtilityBill(binding.utilitySpinner.getSelectedItem().toString());
         utilityDataRequest.setRelationshipWithOwner(binding.ownerSpinner.getSelectedItem().toString());
-        utilityDataRequest.setUtilityBillPhoto("");
+        utilityDataRequest.setUtilityBillPhoto(utilityImageEncoded);
+        utilityDataRequest.setbLong(lang);
+        utilityDataRequest.setbLat(lat);
+        utilityDataRequest.setbAddress(address);
         ArrayList<UtilityAddressItem> addressItems = new ArrayList<>();
         UtilityAddressItem utilityAddressItem = new UtilityAddressItem();
         utilityAddressItem.setAddressLine1(binding.etAddLine1.getText().toString());
@@ -244,7 +271,7 @@ public class OwnershipDetailsAocpvFragment extends Fragment {
 
         utilityDataRequest.setOtherAssets(otherAsset);
         utilityDataRequest.setVintage(binding.etVintage.getText().toString());
-        utilityDataRequest.setBuisnessPhoto("");
+        utilityDataRequest.setBuisnessPhoto(businessImageEncoded);
 
         aocpvViewModel.callOwnershipDetailAPI(utilityDataRequest);
     }
