@@ -1,20 +1,16 @@
 package com.suryodaybank.jyotiassisted.viewmodels;
 
-import android.content.Context;
 import android.util.Log;
-import android.widget.Toast;
 
 import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.ViewModel;
 
-import com.suryodaybank.jyotiassisted.R;
 import com.suryodaybank.jyotiassisted.models.CRMCustDataResponseItem;
 import com.suryodaybank.jyotiassisted.models.CustomerDetailsRequest;
 import com.suryodaybank.jyotiassisted.models.CustomerSaveData;
 import com.suryodaybank.jyotiassisted.models.DataModel;
 import com.suryodaybank.jyotiassisted.models.MfiData;
 import com.suryodaybank.jyotiassisted.models.MonthlyIncome;
-import com.suryodaybank.jyotiassisted.models.PreApprove;
 import com.suryodaybank.jyotiassisted.models.SaveExpenseRequest;
 import com.suryodaybank.jyotiassisted.models.SaveIncomeRequest;
 import com.suryodaybank.jyotiassisted.models.UtilityDataRequest;
@@ -22,7 +18,6 @@ import com.suryodaybank.jyotiassisted.models.ValidationData;
 import com.suryodaybank.jyotiassisted.models.ValidationRequestModel;
 import com.suryodaybank.jyotiassisted.models.ValidationResponse;
 import com.suryodaybank.jyotiassisted.repositories.AocpvRepository;
-import com.suryodaybank.jyotiassisted.utils.PreApproveStatus;
 import com.suryodaybank.jyotiassisted.utils.SingleLiveEvent;
 import com.suryodaybank.jyotiassisted.utils.Utils;
 
@@ -45,10 +40,8 @@ public class AocpvViewModel extends ViewModel {
     private final AocpvRepository aocpvRepository;
     public SingleLiveEvent<Void> nextPage = new SingleLiveEvent<>();
     public SingleLiveEvent<String> messageLiveData = new SingleLiveEvent<>();
-    public MutableLiveData<List<PreApprove>> preApprovesLivedata = new MutableLiveData<>(new ArrayList<>());
     public MutableLiveData<List<MonthlyIncome>> monthlyIncomeLivedata = new MutableLiveData<>(new ArrayList<>());
     public MutableLiveData<Integer> pageNoLivedata = new MutableLiveData<>(1);
-    public MutableLiveData<String> searchQueryLiveData = new MutableLiveData<>("");
     public MutableLiveData<List<CRMCustDataResponseItem>> customerQueryLiveData = new MutableLiveData<List<CRMCustDataResponseItem>>();
     public MutableLiveData<ValidationData> validationDataMutableLiveData = new MutableLiveData<>();
 
@@ -100,56 +93,10 @@ public class AocpvViewModel extends ViewModel {
         });
     }
 
-    public void getPreApproveList() {
-        showProgressDialog.setValue(true);
-        aocpvRepository.getPreApproveList(PreApproveStatus.INITIATED.status).enqueue(new Callback<List<PreApprove>>() {
-            @Override
-            public void onResponse(Call<List<PreApprove>> call, Response<List<PreApprove>> response) {
-                if (response.isSuccessful()) {
-                    showProgressDialog.setValue(false);
-                    preApprovesLivedata.setValue(response.body());
-                } else {
-                    //Error
-                    Log.d(TAG, "onResponse: " + response.errorBody().toString());
-                }
-            }
-
-            @Override
-            public void onFailure(Call<List<PreApprove>> call, Throwable t) {
-                showProgressDialog.setValue(false);
-                t.printStackTrace();
-            }
-        });
-    }
-
     public void addMonthlyIncome(MonthlyIncome monthlyIncome) {
         List<MonthlyIncome> monthlyIncomes = monthlyIncomeLivedata.getValue();
         monthlyIncomes.add(monthlyIncome);
         monthlyIncomeLivedata.setValue(monthlyIncomes);
-    }
-
-    public void notInterestedStatusUpdate(Context context, PreApprove preApprove) {
-        showProgressDialog.setValue(true);
-        aocpvRepository.notInterestedStatus(preApprove.getCustomerID()).enqueue(new Callback<ResponseBody>() {
-            @Override
-            public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
-                showProgressDialog.setValue(false);
-                if (response.isSuccessful()) {
-                    List<PreApprove> dataList = preApprovesLivedata.getValue();
-                    dataList.remove(preApprove);
-                    preApprovesLivedata.setValue(dataList);
-                } else {
-                    Toast.makeText(context, R.string.something_is_wrong, Toast.LENGTH_SHORT).show();
-                }
-            }
-
-            @Override
-            public void onFailure(Call<ResponseBody> call, Throwable t) {
-                showProgressDialog.setValue(false);
-                Toast.makeText(context, R.string.something_is_wrong, Toast.LENGTH_SHORT).show();
-                t.printStackTrace();
-            }
-        });
     }
 
     public void saveData(int index) {

@@ -23,6 +23,7 @@ import com.suryodaybank.jyotiassisted.ui.adapter.PreApproveAdapter;
 import com.suryodaybank.jyotiassisted.utils.PreApproveStatus;
 import com.suryodaybank.jyotiassisted.utils.ProgressDialog;
 import com.suryodaybank.jyotiassisted.viewmodels.AocpvViewModel;
+import com.suryodaybank.jyotiassisted.viewmodels.PreApproveViewModel;
 
 import java.util.function.Predicate;
 import java.util.stream.Collectors;
@@ -35,7 +36,7 @@ public class PreApproveFragment extends Fragment {
     private FragmentPreApproveBinding binding;
 
     private PreApproveAdapter preApproveAdapter = new PreApproveAdapter();
-    private AocpvViewModel aocpvViewModel;
+    private PreApproveViewModel preApproveViewModel;
     private ProgressDialog mProgressDialog;
 
     @Override
@@ -53,11 +54,10 @@ public class PreApproveFragment extends Fragment {
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-        aocpvViewModel = new ViewModelProvider(this).get(AocpvViewModel.class);
+        preApproveViewModel = new ViewModelProvider(this).get(PreApproveViewModel.class);
         mProgressDialog = new ProgressDialog(getActivity());
         setupView();
         setupObserver();
-        aocpvViewModel.getPreApproveList();
     }
 
     private void setupView() {
@@ -75,7 +75,7 @@ public class PreApproveFragment extends Fragment {
 
             @Override
             public void onNotInterested(PreApprove preApprove) {
-                aocpvViewModel.notInterestedStatusUpdate(getActivity(), preApprove);
+                preApproveViewModel.notInterestedStatusUpdate(getActivity(), preApprove);
             }
 
             @Override
@@ -107,14 +107,14 @@ public class PreApproveFragment extends Fragment {
 
             @Override
             public boolean onQueryTextChange(String newText) {
-                aocpvViewModel.searchQueryLiveData.setValue(newText);
+                preApproveViewModel.searchQueryLiveData.setValue(newText);
                 return true;
             }
         });
     }
 
     private void setupObserver() {
-        aocpvViewModel.preApprovesLivedata.observe(getViewLifecycleOwner(), preApproves -> {
+        preApproveViewModel.preApprovesLivedata.observe(getViewLifecycleOwner(), preApproves -> {
             preApproveAdapter.submitList(preApproves);
             preApproveAdapter.notifyDataSetChanged();
             if (preApproves.isEmpty()) {
@@ -123,8 +123,8 @@ public class PreApproveFragment extends Fragment {
                 binding.tvNoItemFound.setVisibility(View.GONE);
             }
         });
-        aocpvViewModel.searchQueryLiveData.observe(getViewLifecycleOwner(), query -> {
-            preApproveAdapter.submitList(aocpvViewModel.preApprovesLivedata.getValue().stream().filter(new Predicate<PreApprove>() {
+        preApproveViewModel.searchQueryLiveData.observe(getViewLifecycleOwner(), query -> {
+            preApproveAdapter.submitList(preApproveViewModel.preApprovesLivedata.getValue().stream().filter(new Predicate<PreApprove>() {
                 @Override
                 public boolean test(PreApprove preApprove) {
                     String number = preApprove.getMobilePhone() + "";
@@ -132,7 +132,7 @@ public class PreApproveFragment extends Fragment {
                 }
             }).collect(Collectors.toList()));
         });
-        aocpvViewModel.showProgressDialog.observe(getViewLifecycleOwner(), shouldShow -> {
+        preApproveViewModel.showProgressDialog.observe(getViewLifecycleOwner(), shouldShow -> {
             if (shouldShow) {
                 mProgressDialog.showDialog();
             } else {
