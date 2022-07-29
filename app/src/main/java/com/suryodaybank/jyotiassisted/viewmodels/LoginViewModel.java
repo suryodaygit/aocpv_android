@@ -15,6 +15,7 @@ import com.suryodaybank.jyotiassisted.models.LoginRequest;
 import com.suryodaybank.jyotiassisted.models.LoginResponse;
 import com.suryodaybank.jyotiassisted.models.VersionResponse;
 import com.suryodaybank.jyotiassisted.repositories.VersionRepository;
+import com.suryodaybank.jyotiassisted.utils.ProgressDialog;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -70,6 +71,8 @@ public class LoginViewModel extends ViewModel {
 
 
     public void getLoginApicall(String username, String password, Context mContext) {
+        ProgressDialog progressDialog = new ProgressDialog(mContext);
+        progressDialog.showDialog();
         DataModel<LoginRequest> body = new DataModel<>();
         LoginRequest loginRequestData = new LoginRequest();
         loginRequestData.setUserID(username);
@@ -81,9 +84,10 @@ public class LoginViewModel extends ViewModel {
             @Override
             public void onResponse(Call<DataModel<LoginResponse>> call, Response<DataModel<LoginResponse>> response) {
                 if(response.isSuccessful()) {
-
+                    progressDialog.hideDialog();
                     loginlivedata.postValue(response.body().getData());
                 }else {
+                    progressDialog.hideDialog();
                     StringBuilder sb = new StringBuilder();
                     BufferedReader reader = null;
                     try {
@@ -123,76 +127,9 @@ public class LoginViewModel extends ViewModel {
 
             @Override
             public void onFailure(Call<DataModel<LoginResponse>> call, Throwable t) {
-
+                progressDialog.hideDialog();
             }
         });
     }
-
-           /* @Override
-            public void onResponse(Call<DataModel<JSONObject>> call, Response<DataModel<JSONObject>> response) {
-                if(response.isSuccessful()) {
-                    String response1 = response.body().toString();
-                    Log.d("login response", response1);
-                }else {
-                    StringBuilder sb = new StringBuilder();
-                    BufferedReader reader = null;
-                    try {
-                        reader = new BufferedReader(new InputStreamReader(response.errorBody().byteStream()));
-                        String line;
-                        try {
-                            while ((line = reader.readLine()) != null) {
-                                sb.append(line);
-                            }
-                        } catch (IOException e) {
-                            e.printStackTrace();
-                        }
-                    }catch (Exception e) {
-                        e.printStackTrace();
-                    }
-
-                    String finallyError = sb.toString();
-
-
-                    try {
-                        JSONObject jsonObject = new JSONObject(finallyError);
-                        if (jsonObject.has("errorMessage")) {
-                            JSONArray array = jsonObject.getJSONArray("details");
-                            String notAuthorizedUser = array.get(0).toString();
-                            Toast.makeText(mContext,notAuthorizedUser,Toast.LENGTH_SHORT).show();
-                            errorlivedata.postValue(notAuthorizedUser);
-                        }else {
-                            String lockUser = jsonObject.getJSONObject("Error").getJSONObject("data").getString("UserStatus");
-                            errorlivedata.postValue(lockUser);
-                        }
-                    } catch (JSONException e) {
-                        e.printStackTrace();
-                    }
-                    Log.d("login response", response.toString());
-                }
-            }
-
-            @Override
-            public void onFailure(Call<DataModel<JSONObject>> call, Throwable t) {
-
-            }*/
-
-           /* @Override
-            public void onResponse(Call<DataModel<LoginResponse>> call, Response<DataModel<LoginResponse>> response) {
-                if (response.isSuccessful()) {
-                    if (response.body().getError() == null) {
-                        loginlivedata.postValue(response.body().getData());
-                    } else {
-                        errorlivedata.postValue(response.body().getError());
-                    }
-                } else {
-                    errorlivedata.postValue(Utils.getErrorMessage(response.errorBody()));
-                }
-            }
-
-            @Override
-            public void onFailure(Call<DataModel<LoginResponse>> call, Throwable t) {
-                t.printStackTrace();
-            }*/
-      //  });
 
 }
