@@ -62,23 +62,21 @@ public class MonthlyIncome {
     }
 
     public void setSecuredLoan(String securedLoan) {
-        this.securedLoan = securedLoan;
+        this.securedLoan = securedLoan.isEmpty() ? "0" : securedLoan;
     }
 
     public String getUnsecuredLoan() {
         return unsecuredLoan;
     }
 
-    public void setUnsecuredLoan(String unsecuredLoan) {
-        this.unsecuredLoan = unsecuredLoan;
-    }
+    public void setUnsecuredLoan(String unsecuredLoan) {this.unsecuredLoan = unsecuredLoan.isEmpty() ? "0" : unsecuredLoan;}
 
     public String getMonthlyIncome() {
         return monthlyIncome;
     }
 
     public void setMonthlyIncome(String monthlyIncome) {
-        this.monthlyIncome = monthlyIncome;
+        this.monthlyIncome = monthlyIncome.isEmpty() ? "0" : monthlyIncome;
     }
 
     public String getMonthlyLoanEmi() {
@@ -86,7 +84,7 @@ public class MonthlyIncome {
     }
 
     public void setMonthlyLoanEmi(String monthlyLoanEmi) {
-        this.monthlyLoanEmi = monthlyLoanEmi;
+        this.monthlyLoanEmi = monthlyLoanEmi.isEmpty() ? "0" : monthlyLoanEmi;
     }
 
     public String getOccCode() {

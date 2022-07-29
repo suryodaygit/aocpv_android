@@ -8,6 +8,7 @@ import static com.suryodaybank.jyotiassisted.utils.Constants.MY_CAMERA_PERMISSIO
 import static com.suryodaybank.jyotiassisted.utils.Constants.UID1;
 
 import android.Manifest;
+import android.annotation.SuppressLint;
 import android.app.DatePickerDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
@@ -33,12 +34,14 @@ import androidx.fragment.app.Fragment;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
 
+import com.suryodaybank.jyotiassisted.R;
 import com.suryodaybank.jyotiassisted.databinding.FragmentPersonalDetailAocpvBinding;
 import com.suryodaybank.jyotiassisted.models.AddressItem;
 import com.suryodaybank.jyotiassisted.models.CRMCustDataResponseItem;
 import com.suryodaybank.jyotiassisted.models.CustomerSaveData;
 import com.suryodaybank.jyotiassisted.utils.Constants;
 import com.suryodaybank.jyotiassisted.utils.SharedPreferenceUtils;
+import com.suryodaybank.jyotiassisted.utils.Utils;
 import com.suryodaybank.jyotiassisted.viewmodels.AocpvViewModel;
 
 import java.io.ByteArrayOutputStream;
@@ -59,11 +62,10 @@ public class PersonalDetailAocpvFragment extends Fragment {
     final Calendar myCalendar = Calendar.getInstance();
 
     private AocpvViewModel aocpvViewModel;
-    private String encoded_image;
+    private String encoded_image="";
     private String lat ="";
     private String lang ="";
     private String address= "";
-
 
     public PersonalDetailAocpvFragment() {
         // Required empty public constructor
@@ -129,6 +131,7 @@ public class PersonalDetailAocpvFragment extends Fragment {
                 selectImage();
             }
         });
+        setupObserver();
     }
 
     private void convertbitmaptoString(Bitmap bitmap) {
@@ -190,7 +193,11 @@ public class PersonalDetailAocpvFragment extends Fragment {
         });
 
         aocpvViewModel.getCustomerDetails.observe(getViewLifecycleOwner(), unused -> {
-            prepareCustomerDetails();
+            if (encoded_image.equals("")) {
+                Utils.showFinalSuccessMessage(getActivity(),"Please set image.");
+            } else {
+                prepareCustomerDetails();
+            }
         });
     }
 
@@ -289,7 +296,7 @@ public class PersonalDetailAocpvFragment extends Fragment {
 //        ArrayAdapter<String> genderAdapter = new ArrayAdapter<>(getContext(), android.R.layout.simple_spinner_dropdown_item, items);
 //        binding.spinnerGender.setAdapter(genderAdapter);
 
-        binding.etDOB.setOnClickListener(new View.OnClickListener() {
+      /*  binding.etDOB.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 new DatePickerDialog(getContext(), (view1, year, month, day) -> {
@@ -299,7 +306,7 @@ public class PersonalDetailAocpvFragment extends Fragment {
                     updateDateLabel();
                 }, myCalendar.get(Calendar.YEAR), myCalendar.get(Calendar.MONTH), myCalendar.get(Calendar.DAY_OF_MONTH)).show();
             }
-        });
+        });*/
     }
 
     private void updateDateLabel() {

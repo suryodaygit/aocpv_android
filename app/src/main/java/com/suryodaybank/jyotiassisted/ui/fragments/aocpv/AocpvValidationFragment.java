@@ -139,6 +139,7 @@ public class AocpvValidationFragment extends Fragment {
         binding.etExistingPurpose.setText(validationDetailsData.getExistingLoanPurpose());
         binding.etUtilityBills.setText(validationDetailsData.getUtilityBill());
         binding.etRelation.setText(validationDetailsData.getRelationshipWithOwner());
+        binding.tvMaxEligibilityAmount.setText(validationDetailsData.getMaxEmieligibility());
 
         if (ownerAddressData != null) {
             for (int i = 0; i <= ownerAddressData.size() - 1; i++) {

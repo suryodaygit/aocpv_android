@@ -1,6 +1,8 @@
 package com.suryodaybank.jyotiassisted.ui.fragments.aocpv;
 
 import static com.suryodaybank.jyotiassisted.utils.Constants.ELIGIBILITY;
+import static com.suryodaybank.jyotiassisted.utils.Constants.RESIDENT_STABILITY;
+import static com.suryodaybank.jyotiassisted.utils.Constants.ROOF_TYPE;
 
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -34,7 +36,7 @@ public class MfiClassificationAocpvFragment extends Fragment implements AdapterV
     private AocpvViewModel aocpvViewModel;
     private FragmentMfiClassificationAocpvBinding binding;
     private RadioButton selectedRadioButton;
-    private String selectedRadioButtonText = "Yes";
+    private String selectedRadioButtonText = "No";
     private String extingPurpose = "jhdjhsjdhsj";
     private List<PurposeOfLoan> purposeOfLoans = new ArrayList<PurposeOfLoan>();
     private String selectedPurposeLoan = "";
@@ -68,6 +70,12 @@ public class MfiClassificationAocpvFragment extends Fragment implements AdapterV
                 callMfiAPI();
             }
         });
+
+        String houseType = SharedPreferenceUtils.getInstance(getContext()).getString(ROOF_TYPE);
+        String rentedStability = SharedPreferenceUtils.getInstance(getContext()).getString(RESIDENT_STABILITY);
+
+        String classification= "House type = "+ houseType+"\n Address Non match\n" +"Rented + Stability"+ rentedStability;
+        binding.tvClassificationData.setText(classification);
     }
 
     private void init() {

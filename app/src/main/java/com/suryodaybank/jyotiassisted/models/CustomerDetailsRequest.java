@@ -13,6 +13,12 @@ public class CustomerDetailsRequest {
 	private String customerNo;
 	@SerializedName("BranchCode")
 	private String branchCode;
+	@SerializedName("pLat")
+	String pLat;
+	@SerializedName("pLong")
+	String pLong;
+	@SerializedName("pAddress")
+	String pAddress;
 
 	public void setMobileNo(String mobileNo) {
 		this.mobileNo = mobileNo;
@@ -52,5 +58,29 @@ public class CustomerDetailsRequest {
 
 	public String getBranchCode(){
 		return branchCode;
+	}
+
+	public String getpLat() {
+		return pLat;
+	}
+
+	public void setpLat(String pLat) {
+		this.pLat = pLat;
+	}
+
+	public String getpLong() {
+		return pLong;
+	}
+
+	public void setpLong(String pLong) {
+		this.pLong = pLong;
+	}
+
+	public String getpAddress() {
+		return pAddress;
+	}
+
+	public void setpAddress(String pAddress) {
+		this.pAddress = pAddress;
 	}
 }

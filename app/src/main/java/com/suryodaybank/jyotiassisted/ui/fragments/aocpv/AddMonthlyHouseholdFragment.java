@@ -6,6 +6,8 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
+import android.widget.RadioButton;
+import android.widget.RadioGroup;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -18,6 +20,7 @@ import com.suryodaybank.jyotiassisted.R;
 import com.suryodaybank.jyotiassisted.databinding.FragmentAddMonthlyHouseholdBinding;
 import com.suryodaybank.jyotiassisted.models.MonthlyIncome;
 import com.suryodaybank.jyotiassisted.models.Occupation;
+import com.suryodaybank.jyotiassisted.utils.Utils;
 import com.suryodaybank.jyotiassisted.viewmodels.AocpvViewModel;
 
 import java.util.ArrayList;
@@ -80,9 +83,13 @@ public class AddMonthlyHouseholdFragment extends Fragment implements AdapterView
             public void onClick(View view) {
                 MonthlyIncome monthlyIncome = new MonthlyIncome();
                 monthlyIncome.setFamilyMember(selectedMember);
-                if (binding.rbYes.isChecked())
+                if (binding.rbYes.isChecked()) {
                     monthlyIncome.setEarningMember("Yes");
-                else
+                    String monthalyIncome = binding.etMonthlyIncome.getText().toString();
+                    if(monthalyIncome.equals("0")) {
+                        Utils.showFinalSuccessMessage(getActivity(), "Monthly income should be grater than 0");
+                    }
+                } else
                 monthlyIncome.setEarningMember("No");
                 monthlyIncome.setOccupation(selectedOccupation);
                 monthlyIncome.setSourceOfIncome(binding.etSourceOfIncome.getText().toString());

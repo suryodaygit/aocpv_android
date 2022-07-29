@@ -1,8 +1,11 @@
 package com.suryodaybank.jyotiassisted.utils;
 
+import android.app.AlertDialog;
+import android.content.Context;
 import android.util.Log;
 
 import com.google.gson.Gson;
+import com.suryodaybank.jyotiassisted.R;
 import com.suryodaybank.jyotiassisted.models.ErrorModel;
 
 import java.io.IOException;
@@ -29,5 +32,16 @@ public class Utils {
             e.printStackTrace();
         }
         return "Something is wrong";
+    }
+
+    public static void showFinalSuccessMessage(Context mContext, String message) {
+        AlertDialog.Builder builder = new AlertDialog.Builder(mContext)
+                .setTitle("Alert!")
+                .setMessage(message)
+                .setCancelable(false)
+                .setPositiveButton(R.string.ok, (dialogInterface, i) -> {
+                    dialogInterface.dismiss();
+      });
+        builder.show();
     }
 }
