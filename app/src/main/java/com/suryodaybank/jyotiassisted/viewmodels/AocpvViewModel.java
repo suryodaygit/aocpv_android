@@ -57,7 +57,7 @@ public class AocpvViewModel extends ViewModel {
     public SingleLiveEvent<Void> getCustomerDetails = new SingleLiveEvent<>();
     public SingleLiveEvent<Void> getUtilityDetails = new SingleLiveEvent<>();
     public SingleLiveEvent<Void> getMfiClassificationData = new SingleLiveEvent<>();
-    public SingleLiveEvent<Boolean>  showProgressDialog = new SingleLiveEvent<>();
+    public SingleLiveEvent<Boolean> showProgressDialog = new SingleLiveEvent<>();
 
     //Calculation data for monthly balance
     public long totalMonthlyIncome = 0;

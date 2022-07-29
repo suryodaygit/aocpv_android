@@ -5,11 +5,8 @@ import static com.suryodaybank.jyotiassisted.utils.Constants.ADDRESS;
 import static com.suryodaybank.jyotiassisted.utils.Constants.LATITUDE;
 import static com.suryodaybank.jyotiassisted.utils.Constants.LONGITUDE;
 import static com.suryodaybank.jyotiassisted.utils.Constants.MY_CAMERA_PERMISSION_CODE;
-import static com.suryodaybank.jyotiassisted.utils.Constants.UID1;
 
 import android.Manifest;
-import android.annotation.SuppressLint;
-import android.app.DatePickerDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.pm.PackageManager;
@@ -34,7 +31,6 @@ import androidx.fragment.app.Fragment;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
 
-import com.suryodaybank.jyotiassisted.R;
 import com.suryodaybank.jyotiassisted.databinding.FragmentPersonalDetailAocpvBinding;
 import com.suryodaybank.jyotiassisted.models.AddressItem;
 import com.suryodaybank.jyotiassisted.models.CRMCustDataResponseItem;
@@ -62,10 +58,10 @@ public class PersonalDetailAocpvFragment extends Fragment {
     final Calendar myCalendar = Calendar.getInstance();
 
     private AocpvViewModel aocpvViewModel;
-    private String encoded_image="";
-    private String lat ="";
-    private String lang ="";
-    private String address= "";
+    private String encoded_image = "";
+    private String lat = "";
+    private String lang = "";
+    private String address = "";
 
     public PersonalDetailAocpvFragment() {
         // Required empty public constructor
@@ -81,9 +77,9 @@ public class PersonalDetailAocpvFragment extends Fragment {
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-         lat = SharedPreferenceUtils.getInstance(getContext()).getString(LATITUDE);
-         lang = SharedPreferenceUtils.getInstance(getContext()).getString(LONGITUDE);
-         address = SharedPreferenceUtils.getInstance(getContext()).getString(ADDRESS);
+        lat = SharedPreferenceUtils.getInstance(getContext()).getString(LATITUDE);
+        lang = SharedPreferenceUtils.getInstance(getContext()).getString(LONGITUDE);
+        address = SharedPreferenceUtils.getInstance(getContext()).getString(ADDRESS);
 
         binding.tvCurrentAddress.setText(address);
         String latLong = lat + "  " + lang;
@@ -194,7 +190,7 @@ public class PersonalDetailAocpvFragment extends Fragment {
 
         aocpvViewModel.getCustomerDetails.observe(getViewLifecycleOwner(), unused -> {
             if (encoded_image.equals("")) {
-                Utils.showFinalSuccessMessage(getActivity(),"Please set image.");
+                Utils.showFinalSuccessMessage(getActivity(), "Please set image.");
             } else {
                 prepareCustomerDetails();
             }
