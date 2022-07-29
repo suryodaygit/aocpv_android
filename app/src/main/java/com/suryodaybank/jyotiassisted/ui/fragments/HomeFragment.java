@@ -9,7 +9,6 @@ import static com.suryodaybank.jyotiassisted.utils.Constants.USER_NAME;
 
 import android.Manifest;
 import android.app.Activity;
-import android.app.ProgressDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.pm.PackageManager;
@@ -17,16 +16,7 @@ import android.database.Cursor;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.net.Uri;
-import android.os.Build;
 import android.os.Bundle;
-
-import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
-import androidx.annotation.RequiresApi;
-import androidx.core.content.ContextCompat;
-import androidx.fragment.app.Fragment;
-
-import android.os.Environment;
 import android.provider.MediaStore;
 import android.util.Base64;
 import android.util.Log;
@@ -34,6 +24,11 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Toast;
+
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+import androidx.core.content.ContextCompat;
+import androidx.fragment.app.Fragment;
 
 import com.suryodaybank.jyotiassisted.databinding.FragmentHomeBinding;
 import com.suryodaybank.jyotiassisted.utils.SharedPreferenceUtils;
@@ -47,21 +42,11 @@ import dagger.hilt.android.AndroidEntryPoint;
 public class HomeFragment extends Fragment {
 
     private FragmentHomeBinding binding;
-    String userId, branchName;
-    private String userChoosenTask;
-    File selectedFilePath;
-    File pictureFile;
-    ProgressDialog dialog;
-    private String imageFilePath = "";
-    File imageFile;
-    private int REQUEST_CAMERA = 0, SELECT_FILE = 1;
-
+    private static final int REQUEST_CAMERA = 0, SELECT_FILE = 1;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-
-
         binding = FragmentHomeBinding.inflate(inflater, container, false);
         return binding.getRoot();
     }
@@ -98,10 +83,7 @@ public class HomeFragment extends Fragment {
     private void checkForPermissions() {
         if (ContextCompat.checkSelfPermission(getContext(), Manifest.permission.CAMERA) != PackageManager.PERMISSION_GRANTED) {
             requestPermissions(new String[]{Manifest.permission.CAMERA}, MY_CAMERA_PERMISSION_CODE);
-        } else {
-            Toast.makeText(getContext(), "Permission already granted", Toast.LENGTH_SHORT).show();
         }
-
     }
 
     @Override
@@ -109,7 +91,6 @@ public class HomeFragment extends Fragment {
         super.onRequestPermissionsResult(requestCode, permissions, grantResults);
         if (requestCode == MY_CAMERA_PERMISSION_CODE) {
             if (grantResults[0] == PackageManager.PERMISSION_GRANTED) {
-                Toast.makeText(getContext(), "camera permission granted", Toast.LENGTH_LONG).show();
                 Intent cameraIntent = new Intent(android.provider.MediaStore.ACTION_IMAGE_CAPTURE);
                 startActivityForResult(cameraIntent, REQUEST_CAMERA);
             } else {
@@ -128,16 +109,9 @@ public class HomeFragment extends Fragment {
             public void onClick(DialogInterface dialog, int item) {
 
                 if (items[item].equals("Take Photo")) {
-                    userChoosenTask = "Take Photo";
-
                     cameraIntent();
-                    //openCameraIntent();
-
                 } else if (items[item].equals("Choose from Library")) {
-                    userChoosenTask = "Choose from Library";
-
                     galleryIntent();
-
                 } else if (items[item].equals("Cancel")) {
                     dialog.dismiss();
                 }
@@ -172,12 +146,11 @@ public class HomeFragment extends Fragment {
                     Uri selectedImageUri = data.getData();
                     Bitmap photoBmp = null;
                     try {
-                        if(  selectedImageUri!=null   ){
-                            Bitmap bitmap = MediaStore.Images.Media.getBitmap(getContext().getContentResolver() , selectedImageUri);
+                        if (selectedImageUri != null) {
+                            Bitmap bitmap = MediaStore.Images.Media.getBitmap(getContext().getContentResolver(), selectedImageUri);
                             saveProfilePic(bitmap);
                         }
-                    }
-                    catch (Exception e) {
+                    } catch (Exception e) {
                         //handle exception
                     }
                     // Get the path from the Uri
@@ -194,8 +167,6 @@ public class HomeFragment extends Fragment {
         } catch (Exception e) {
             Log.e("FileSelectorActivity", "File select error", e);
         }
-
-
     }
 
     private String getPathFromURI(Uri selectedImageUri) {
@@ -225,21 +196,14 @@ public class HomeFragment extends Fragment {
             selectedImageUri = Uri.fromFile(f);
         }
         binding.shapeableImageView.setImageURI(selectedImageUri);
-
-
         SharedPreferenceUtils.getInstance(getContext()).putString(IMAGE_PATH, selectedImageUri.toString());
-
-
     }
 
     private void saveProfilePic(Bitmap thumbnail) {
-
         ByteArrayOutputStream baos = new ByteArrayOutputStream();
         thumbnail.compress(Bitmap.CompressFormat.JPEG, 100, baos);
         byte[] b = baos.toByteArray();
         String encodedImage = Base64.encodeToString(b, Base64.DEFAULT);
         SharedPreferenceUtils.getInstance(getContext()).putString(IMAGE_PATH, encodedImage);
-
-
     }
 }

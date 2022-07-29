@@ -122,20 +122,17 @@ public class PersonalDetailAocpvFragment extends Fragment {
     }
 
     private void setupObserver() {
-
-
         aocpvViewModel.customerQueryLiveData.observe(getViewLifecycleOwner(), new Observer<List<CRMCustDataResponseItem>>() {
             @Override
             public void onChanged(List<CRMCustDataResponseItem> crmCustDataResponseItems) {
-
                 if (crmCustDataResponseItems != null) {
                     binding.etCustomerId.setText(crmCustDataResponseItems.get(0).getCIFNUMBER());
                     String currentString = crmCustDataResponseItems.get(0).getDOB();
                     String[] separated = currentString.split("-");
                     String newDate = separated[2] + "/" + separated[1] + "/" + separated[0]; // the date will be in dd-mm-yyyy format in String
                     binding.etDOB.setText(newDate);
-                    String name = crmCustDataResponseItems.get(0).getFIRSTNAME() +" "
-                            +crmCustDataResponseItems.get(0).getMIDDLENAME() +" "+crmCustDataResponseItems.get(0).getLASTNAME();
+                    String name = crmCustDataResponseItems.get(0).getFIRSTNAME() + " "
+                            + crmCustDataResponseItems.get(0).getMIDDLENAME() + " " + crmCustDataResponseItems.get(0).getLASTNAME();
                     binding.etFirstName.setText(name);
                     binding.etMobileNum.setText(crmCustDataResponseItems.get(0).getrEGISTEREDMOBILE());
                     int index = 2;
@@ -147,8 +144,6 @@ public class PersonalDetailAocpvFragment extends Fragment {
 //                        }
 //
 //                    }
-
-
                     binding.etAddLine1.setText(crmCustDataResponseItems.get(0).getAddressDetails().getAddressDet().get(index).getADDRESS1());
                     binding.etAddLine2.setText(crmCustDataResponseItems.get(0).getAddressDetails().getAddressDet().get(index).getADDRESS2());
                     binding.etAddLine3.setText(crmCustDataResponseItems.get(0).getAddressDetails().getAddressDet().get(index).getADDRESS3());
@@ -156,12 +151,7 @@ public class PersonalDetailAocpvFragment extends Fragment {
                     binding.etState.setText(crmCustDataResponseItems.get(0).getAddressDetails().getAddressDet().get(index).getSTATE());
                     binding.etPincode.setText(crmCustDataResponseItems.get(0).getAddressDetails().getAddressDet().get(index).getPINCODE());
                     binding.etDistrict.setText(crmCustDataResponseItems.get(0).getAddressDetails().getAddressDet().get(index).getDISTRICT());
-
-
-                } else {
-                    Toast.makeText(getContext(), "Something Went wrong", Toast.LENGTH_SHORT).show();
                 }
-
             }
         });
 
@@ -237,17 +227,13 @@ public class PersonalDetailAocpvFragment extends Fragment {
     private void checkForPermissions() {
         if (ContextCompat.checkSelfPermission(getContext(), Manifest.permission.CAMERA) != PackageManager.PERMISSION_GRANTED) {
             requestPermissions(new String[]{Manifest.permission.CAMERA}, MY_CAMERA_PERMISSION_CODE);
-        } else {
-            Toast.makeText(getContext(), "Permission already granted", Toast.LENGTH_SHORT).show();
         }
-
     }
 
     public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
         super.onRequestPermissionsResult(requestCode, permissions, grantResults);
         if (requestCode == MY_CAMERA_PERMISSION_CODE) {
             if (grantResults[0] == PackageManager.PERMISSION_GRANTED) {
-                Toast.makeText(getContext(), "camera permission granted", Toast.LENGTH_LONG).show();
                 Intent cameraIntent = new Intent(android.provider.MediaStore.ACTION_IMAGE_CAPTURE);
                 startActivityForResult(cameraIntent, REQUEST_CAMERA);
             } else {

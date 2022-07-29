@@ -240,9 +240,6 @@ public class AocpvViewModel extends ViewModel {
             @Override
             public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
                 if (response.isSuccessful()) {
-                    String response1 = String.valueOf(response.body());
-                    Toast.makeText(mContext, "data updated", Toast.LENGTH_SHORT).show();
-                    Log.d("mfi", response1);
                     nextPage.call();
                 }
             }

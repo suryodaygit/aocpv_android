@@ -1,21 +1,16 @@
 package com.suryodaybank.jyotiassisted.viewmodels;
 
-import android.content.Context;
-import android.content.SharedPreferences;
-import android.preference.PreferenceManager;
 import android.util.Log;
-import android.widget.Toast;
 
 import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.ViewModel;
 
 import com.suryodaybank.jyotiassisted.models.DataModel;
-import com.suryodaybank.jyotiassisted.models.LoginErrorResponse;
 import com.suryodaybank.jyotiassisted.models.LoginRequest;
 import com.suryodaybank.jyotiassisted.models.LoginResponse;
 import com.suryodaybank.jyotiassisted.models.VersionResponse;
 import com.suryodaybank.jyotiassisted.repositories.VersionRepository;
-import com.suryodaybank.jyotiassisted.utils.ProgressDialog;
+import com.suryodaybank.jyotiassisted.utils.SingleLiveEvent;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -24,18 +19,13 @@ import org.json.JSONObject;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
-import java.lang.annotation.Annotation;
-import java.util.Locale;
 
 import javax.inject.Inject;
 
 import dagger.hilt.android.lifecycle.HiltViewModel;
-import okhttp3.ResponseBody;
 import retrofit2.Call;
 import retrofit2.Callback;
-import retrofit2.Converter;
 import retrofit2.Response;
-import retrofit2.Retrofit;
 
 @HiltViewModel
 public class LoginViewModel extends ViewModel {
@@ -45,6 +35,8 @@ public class LoginViewModel extends ViewModel {
     public MutableLiveData<String> livedata = new MutableLiveData();
     public MutableLiveData<LoginResponse> loginlivedata = new MutableLiveData();
     public MutableLiveData<String> errorlivedata = new MutableLiveData();
+
+    public SingleLiveEvent<Boolean> progressLiveData = new SingleLiveEvent<>();
 
     @Inject
     public LoginViewModel(VersionRepository versionRepository) {
@@ -70,9 +62,8 @@ public class LoginViewModel extends ViewModel {
     }
 
 
-    public void getLoginApicall(String username, String password, Context mContext) {
-        ProgressDialog progressDialog = new ProgressDialog(mContext);
-        progressDialog.showDialog();
+    public void getLoginApicall(String username, String password) {
+        progressLiveData.setValue(true);
         DataModel<LoginRequest> body = new DataModel<>();
         LoginRequest loginRequestData = new LoginRequest();
         loginRequestData.setUserID(username);
@@ -83,11 +74,10 @@ public class LoginViewModel extends ViewModel {
 
             @Override
             public void onResponse(Call<DataModel<LoginResponse>> call, Response<DataModel<LoginResponse>> response) {
-                if(response.isSuccessful()) {
-                    progressDialog.hideDialog();
+                progressLiveData.setValue(false);
+                if (response.isSuccessful()) {
                     loginlivedata.postValue(response.body().getData());
-                }else {
-                    progressDialog.hideDialog();
+                } else {
                     StringBuilder sb = new StringBuilder();
                     BufferedReader reader = null;
                     try {
@@ -100,7 +90,7 @@ public class LoginViewModel extends ViewModel {
                         } catch (IOException e) {
                             e.printStackTrace();
                         }
-                    }catch (Exception e) {
+                    } catch (Exception e) {
                         e.printStackTrace();
                     }
 
@@ -112,9 +102,8 @@ public class LoginViewModel extends ViewModel {
                         if (jsonObject.has("errorMessage")) {
                             JSONArray array = jsonObject.getJSONArray("details");
                             String notAuthorizedUser = array.get(0).toString();
-                           // Toast.makeText(mContext,notAuthorizedUser,Toast.LENGTH_SHORT).show();
                             errorlivedata.postValue(notAuthorizedUser);
-                        }else {
+                        } else {
                             String lockUser = jsonObject.getJSONObject("Error").getJSONObject("data").getString("UserStatus");
                             errorlivedata.postValue(lockUser);
                         }
@@ -127,9 +116,8 @@ public class LoginViewModel extends ViewModel {
 
             @Override
             public void onFailure(Call<DataModel<LoginResponse>> call, Throwable t) {
-                progressDialog.hideDialog();
+                progressLiveData.setValue(false);
             }
         });
     }
-
 }

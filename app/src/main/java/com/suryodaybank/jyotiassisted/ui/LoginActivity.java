@@ -7,14 +7,11 @@ import static com.suryodaybank.jyotiassisted.utils.Constants.USER_NAME;
 
 import android.content.DialogInterface;
 import android.content.Intent;
-import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
 import android.location.Address;
 import android.location.Geocoder;
 import android.os.Bundle;
-import android.preference.PreferenceManager;
 import android.view.View;
-import android.widget.Toast;
 
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
@@ -27,6 +24,7 @@ import com.suryodaybank.jyotiassisted.R;
 import com.suryodaybank.jyotiassisted.databinding.ActivityLoginBinding;
 import com.suryodaybank.jyotiassisted.models.LoginResponse;
 import com.suryodaybank.jyotiassisted.utils.GPSTracker;
+import com.suryodaybank.jyotiassisted.utils.ProgressDialog;
 import com.suryodaybank.jyotiassisted.utils.SharedPreferenceUtils;
 import com.suryodaybank.jyotiassisted.viewmodels.LoginViewModel;
 
@@ -42,12 +40,16 @@ public class LoginActivity extends AppCompatActivity {
     private LoginViewModel loginViewModel;
     private List<Address> addresses;
 
+    ProgressDialog mProgressDialog;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         binding = ActivityLoginBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
         loginViewModel = new ViewModelProvider(this).get(LoginViewModel.class);
+        mProgressDialog = new ProgressDialog(this);
+
         setupObserver();
         callVersionApi();
 
@@ -60,7 +62,7 @@ public class LoginActivity extends AppCompatActivity {
     }
 
     private void getUserLogin() {
-        loginViewModel.getLoginApicall(binding.txtUsername.getText().toString(), binding.txtPassword.getText().toString(),this);
+        loginViewModel.getLoginApicall(binding.txtUsername.getText().toString(), binding.txtPassword.getText().toString());
     }
 
     private void callVersionApi() {
@@ -85,14 +87,11 @@ public class LoginActivity extends AppCompatActivity {
         if (gpsTracker.canGetLocation()) {
             double latitude = gpsTracker.getLatitude();
             double longitude = gpsTracker.getLongitude();
-          //  Toast.makeText(LoginActivity.this, String.valueOf(latitude), Toast.LENGTH_SHORT).show();
-         //   Toast.makeText(LoginActivity.this, String.valueOf(longitude), Toast.LENGTH_SHORT).show();
             try {
                 Geocoder geocoder = new Geocoder(LoginActivity.this, Locale.getDefault());
 
                 addresses = geocoder.getFromLocation(latitude, longitude, 1); // Here 1 represent max location result to returned, by documents it recommended 1 to 5
 
-               // Toast.makeText(LoginActivity.this, addresses.get(0).getAddressLine(0), Toast.LENGTH_SHORT).show();
             } catch (IOException e) {
                 e.printStackTrace();
             }
@@ -117,15 +116,23 @@ public class LoginActivity extends AppCompatActivity {
                     startActivity(intent);
                     finish();
                 }
-                else{
-                    Toast.makeText(LoginActivity.this, "empty", Toast.LENGTH_SHORT).show();
-                }
             }
         });
         loginViewModel.errorlivedata.observe(this, new Observer<String>() {
             @Override
             public void onChanged(String s) {
                 createAlertDialog(s);
+            }
+        });
+
+        loginViewModel.progressLiveData.observe(this, new Observer<Boolean>() {
+            @Override
+            public void onChanged(Boolean shouldShow) {
+                if (shouldShow) {
+                    mProgressDialog.showDialog();
+                } else {
+                    mProgressDialog.hideDialog();
+                }
             }
         });
     }
