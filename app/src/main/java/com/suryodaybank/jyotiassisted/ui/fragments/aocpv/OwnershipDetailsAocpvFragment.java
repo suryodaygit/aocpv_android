@@ -1,10 +1,10 @@
 package com.suryodaybank.jyotiassisted.ui.fragments.aocpv;
 
 import static android.app.Activity.RESULT_OK;
+
 import static com.suryodaybank.jyotiassisted.utils.Constants.MY_CAMERA_PERMISSION_CODE;
 import static com.suryodaybank.jyotiassisted.utils.Constants.RESIDENT_STABILITY;
 import static com.suryodaybank.jyotiassisted.utils.Constants.ROOF_TYPE;
-import static com.suryodaybank.jyotiassisted.utils.Constants.UID1;
 
 import android.Manifest;
 import android.content.DialogInterface;
@@ -67,6 +67,9 @@ public class OwnershipDetailsAocpvFragment extends Fragment {
     private String businessImageEncoded;
     private RadioButton selectedRadioButton;
     private String selectedRadioButtonText = "";
+    private String lat = "";
+    private String lang = "";
+    private String address = "";
     public OwnershipDetailsAocpvFragment() {
         // Required empty public constructor
     }
@@ -184,11 +187,10 @@ public class OwnershipDetailsAocpvFragment extends Fragment {
         aocpvViewModel.getUtilityDetails.observe(getViewLifecycleOwner(), new Observer<Void>() {
             @Override
             public void onChanged(Void unused) {
-
                 if(selectedRadioButtonText.equals("") ||
                         binding.etAddLine1.getText().toString().equals("")
                         || binding.etPincode.getText().equals("") || binding.etResidenceStability.getText().equals("")) {
-                    Utils.showFinalSuccessMessage(getActivity(),"Please set roof type,residaddress line1,pincode");
+                    Utils.showFinalSuccessMessage(getActivity(),"Please set roof type,residence stability,address line1,pincode");
                 }else {
                     prepareOwnershipDetails();
                 }
@@ -197,18 +199,6 @@ public class OwnershipDetailsAocpvFragment extends Fragment {
     }
 
     private void prepareOwnershipDetails() {
-        binding.cgRoofType.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
-            @Override
-            public void onCheckedChanged(RadioGroup radioGroup, int i) {
-                int selectedButtonId = radioGroup.getCheckedRadioButtonId();
-                if (selectedButtonId != -1) {
-                    selectedRadioButton = radioGroup.findViewById(selectedButtonId);
-                    selectedRadioButtonText = selectedRadioButton.getText().toString();
-                    SharedPreferenceUtils.getInstance(getActivity()).putString(ROOF_TYPE, selectedRadioButtonText);
-                }
-            }
-        });
-
         SharedPreferenceUtils.getInstance(getActivity()).putString(RESIDENT_STABILITY, binding.etResidenceStability.getText().toString());
         UtilityDataRequest utilityDataRequest = new UtilityDataRequest();
         utilityDataRequest.setFlowStatus("UD");
@@ -227,6 +217,7 @@ public class OwnershipDetailsAocpvFragment extends Fragment {
         utilityAddressItem.setPincode(binding.etPincode.getText().toString());
         utilityAddressItem.setCity(binding.etCity.getText().toString());
         utilityAddressItem.setState(binding.etState.getText().toString());
+
         addressItems.add(0,utilityAddressItem);
         utilityDataRequest.setAddress(addressItems);
         ArrayList<String> otherAsset = new ArrayList<>();
@@ -365,6 +356,18 @@ public class OwnershipDetailsAocpvFragment extends Fragment {
 
 
     private void setupViews() {
+        binding.cgRoofType.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(RadioGroup radioGroup, int i) {
+                int selectedButtonId = radioGroup.getCheckedRadioButtonId();
+                if (selectedButtonId != -1) {
+                    selectedRadioButton = radioGroup.findViewById(selectedButtonId);
+                    selectedRadioButtonText = selectedRadioButton.getText().toString();
+                    SharedPreferenceUtils.getInstance(getActivity()).putString(ROOF_TYPE, selectedRadioButtonText);
+                }
+            }
+        });
+
         List<String> ownership = new ArrayList<>();
         ownership.add("Own");
         ownership.add("Rented");

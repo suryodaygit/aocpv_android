@@ -93,7 +93,6 @@
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
             android:layout_marginHorizontal="8dp"
-            android:focusableInTouchMode="true"
             android:hint="@string/residence_stability"
             android:inputType="number"
             app:layout_constraintEnd_toEndOf="parent"
