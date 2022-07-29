@@ -17,6 +17,7 @@ import com.suryodaybank.jyotiassisted.models.AddressData;
 import com.suryodaybank.jyotiassisted.models.OwnerAddress;
 import com.suryodaybank.jyotiassisted.models.ValidationData;
 import com.suryodaybank.jyotiassisted.models.ValidationRequestModel;
+import com.suryodaybank.jyotiassisted.utils.ProgressDialog;
 import com.suryodaybank.jyotiassisted.viewmodels.AocpvViewModel;
 
 import java.util.ArrayList;
@@ -29,6 +30,7 @@ public class AocpvValidationFragment extends Fragment {
 
     private FragmentAocpvValidationBinding binding;
     private AocpvViewModel aocpvViewModel;
+    private ProgressDialog mProgressDialog;
     private ValidationData validationDetailsData = new ValidationData();
     private List<AddressData> addressData = new ArrayList<>();
     private List<OwnerAddress> ownerAddressData = new ArrayList<>();
@@ -44,10 +46,12 @@ public class AocpvValidationFragment extends Fragment {
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         aocpvViewModel = new ViewModelProvider(requireActivity()).get(AocpvViewModel.class);
+        mProgressDialog = new ProgressDialog(getActivity());
         setupViews();
+        setupObserver();
 
         ValidationRequestModel validationRequestModel = new ValidationRequestModel("12345681");
-        aocpvViewModel.callValidationData(getActivity(), validationRequestModel);
+        aocpvViewModel.callValidationData(validationRequestModel);
         aocpvViewModel.validationDataMutableLiveData.observe(getViewLifecycleOwner(), validationData -> {
             validationDetailsData = validationData;
             addressData = validationData.getAddress();
@@ -71,6 +75,16 @@ public class AocpvValidationFragment extends Fragment {
             //TODO: Enter number dynamically, Handle random applicationNo
             NavHostFragment.findNavController(this)
                     .navigate(AocpvValidationFragmentDirections.actionAocpvValidationFragmentToOtpValidationAocpvFragment("919653499151", "12345681"));
+        });
+    }
+
+    private void setupObserver() {
+        aocpvViewModel.showProgressDialog.observe(getViewLifecycleOwner(), shouldShow -> {
+            if (shouldShow) {
+                mProgressDialog.showDialog();
+            } else {
+                mProgressDialog.hideDialog();
+            }
         });
     }
 

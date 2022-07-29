@@ -20,6 +20,7 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import com.suryodaybank.jyotiassisted.databinding.FragmentPreApproveBinding;
 import com.suryodaybank.jyotiassisted.models.PreApprove;
 import com.suryodaybank.jyotiassisted.ui.adapter.PreApproveAdapter;
+import com.suryodaybank.jyotiassisted.utils.ProgressDialog;
 import com.suryodaybank.jyotiassisted.viewmodels.AocpvViewModel;
 
 import java.util.function.Predicate;
@@ -34,6 +35,7 @@ public class PreApproveFragment extends Fragment {
 
     private PreApproveAdapter preApproveAdapter = new PreApproveAdapter();
     private AocpvViewModel aocpvViewModel;
+    private ProgressDialog mProgressDialog;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -51,8 +53,10 @@ public class PreApproveFragment extends Fragment {
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         aocpvViewModel = new ViewModelProvider(this).get(AocpvViewModel.class);
+        mProgressDialog = new ProgressDialog(getActivity());
         setupView();
         setupObserver();
+        aocpvViewModel.getPreApproveList();
     }
 
     private void setupView() {
@@ -121,6 +125,13 @@ public class PreApproveFragment extends Fragment {
                     return number.contains(query);
                 }
             }).collect(Collectors.toList()));
+        });
+        aocpvViewModel.showProgressDialog.observe(getViewLifecycleOwner(), shouldShow -> {
+            if (shouldShow) {
+                mProgressDialog.showDialog();
+            } else {
+                mProgressDialog.hideDialog();
+            }
         });
     }
 }

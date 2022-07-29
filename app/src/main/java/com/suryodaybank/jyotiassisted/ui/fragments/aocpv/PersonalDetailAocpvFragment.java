@@ -73,6 +73,7 @@ public class PersonalDetailAocpvFragment extends Fragment {
         aocpvViewModel = new ViewModelProvider(requireActivity()).get(AocpvViewModel.class);
         setupViews();
         setupObserver();
+        aocpvViewModel.getCustomerPersonalDetails();
         cameraLaunch = registerForActivityResult(new ActivityResultContracts.StartActivityForResult(),
                 new ActivityResultCallback<ActivityResult>() {
                     @Override

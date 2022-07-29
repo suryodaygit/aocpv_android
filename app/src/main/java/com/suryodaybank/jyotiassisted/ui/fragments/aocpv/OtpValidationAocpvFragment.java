@@ -16,6 +16,7 @@ import androidx.navigation.fragment.NavHostFragment;
 
 import com.suryodaybank.jyotiassisted.R;
 import com.suryodaybank.jyotiassisted.databinding.FragmentOtpValidationAocpvBinding;
+import com.suryodaybank.jyotiassisted.utils.ProgressDialog;
 import com.suryodaybank.jyotiassisted.viewmodels.OtpAocpvViewModel;
 
 import dagger.hilt.android.AndroidEntryPoint;
@@ -26,6 +27,7 @@ public class OtpValidationAocpvFragment extends Fragment {
     private FragmentOtpValidationAocpvBinding binding;
     private OtpAocpvViewModel otpAocpvViewModel;
     private OtpValidationAocpvFragmentArgs navArgs;
+    private ProgressDialog mProgressDialog;
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
@@ -44,6 +46,7 @@ public class OtpValidationAocpvFragment extends Fragment {
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         otpAocpvViewModel = new ViewModelProvider(requireActivity()).get(OtpAocpvViewModel.class);
+        mProgressDialog = new ProgressDialog(getActivity());
         setupView();
         setupObserver();
         otpAocpvViewModel.sendOtp(navArgs.getMobile());
@@ -73,6 +76,13 @@ public class OtpValidationAocpvFragment extends Fragment {
             @Override
             public void onChanged(Void unused) {
                 showFinalSuccessMessage();
+            }
+        });
+        otpAocpvViewModel.showProgressDialog.observe(getViewLifecycleOwner(), shouldShow -> {
+            if (shouldShow) {
+                mProgressDialog.showDialog();
+            } else {
+                mProgressDialog.hideDialog();
             }
         });
     }

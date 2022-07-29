@@ -38,7 +38,7 @@ public class SaveExpenseRequest {
     private String transportation;
 
     public void setMedical(String medical) {
-        this.medical = medical;
+        this.medical = medical.isEmpty() ? "0" : medical;
     }
 
     public String getMedical() {
@@ -46,7 +46,7 @@ public class SaveExpenseRequest {
     }
 
     public void setOther(String other) {
-        this.other = other;
+        this.other = other.isEmpty() ? "0" : other;
     }
 
     public String getOther() {
@@ -54,7 +54,7 @@ public class SaveExpenseRequest {
     }
 
     public void setTotal(String total) {
-        this.total = total;
+        this.total = total.isEmpty() ? "0" : total;
     }
 
     public String getTotal() {
@@ -62,7 +62,7 @@ public class SaveExpenseRequest {
     }
 
     public void setEducation(String education) {
-        this.education = education;
+        this.education = education.isEmpty() ? "0" : education;
     }
 
     public String getEducation() {
@@ -78,7 +78,7 @@ public class SaveExpenseRequest {
     }
 
     public void setMonthlyBalance(String monthlyBalance) {
-        this.monthlyBalance = monthlyBalance;
+        this.monthlyBalance = monthlyBalance.isEmpty() ? "0" : monthlyBalance;
     }
 
     public String getMonthlyBalance() {
@@ -86,7 +86,7 @@ public class SaveExpenseRequest {
     }
 
     public void setFoodAndUtility(String foodAndUtility) {
-        this.foodAndUtility = foodAndUtility;
+        this.foodAndUtility = foodAndUtility.isEmpty() ? "0" : foodAndUtility;
     }
 
     public String getFoodAndUtility() {
@@ -102,7 +102,7 @@ public class SaveExpenseRequest {
     }
 
     public void setRent(String rent) {
-        this.rent = rent;
+        this.rent = rent.isEmpty() ? "0" : "";
     }
 
     public String getRent() {
@@ -110,7 +110,7 @@ public class SaveExpenseRequest {
     }
 
     public void setTransportation(String transportation) {
-        this.transportation = transportation;
+        this.transportation = transportation.isEmpty() ? "0" : transportation;
     }
 
     public String getTransportation() {

@@ -21,6 +21,7 @@ import androidx.viewpager2.widget.ViewPager2;
 
 import com.suryodaybank.jyotiassisted.R;
 import com.suryodaybank.jyotiassisted.databinding.FragmentAocpvBinding;
+import com.suryodaybank.jyotiassisted.utils.ProgressDialog;
 import com.suryodaybank.jyotiassisted.viewmodels.AocpvViewModel;
 
 import dagger.hilt.android.AndroidEntryPoint;
@@ -33,6 +34,7 @@ public class AocpvFragment extends Fragment {
 
     private FragmentAocpvBinding binding;
     private AocpvViewModel aocpvViewModel;
+    private ProgressDialog mProgressDialog;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -50,6 +52,7 @@ public class AocpvFragment extends Fragment {
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         aocpvViewModel = new ViewModelProvider(requireActivity()).get(AocpvViewModel.class);
+        mProgressDialog = new ProgressDialog(getActivity());
         setupViews();
         setupObserver();
     }
@@ -71,6 +74,13 @@ public class AocpvFragment extends Fragment {
             @Override
             public void onChanged(String message) {
                 Toast.makeText(getActivity(), message, Toast.LENGTH_SHORT).show();
+            }
+        });
+        aocpvViewModel.showProgressDialog.observe(getViewLifecycleOwner(), shouldShow -> {
+            if (shouldShow) {
+                mProgressDialog.showDialog();
+            } else {
+                mProgressDialog.hideDialog();
             }
         });
     }

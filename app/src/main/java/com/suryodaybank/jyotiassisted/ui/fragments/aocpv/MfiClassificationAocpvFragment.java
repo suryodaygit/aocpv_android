@@ -1,6 +1,5 @@
 package com.suryodaybank.jyotiassisted.ui.fragments.aocpv;
 
-import static com.suryodaybank.jyotiassisted.utils.Constants.BRANCH_CODE;
 import static com.suryodaybank.jyotiassisted.utils.Constants.ELIGIBILITY;
 
 import android.os.Bundle;
@@ -99,12 +98,12 @@ public class MfiClassificationAocpvFragment extends Fragment implements AdapterV
         if (selectedRadioButtonText.equals("Yes")) {
             MfiData mfiData = new MfiData("MFI", "12345681", selectedPurposeLoan, loanCode,
                     extingPurpose, selectedRadioButtonText, "9887970808", binding.tvMaxEligibilityAmount.getText().toString());
-            aocpvViewModel.callMFIClassification(getActivity(), mfiData);
+            aocpvViewModel.callMFIClassification(mfiData);
         } else {
             // just send blank mobile no
             MfiData mfiData = new MfiData("MFI", "12345681", selectedPurposeLoan, loanCode,
                     extingPurpose, selectedRadioButtonText, "9808989898", binding.tvMaxEligibilityAmount.getText().toString());
-            aocpvViewModel.callMFIClassification(getActivity(), mfiData);
+            aocpvViewModel.callMFIClassification(mfiData);
         }
     }
 

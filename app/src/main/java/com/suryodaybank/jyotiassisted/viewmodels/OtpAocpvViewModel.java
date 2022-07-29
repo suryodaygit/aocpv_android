@@ -22,6 +22,7 @@ public class OtpAocpvViewModel extends ViewModel {
 
     public SingleLiveEvent<String> messageLiveData = new SingleLiveEvent<>();
     public SingleLiveEvent<Void> finalSuccessCall = new SingleLiveEvent<>();
+    public SingleLiveEvent<Boolean> showProgressDialog = new SingleLiveEvent<>();
 
     @Inject
     public OtpAocpvViewModel(OtpAocpvRepository otpAocpvRepository) {
@@ -29,30 +30,33 @@ public class OtpAocpvViewModel extends ViewModel {
     }
 
     public void sendOtp(String mobile) {
+        showProgressDialog.setValue(true);
         otpAocpvRepository.sendOtp(mobile).enqueue(new Callback<ResponseBody>() {
             @Override
             public void onResponse(@NonNull Call<ResponseBody> call, @NonNull Response<ResponseBody> response) {
-                if (response.isSuccessful()) {
-                    messageLiveData.setValue("OTP send successfully");
-                } else {
+                showProgressDialog.setValue(false);
+                if (!response.isSuccessful()) {
                     messageLiveData.setValue(Utils.getErrorMessage(response.errorBody()));
                 }
             }
 
             @Override
             public void onFailure(Call<ResponseBody> call, Throwable t) {
+                showProgressDialog.setValue(false);
                 t.printStackTrace();
             }
         });
     }
 
     public void validateOtp(String otp, String applicationNo) {
+        showProgressDialog.setValue(true);
         otpAocpvRepository.validateOtp(otp).enqueue(new Callback<ResponseBody>() {
             @Override
             public void onResponse(@NonNull Call<ResponseBody> call, @NonNull Response<ResponseBody> response) {
                 if (response.isSuccessful()) {
                     finalAocpvCall(applicationNo);
                 } else {
+                    showProgressDialog.setValue(false);
                     String message = Utils.getErrorMessage(response.errorBody());
                     messageLiveData.setValue(message);
                 }
@@ -60,6 +64,7 @@ public class OtpAocpvViewModel extends ViewModel {
 
             @Override
             public void onFailure(Call<ResponseBody> call, Throwable t) {
+                showProgressDialog.setValue(false);
                 t.printStackTrace();
             }
         });
@@ -69,6 +74,7 @@ public class OtpAocpvViewModel extends ViewModel {
         otpAocpvRepository.finalAocpvCall(applicationNo).enqueue(new Callback<ResponseBody>() {
             @Override
             public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
+                showProgressDialog.setValue(false);
                 if (response.isSuccessful()) {
                     finalSuccessCall.call();
                 } else {
@@ -78,6 +84,7 @@ public class OtpAocpvViewModel extends ViewModel {
 
             @Override
             public void onFailure(Call<ResponseBody> call, Throwable t) {
+                showProgressDialog.setValue(false);
                 t.printStackTrace();
             }
         });

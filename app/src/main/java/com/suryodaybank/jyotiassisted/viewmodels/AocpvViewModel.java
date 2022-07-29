@@ -57,6 +57,7 @@ public class AocpvViewModel extends ViewModel {
     public SingleLiveEvent<Void> getCustomerDetails = new SingleLiveEvent<>();
     public SingleLiveEvent<Void> getUtilityDetails = new SingleLiveEvent<>();
     public SingleLiveEvent<Void> getMfiClassificationData = new SingleLiveEvent<>();
+    public SingleLiveEvent<Boolean>  showProgressDialog = new SingleLiveEvent<>();
 
     //Calculation data for monthly balance
     public long totalMonthlyIncome = 0;
@@ -66,11 +67,9 @@ public class AocpvViewModel extends ViewModel {
     public AocpvViewModel(AocpvRepository aocpvRepository) {
         this.aocpvRepository = aocpvRepository;
         Log.d(TAG, "AocpvViewModel: Init");
-        getPreApproveList();
-        getCustomerPersonalDetails();
     }
 
-    private void getCustomerPersonalDetails() {
+    public void getCustomerPersonalDetails() {
         DataModel<CustomerDetailsRequest> body = new DataModel<>();
         CustomerDetailsRequest customerDetailsRequest = new CustomerDetailsRequest();
         customerDetailsRequest.setMobileNo("");
@@ -80,6 +79,7 @@ public class AocpvViewModel extends ViewModel {
         customerDetailsRequest.setBranchCode("");
 
         body.setData(customerDetailsRequest);
+        showProgressDialog.setValue(true);
         aocpvRepository.getUserDetail(body).enqueue(new Callback<com.suryodaybank.jyotiassisted.models.Response>() {
             @Override
             public void onResponse(Call<com.suryodaybank.jyotiassisted.models.Response> call, Response<com.suryodaybank.jyotiassisted.models.Response> response) {
@@ -89,20 +89,24 @@ public class AocpvViewModel extends ViewModel {
                     String message = Utils.getErrorMessage(response.errorBody());
                     messageLiveData.setValue(message);
                 }
+                showProgressDialog.setValue(false);
             }
 
             @Override
             public void onFailure(Call<com.suryodaybank.jyotiassisted.models.Response> call, Throwable t) {
+                showProgressDialog.setValue(false);
                 t.printStackTrace();
             }
         });
     }
 
-    private void getPreApproveList() {
+    public void getPreApproveList() {
+        showProgressDialog.setValue(true);
         aocpvRepository.getPreApproveList(PreApproveStatus.INITIATED.status).enqueue(new Callback<List<PreApprove>>() {
             @Override
             public void onResponse(Call<List<PreApprove>> call, Response<List<PreApprove>> response) {
                 if (response.isSuccessful()) {
+                    showProgressDialog.setValue(false);
                     preApprovesLivedata.setValue(response.body());
                 } else {
                     //Error
@@ -112,6 +116,7 @@ public class AocpvViewModel extends ViewModel {
 
             @Override
             public void onFailure(Call<List<PreApprove>> call, Throwable t) {
+                showProgressDialog.setValue(false);
                 t.printStackTrace();
             }
         });
@@ -124,9 +129,11 @@ public class AocpvViewModel extends ViewModel {
     }
 
     public void notInterestedStatusUpdate(Context context, PreApprove preApprove) {
+        showProgressDialog.setValue(true);
         aocpvRepository.notInterestedStatus(preApprove.getCustomerID()).enqueue(new Callback<ResponseBody>() {
             @Override
             public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
+                showProgressDialog.setValue(false);
                 if (response.isSuccessful()) {
                     List<PreApprove> dataList = preApprovesLivedata.getValue();
                     dataList.remove(preApprove);
@@ -138,6 +145,7 @@ public class AocpvViewModel extends ViewModel {
 
             @Override
             public void onFailure(Call<ResponseBody> call, Throwable t) {
+                showProgressDialog.setValue(false);
                 Toast.makeText(context, R.string.something_is_wrong, Toast.LENGTH_SHORT).show();
                 t.printStackTrace();
             }
@@ -169,9 +177,11 @@ public class AocpvViewModel extends ViewModel {
 
     public void callMonthlyExpenseApi(SaveExpenseRequest saveExpenseRequest) {
         saveExpenseRequest.setApplicationNo("12345681"); //TODO: Need to generate random
+        showProgressDialog.setValue(true);
         aocpvRepository.saveExpenseDetails(saveExpenseRequest).enqueue(new Callback<ResponseBody>() {
             @Override
             public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
+                showProgressDialog.setValue(false);
                 if (response.isSuccessful()) {
                     nextPage.call();
                 }
@@ -179,16 +189,18 @@ public class AocpvViewModel extends ViewModel {
 
             @Override
             public void onFailure(Call<ResponseBody> call, Throwable t) {
-
+                showProgressDialog.setValue(false);
             }
         });
     }
 
     public void callOwnershipDetailAPI(UtilityDataRequest utilityDataRequest) {
         utilityDataRequest.setApplicationNo("12345681");//TODO: Need to generate random
+        showProgressDialog.setValue(true);
         aocpvRepository.saveUtilityDetails(utilityDataRequest).enqueue(new Callback<ResponseBody>() {
             @Override
             public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
+                showProgressDialog.setValue(false);
                 if (response.isSuccessful()) {
                     nextPage.call();
                 }
@@ -196,16 +208,18 @@ public class AocpvViewModel extends ViewModel {
 
             @Override
             public void onFailure(Call<ResponseBody> call, Throwable t) {
-
+                showProgressDialog.setValue(false);
             }
         });
     }
 
     public void callPersonalDetailAPI(CustomerSaveData customerSaveData) {
         customerSaveData.setApplicationNo("12345681"); //TODO: Need to generate random
+        showProgressDialog.setValue(true);
         aocpvRepository.saveUserDetail(customerSaveData).enqueue(new Callback<ResponseBody>() {
             @Override
             public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
+                showProgressDialog.setValue(false);
                 if (response.isSuccessful()) {
                     nextPage.call();
                 }
@@ -213,16 +227,18 @@ public class AocpvViewModel extends ViewModel {
 
             @Override
             public void onFailure(Call<ResponseBody> call, Throwable t) {
-
+                showProgressDialog.setValue(false);
             }
         });
     }
 
     public void callMonthlyIncomeApi(SaveIncomeRequest saveIncomeRequest) {
         saveIncomeRequest.setApplicationNo("12345681"); //TODO: Need to generate random
+        showProgressDialog.setValue(true);
         aocpvRepository.saveIncomeDetails(saveIncomeRequest).enqueue(new Callback<ResponseBody>() {
             @Override
             public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
+                showProgressDialog.setValue(false);
                 if (response.isSuccessful()) {
                     nextPage.call();
                 }
@@ -230,15 +246,18 @@ public class AocpvViewModel extends ViewModel {
 
             @Override
             public void onFailure(Call<ResponseBody> call, Throwable t) {
+                showProgressDialog.setValue(false);
                 t.printStackTrace();
             }
         });
     }
 
-    public void callMFIClassification(Context mContext, MfiData mfiData) {
+    public void callMFIClassification(MfiData mfiData) {
+        showProgressDialog.setValue(true);
         aocpvRepository.mfiClassification(mfiData).enqueue(new Callback<ResponseBody>() {
             @Override
             public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
+                showProgressDialog.setValue(false);
                 if (response.isSuccessful()) {
                     nextPage.call();
                 }
@@ -246,20 +265,20 @@ public class AocpvViewModel extends ViewModel {
 
             @Override
             public void onFailure(Call<ResponseBody> call, Throwable t) {
-                Toast.makeText(mContext, "Something went wrong", Toast.LENGTH_SHORT).show();
+                showProgressDialog.setValue(false);
                 t.printStackTrace();
             }
         });
     }
 
-    public void callValidationData(Context mContext, ValidationRequestModel validationRequestModel) {
+    public void callValidationData(ValidationRequestModel validationRequestModel) {
+        showProgressDialog.setValue(true);
         aocpvRepository.validationData(validationRequestModel).enqueue(new Callback<ValidationResponse>() {
             @Override
             public void onResponse(Call<ValidationResponse> call, Response<ValidationResponse> response) {
+                showProgressDialog.setValue(false);
                 if (response.isSuccessful()) {
-                    ValidationResponse validationResponse = new ValidationResponse();
-                    validationResponse = response.body();
-                    validationDataMutableLiveData.setValue(validationResponse.getData());
+                    validationDataMutableLiveData.setValue(response.body().getData());
                     if (response.isSuccessful()) {
                         nextPage.call();
                     }
@@ -268,7 +287,7 @@ public class AocpvViewModel extends ViewModel {
 
             @Override
             public void onFailure(Call<ValidationResponse> call, Throwable t) {
-                Toast.makeText(mContext, "Something went wrong", Toast.LENGTH_SHORT).show();
+                showProgressDialog.setValue(false);
             }
         });
     }
