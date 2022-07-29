@@ -60,7 +60,9 @@
             android:layout_marginHorizontal="8dp"
             android:focusableInTouchMode="true"
             android:hint="@string/customer_id"
-            android:inputType="text"
+            android:inputType="number"
+            android:clickable="false"
+            android:focusable="false"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/tvCustomerId" />
@@ -84,6 +86,8 @@
             android:focusableInTouchMode="true"
             android:hint="@string/enter_first_name"
             android:inputType="text"
+            android:clickable="false"
+            android:focusable="false"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/tvFirstName" />
@@ -107,6 +111,9 @@
             android:layout_marginHorizontal="8dp"
             android:hint="@string/enter_mobile_number"
             android:inputType="number"
+            android:maxLength="10"
+            android:clickable="false"
+            android:focusable="false"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/tvMobileNum" />
@@ -133,6 +140,7 @@
             android:focusableInTouchMode="true"
             android:hint="@string/dd_mmm_yyyy"
             android:inputType="text"
+            android:clickable="false"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/tvDOB" />
@@ -173,6 +181,10 @@
             android:layout_height="wrap_content"
             android:layout_marginHorizontal="8dp"
             android:hint="@string/enter_address_line_1"
+            android:inputType="text"
+            android:maxLength="30"
+            android:clickable="false"
+            android:focusable="false"
             app:layout_constraintEnd_toEndOf="@id/guideline1"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/tvAddLine1" />
@@ -194,6 +206,10 @@
             android:layout_height="wrap_content"
             android:layout_marginHorizontal="8dp"
             android:hint="@string/enter_address_line_2"
+            android:maxLength="30"
+            android:inputType="text"
+            android:clickable="false"
+            android:focusable="false"
             app:layout_constraintEnd_toEndOf="@id/guideline1"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/tvAddLine2" />
@@ -215,29 +231,13 @@
             android:layout_height="wrap_content"
             android:layout_marginHorizontal="8dp"
             android:hint="@string/enter_address_line_3"
+            android:maxLength="30"
+            android:inputType="text"
+            android:clickable="false"
+            android:focusable="false"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="@id/guideline1"
             app:layout_constraintTop_toBottomOf="@+id/tvAddLine3" />
-
-        <TextView
-            android:id="@+id/txtCountry"
-            style="@style/Aocpv.SubTitle"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_margin="8dp"
-            android:text="@string/country"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="@id/guideline1"
-            app:layout_constraintTop_toBottomOf="@+id/etAddLine3" />
-
-        <Spinner
-            android:id="@+id/countrySpinner"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_margin="8dp"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="@id/guideline1"
-            app:layout_constraintTop_toBottomOf="@+id/txtCountry" />
 
         <TextView
             android:id="@+id/tvPincode"
@@ -258,6 +258,9 @@
             android:layout_marginHorizontal="8dp"
             android:hint="@string/enter_pincode"
             android:inputType="number"
+            android:maxLength="6"
+            android:clickable="false"
+            android:focusable="false"
             app:layout_constraintEnd_toEndOf="@id/guideline1"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/tvPincode" />
@@ -273,7 +276,7 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="1.0"
             app:layout_constraintStart_toStartOf="@id/guideline1"
-            app:layout_constraintTop_toBottomOf="@+id/countrySpinner" />
+            app:layout_constraintTop_toBottomOf="@+id/etAddLine3" />
 
         <EditText
             android:id="@+id/etCity"
@@ -281,6 +284,10 @@
             android:layout_height="wrap_content"
             android:layout_marginHorizontal="8dp"
             android:hint="@string/enter_city"
+            android:inputType="text"
+            android:maxLength="20"
+            android:clickable="false"
+            android:focusable="false"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="@id/guideline1"
             app:layout_constraintTop_toBottomOf="@+id/tvCity" />
@@ -302,6 +309,10 @@
             android:layout_height="wrap_content"
             android:layout_marginHorizontal="8dp"
             android:hint="@string/enter_state"
+            android:inputType="text"
+            android:maxLength="20"
+            android:clickable="false"
+            android:focusable="false"
             app:layout_constraintEnd_toEndOf="@id/guideline1"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/tvState" />
@@ -323,6 +334,10 @@
             android:layout_height="wrap_content"
             android:layout_marginHorizontal="8dp"
             android:hint="@string/enter_district"
+            android:inputType="text"
+            android:maxLength="20"
+            android:clickable="false"
+            android:focusable="false"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="@id/guideline1"
             app:layout_constraintTop_toBottomOf="@+id/tvDistrict" />

@@ -124,6 +124,7 @@
             android:hint="@string/enter_primary_source_of_income"
             android:importantForAutofill="no"
             android:inputType="text"
+            android:maxLength="30"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/tvSourceOfIncome" />

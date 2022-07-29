@@ -2,6 +2,9 @@ package com.suryodaybank.jyotiassisted.ui.fragments.aocpv;
 
 import static android.app.Activity.RESULT_OK;
 import static com.suryodaybank.jyotiassisted.utils.Constants.MY_CAMERA_PERMISSION_CODE;
+import static com.suryodaybank.jyotiassisted.utils.Constants.RESIDENT_STABILITY;
+import static com.suryodaybank.jyotiassisted.utils.Constants.ROOF_TYPE;
+import static com.suryodaybank.jyotiassisted.utils.Constants.UID1;
 
 import android.Manifest;
 import android.content.DialogInterface;
@@ -17,6 +20,8 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
+import android.widget.RadioButton;
+import android.widget.RadioGroup;
 import android.widget.Toast;
 import androidx.activity.result.ActivityResult;
 import androidx.activity.result.ActivityResultCallback;
@@ -32,6 +37,9 @@ import androidx.lifecycle.ViewModelProvider;
 import com.suryodaybank.jyotiassisted.databinding.FragmentOwnershipDetailsAocpvBinding;
 import com.suryodaybank.jyotiassisted.models.UtilityAddressItem;
 import com.suryodaybank.jyotiassisted.models.UtilityDataRequest;
+import com.suryodaybank.jyotiassisted.ui.LoginActivity;
+import com.suryodaybank.jyotiassisted.utils.SharedPreferenceUtils;
+import com.suryodaybank.jyotiassisted.utils.Utils;
 import com.suryodaybank.jyotiassisted.viewmodels.AocpvViewModel;
 
 import java.io.ByteArrayOutputStream;
@@ -57,7 +65,8 @@ public class OwnershipDetailsAocpvFragment extends Fragment {
     private String encoded_image_string;
     private String utilityImageEncoded;
     private String businessImageEncoded;
-
+    private RadioButton selectedRadioButton;
+    private String selectedRadioButtonText = "";
     public OwnershipDetailsAocpvFragment() {
         // Required empty public constructor
     }
@@ -175,19 +184,37 @@ public class OwnershipDetailsAocpvFragment extends Fragment {
         aocpvViewModel.getUtilityDetails.observe(getViewLifecycleOwner(), new Observer<Void>() {
             @Override
             public void onChanged(Void unused) {
-                prepareOwnershipDetails();
+
+                if(selectedRadioButtonText.equals("") ||
+                        binding.etAddLine1.getText().toString().equals("")
+                        || binding.etPincode.getText().equals("") || binding.etResidenceStability.getText().equals("")) {
+                    Utils.showFinalSuccessMessage(getActivity(),"Please set roof type,residaddress line1,pincode");
+                }else {
+                    prepareOwnershipDetails();
+                }
             }
         });
-
-
     }
 
     private void prepareOwnershipDetails() {
+        binding.cgRoofType.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(RadioGroup radioGroup, int i) {
+                int selectedButtonId = radioGroup.getCheckedRadioButtonId();
+                if (selectedButtonId != -1) {
+                    selectedRadioButton = radioGroup.findViewById(selectedButtonId);
+                    selectedRadioButtonText = selectedRadioButton.getText().toString();
+                    SharedPreferenceUtils.getInstance(getActivity()).putString(ROOF_TYPE, selectedRadioButtonText);
+                }
+            }
+        });
+
+        SharedPreferenceUtils.getInstance(getActivity()).putString(RESIDENT_STABILITY, binding.etResidenceStability.getText().toString());
         UtilityDataRequest utilityDataRequest = new UtilityDataRequest();
         utilityDataRequest.setFlowStatus("UD");
         utilityDataRequest.setApplicationNo("12345681");
         utilityDataRequest.setHouseOwnership(binding.ownershipSpinner.getSelectedItem().toString());
-        utilityDataRequest.setRoofType("kaccha");
+        utilityDataRequest.setRoofType(selectedRadioButtonText);
         utilityDataRequest.setResidenceStability(binding.etResidenceStability.getText().toString());
         utilityDataRequest.setUtilityBill(binding.utilitySpinner.getSelectedItem().toString());
         utilityDataRequest.setRelationshipWithOwner(binding.ownerSpinner.getSelectedItem().toString());

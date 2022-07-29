@@ -78,6 +78,9 @@ public class AocpvViewModel extends ViewModel {
         customerDetailsRequest.setPanNo("");
         customerDetailsRequest.setCustomerNo("180268778");
         customerDetailsRequest.setBranchCode("");
+        customerDetailsRequest.setpAddress("");
+        customerDetailsRequest.setpLat("");
+        customerDetailsRequest.setpLong("");
 
         body.setData(customerDetailsRequest);
         aocpvRepository.getUserDetail(body).enqueue(new Callback<com.suryodaybank.jyotiassisted.models.Response>() {

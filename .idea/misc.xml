@@ -4,13 +4,18 @@
     <option name="filePathToZoomLevelMap">
       <map>
         <entry key="..\:/Komal/aocpv_android/app/src/main/res/layout/activity_login.xml" value="0.24259259259259258" />
-        <entry key="..\:/Komal/aocpv_android/app/src/main/res/layout/fragment_add_monthly_household.xml" value="0.2388888888888889" />
+        <entry key="..\:/Komal/aocpv_android/app/src/main/res/layout/activity_main.xml" value="0.25416666666666665" />
+        <entry key="..\:/Komal/aocpv_android/app/src/main/res/layout/fragment_add_monthly_household.xml" value="0.4" />
+        <entry key="..\:/Komal/aocpv_android/app/src/main/res/layout/fragment_address_details_apcpv.xml" value="0.25416666666666665" />
         <entry key="..\:/Komal/aocpv_android/app/src/main/res/layout/fragment_aocpv.xml" value="0.25052083333333336" />
         <entry key="..\:/Komal/aocpv_android/app/src/main/res/layout/fragment_aocpv_validation.xml" value="0.24444444444444444" />
         <entry key="..\:/Komal/aocpv_android/app/src/main/res/layout/fragment_mfi_classification_aocpv.xml" value="0.24444444444444444" />
         <entry key="..\:/Komal/aocpv_android/app/src/main/res/layout/fragment_monthly_expense_aocpv.xml" value="0.24259259259259258" />
         <entry key="..\:/Komal/aocpv_android/app/src/main/res/layout/fragment_monthly_income_aocpv.xml" value="0.25416666666666665" />
+        <entry key="..\:/Komal/aocpv_android/app/src/main/res/layout/fragment_ownership_details_aocpv.xml" value="0.25052083333333336" />
         <entry key="..\:/Komal/aocpv_android/app/src/main/res/layout/fragment_personal_detail_aocpv.xml" value="0.24259259259259258" />
+        <entry key="..\:/Komal/aocpv_android/app/src/main/res/layout/fragment_pre_approve.xml" value="0.25416666666666665" />
+        <entry key="..\:/Komal/aocpv_android/app/src/main/res/layout/item_monthly_income.xml" value="0.25052083333333336" />
         <entry key="..\:/Komal/aocpv_android/app/src/main/res/layout/progress_layout.xml" value="0.25416666666666665" />
         <entry key="..\:/Komal/aocpv_android/app/src/main/res/layout/spinner_view.xml" value="0.24947916666666667" />
         <entry key="..\:/Users/Neosoft/AndroidStudioProjects/Jyoti/app/src/main/res/drawable-v24/ic_launcher_foreground.xml" value="0.136" />
