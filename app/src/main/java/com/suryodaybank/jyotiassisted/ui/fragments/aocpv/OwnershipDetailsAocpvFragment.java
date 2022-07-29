@@ -208,9 +208,12 @@ public class OwnershipDetailsAocpvFragment extends Fragment {
         aocpvViewModel.getUtilityDetails.observe(getViewLifecycleOwner(), new Observer<Void>() {
             @Override
             public void onChanged(Void unused) {
+                String address = binding.etAddLine1.getText().toString();
+                String  pinCode = binding.etPincode.getText().toString();
+                String resident = binding.etResidenceStability.getText().toString();
                 if(selectedRadioButtonText.equals("") ||
-                        binding.etAddLine1.getText().toString().equals("")
-                        || binding.etPincode.getText().equals("") || binding.etResidenceStability.getText().equals("")) {
+                       address.equals("")
+                        || pinCode.equals("") || resident.equals("")) {
                     Utils.showFinalSuccessMessage(getActivity(),"Please set roof type,residence stability,address line1,pincode");
                 }else {
                     prepareOwnershipDetails();
