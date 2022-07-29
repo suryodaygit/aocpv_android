@@ -73,6 +73,7 @@
     <string name="roof_type">Roof Type</string>
     <string name="customer_photo_with_house">Customer Photo (with house)</string>
     <string name="customer_photo">Customer Photo</string>
+    <string name="customer_latLong">Customer Photo</string>
     <string name="customer_id">Customer Id</string>
     <string name="utility_bill_photo">Utility Bill Photo</string>
     <string name="utility_details">Utility details</string>
